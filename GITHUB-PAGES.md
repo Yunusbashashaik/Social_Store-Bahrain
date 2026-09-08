@@ -8,9 +8,22 @@
 
 ## How deploy works
 
-Pushing to `main` runs **Deploy to GitHub Pages**, which builds the client and publishes a clean orphan commit to the `gh-pages` branch (root only). GitHub then serves that branch.
+GitHub is currently serving this repo from **`main` / (root)**. The built homepage, `assets/`, `logo.png`, and wallpaper therefore live at the **repository root** as well as in `docs/`. If those files are missing from root, the store URL is a blank white page (the HTML loads, the JS bundle 404s).
 
-Do **not** keep a “Deploy static content to Pages” workflow that uploads the whole repo — it fights the real deploy and can leave Pages stuck in `building`.
+Pushing to `main` also runs **Deploy to GitHub Pages**, which publishes `client/dist` to the `gh-pages` branch. That branch is the preferred source once Settings → Pages is pointed at `gh-pages` / (root) or at **GitHub Actions**.
+
+After changing logo, wallpaper, or copy, rebuild with:
+
+```bash
+VITE_BASE_PATH=/Social_Store-Bahrain/ npm run build -w client
+cp -a client/dist/. docs/
+cp client/dist/index.html docs/404.html
+cp -a docs/.nojekyll docs/assets docs/*.html docs/*.png docs/*.ico docs/*.js docs/*.xml docs/*.JPG docs/*.htaccess . 2>/dev/null
+```
+
+Then commit the updated root + `docs/` files so a `main`-root Pages deploy stays in sync.
+
+Do **not** keep a “Deploy static content to Pages” workflow that uploads the whole source tree — it fights the real deploy.
 
 ## If Actions shows “pages build and deployment” stuck / in progress
 
