@@ -1,7 +1,7 @@
 Social Store — Website Requirements Specification (WRS)
 Project Overview & Ownership
 Platform Name: Social Store
-Business Owners: M Fareed Tariq & M Zuhaib Tariq
+Business Owners: M Hamza Tariq
 Core Functionality: A high-end digital subscription marketplace. Upon opening the website, users land directly on the Subscription Services catalog with default Bahrain (BHD) pricing. Features full bilingual support (English & Arabic with LTR/RTL switching), direct WhatsApp order dispatch across two dedicated support lines, and a complaint submission module delivering directly to global2stor2@gmail.com.
 Key Functional & Interface Requirements
 1. Direct Entry, Fixed Localization & Language Toggle
@@ -17,7 +17,7 @@ Persistence: Saved in local storage.
 Design Aesthetic: Dark or modern luxury palette, clean bilingual typography (Inter / Tajawal), high-contrast CTA buttons, and smooth micro-interactions.
 Core Layout Sections:
 Hero Section: High-converting visual showcase highlighting instant digital delivery in Bahrain.
-Brand Introduction: Brief overview establishing marketplace trust under ownership of M Fareed Tariq & M Zuhaib Tariq.
+Brand Introduction: Brief overview establishing marketplace trust under ownership of M Hamza Tariq.
 Subscription Catalog Grid: Immediate display of all digital subscription cards with BHD price tags.
 Customer Support & WhatsApp Showcase: Highlights direct order routing to dedicated WhatsApp lines.
 Global Header & Footer: Persistent layout containers across all pages.
@@ -96,9 +96,10 @@ Plaintext
 4. Direct WhatsApp Ordering System & Multi-Number Logic
 Checkout routes directly to customer support over WhatsApp using two configured support numbers:
 Configured Support Numbers:
-Line 1: +923228791573
-Line 2: +923014968769
+Line 1: +923394077636
+Line 2: +97466382981
 Routing Logic: Dynamic distribution (round-robin or sequential fallback) between both numbers.
+Payment Method: BenefitPay, Bahrain's national e-wallet. The cart states that all payments are settled through BenefitPay before the subscription is activated.
 Order Payload Format
 English Payload:
 Plaintext
@@ -122,7 +123,7 @@ Plaintext
 يرجى تزويدي بتفاصيل الدفع وإتمام طلبي.
 5. Floating Support & Complaint Handling
 Persistent WhatsApp Button
-Floating action button (FAB) fixed on the bottom corner of all pages targeting +923228791573 or +923014968769.
+Floating action button (FAB) fixed on the bottom corner of all pages targeting +923394077636 or +97466382981.
 Complaint Submission System
 Form Inputs: Full Name, Phone Number, Subject, Complaint Details, Screenshot Upload (Required).
 Target Delivery Email:
@@ -134,8 +135,8 @@ Branding: Social Store Logo
 Center Links: Services, WhatsApp Support, Submit Complaint
 Top-Right (Fixed): Language Switcher (EN | العربية)
 Footer Section
-Branding & Credits: "Social Store — Owned & Managed by M Fareed Tariq & M Zuhaib Tariq"
-Support Contacts: +923228791573 | +923014968769 | global2stor2@gmail.com
+Branding & Credits: "Social Store — Owner By M Hamza Tariq"
+Support Contacts: +923394077636 | +97466382981 | global2stor2@gmail.com
 Quick Links: Services, Submit Complaint, Terms & Support
 7. Non-Functional & Technical Requirements
 WhatsApp Deep Linking: Built using standard [https://wa.me/](https://wa.me/) format for universal app/browser launching.
