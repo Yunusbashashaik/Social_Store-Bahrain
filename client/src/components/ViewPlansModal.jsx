@@ -24,7 +24,7 @@ export default function ViewPlansModal({ service, lang, t, onClose }) {
     <GlassModal
       title={name}
       onClose={onClose}
-      tone="solid"
+      tone="light"
       className="glass-modal--compact"
     >
       <div className="view-plans-modal">

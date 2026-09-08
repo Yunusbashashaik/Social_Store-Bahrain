@@ -33,28 +33,27 @@ export default function ServiceCard({ service, lang, t, onViewPlans }) {
           {t.outOfStock}
         </span>
       ) : null}
-      <div className="service-card-head">
-        <ServiceIcon service={service} />
-        <div className="service-card-meta">
-          <h3 className="service-card-name">{name}</h3>
-          <p className="service-card-type">{type}</p>
+      <ServiceIcon service={service} />
+      <h3 className="service-card-name">{name}</h3>
+      <p className="service-card-type">{type}</p>
+
+      <div className="service-price-row">
+        <div className="service-price-meta">
+          <svg className="service-cal-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"
+            />
+          </svg>
+          <span>{t.month}</span>
+        </div>
+        <div className="service-price-start">
+          <span className="service-price-label">{t.startingFrom}</span>
           <strong className="price-tag">
             {startingPrice} {currency}
           </strong>
         </div>
       </div>
-
-      <p className="service-price-meta">
-        <svg className="service-cal-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            fill="currentColor"
-            d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"
-          />
-        </svg>
-        <span>
-          {t.startingFrom} · {t.month}
-        </span>
-      </p>
 
       <button
         type="button"
@@ -62,9 +61,6 @@ export default function ServiceCard({ service, lang, t, onViewPlans }) {
         onClick={() => onViewPlans?.(service)}
       >
         {t.viewPlans}
-        <span className="btn-arrow" aria-hidden="true">
-          →
-        </span>
       </button>
     </article>
   );
