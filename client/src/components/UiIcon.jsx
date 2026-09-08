@@ -95,6 +95,12 @@ export function UiIcon({ name, className = "ui-icon" }) {
           <path d="M15.2 5.3a3 3 0 0 1 0 5.8" />
         </svg>
       );
+    case "crown":
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M3 8.4l3.6 2.7L12 4.5l5.4 6.6L21 8.4l-1.7 9.2a1.3 1.3 0 0 1-1.3 1.1H6a1.3 1.3 0 0 1-1.3-1.1L3 8.4z" />
+        </svg>
+      );
     case "headset":
       return (
         <svg {...common}>
