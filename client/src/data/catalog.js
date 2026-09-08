@@ -29,25 +29,25 @@ export function buildWhatsAppUrl(phone, message) {
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }
 
-export function buildOrderMessage(service, durationKey, priceKd, lang) {
+export function buildOrderMessage(service, durationKey, priceBhd, lang) {
   const durationEn = durationKey === "month" ? "1 Month" : "1 Year";
   const durationAr = durationKey === "month" ? "شهر واحد" : "سنة واحدة";
   if (lang === "ar") {
-    return `مرحباً فريق دعم GlobalStore.com، أود شراء الاشتراك التالي:
+    return `مرحباً فريق دعم Social Store، أود شراء الاشتراك التالي:
 
-الدولة: الكويت
+الدولة: البحرين
 الخدمة: ${service.nameAr}
 المدة: ${durationAr}
-السعر: ${priceKd} د.ك
+السعر: ${priceBhd} د.ب
 
 يرجى تزويدي بتفاصيل الدفع وإتمام طلبي.`;
   }
-  return `Hello GlobalStore.com Support Team, I would like to purchase the following subscription:
+  return `Hello Social Store Support Team, I would like to purchase the following subscription:
 
-Country: Kuwait
+Country: Bahrain
 Service: ${service.nameEn}
 Duration: ${durationEn}
-Price: ${priceKd} KD
+Price: ${priceBhd} BHD
 
 Please provide payment details and complete my order.`;
 }

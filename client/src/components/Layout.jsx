@@ -117,8 +117,8 @@ export default function Layout({ lang, setLang, t }) {
     const phone = nextSupportNumber();
     const msg =
       lang === "ar"
-        ? "مرحباً، أحتاج مساعدة من GlobalStore.com"
-        : "Hello, I need help from GlobalStore.com";
+        ? "مرحباً، أحتاج مساعدة من Social Store"
+        : "Hello, I need help from Social Store";
     window.open(buildWhatsAppUrl(phone, msg), "_blank", "noopener,noreferrer");
   }, [lang]);
 
@@ -186,7 +186,7 @@ export default function Layout({ lang, setLang, t }) {
     <div className="app-shell">
       <header className="site-header">
         <div className="container header-inner">
-          <Link to="/" className="logo" aria-label="Global Store" onClick={reloadHome}>
+          <Link to="/" className="logo" aria-label="Social Store" onClick={reloadHome}>
             <Logo showTagline />
           </Link>
 
