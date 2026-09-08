@@ -40,7 +40,7 @@ export default function GlassModal({
         className={[
           "glass-modal",
           wide ? "glass-modal--wide" : "",
-          tone === "solid" ? "glass-modal--solid" : "",
+          tone === "light" ? "glass-modal--light" : "",
           className,
         ]
           .filter(Boolean)

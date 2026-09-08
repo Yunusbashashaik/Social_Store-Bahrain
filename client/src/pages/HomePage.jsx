@@ -1,12 +1,30 @@
 import { useEffect, useState } from "react";
+import ServiceIcon from "../components/ServiceIcon.jsx";
 import ServicesSection from "../components/ServicesSection.jsx";
 import { UiIcon } from "../components/UiIcon.jsx";
 import ViewPlansModal from "../components/ViewPlansModal.jsx";
-import { SERVICES, fetchServices, isOutOfStock } from "../data/catalog.js";
+import { SERVICES, fetchServices } from "../data/catalog.js";
 import { wallpaperUrl } from "../data/serviceImages.js";
 
-/** Services whose combined month price drives the hero combo badge. */
-const COMBO_IDS = ["netflix-private", "netflix-prime"];
+/** Full 4×4 OTT grid matching Point 2 reference. */
+const HERO_LOGO_IDS = [
+  "netflix-private",
+  "netflix-prime",
+  "youtube-premium",
+  "disney-plus",
+  "hbo-max",
+  "iptv",
+  "shahid",
+  "apple-tv-plus",
+  "zee5",
+  "sonyliv",
+  "canva",
+  "expressvpn",
+  "paramount-plus",
+  "hulu",
+  "spotify-premium",
+  "osn-plus",
+];
 
 export default function HomePage({ lang, t }) {
   const [services, setServices] = useState(SERVICES);
@@ -55,13 +73,10 @@ export default function HomePage({ lang, t }) {
     };
   }, [t.servicesLoadFallback]);
 
-  const currency = lang === "ar" ? "د.ب" : "BHD";
-  const comboPrice = (() => {
+  const heroLogos = (() => {
     const byId = new Map(services.map((s) => [s.id, s]));
-    const picked = COMBO_IDS.map((id) => byId.get(id)).filter(Boolean);
-    if (picked.length < COMBO_IDS.length || picked.some(isOutOfStock)) return null;
-    const cheapest = Math.min(...picked.map((s) => Number(s.prices?.month) || 0));
-    return cheapest > 0 ? Number(cheapest.toFixed(3)) : null;
+    const picked = HERO_LOGO_IDS.map((id) => byId.get(id)).filter(Boolean);
+    return picked.length ? picked.slice(0, 16) : services.slice(0, 16);
   })();
 
   const headline = t.heroHeadlineParts || {
@@ -88,8 +103,7 @@ export default function HomePage({ lang, t }) {
           <div className="hero-layout">
             <div className="hero-copy">
               <p className="hero-badge">
-                <UiIcon name="crown" className="ui-icon hero-badge-crown" />
-                {t.heroBadge}
+                <span aria-hidden="true">★</span> {t.heroBadge}
               </p>
               <h1>
                 {headline.before}
@@ -139,17 +153,19 @@ export default function HomePage({ lang, t }) {
               </ul>
             </div>
 
-            <div className="hero-visual">
-              <img className="hero-shot" src={wallpaper} alt="" aria-hidden="true" />
-              {comboPrice ? (
-                <div className="hero-combo">
-                  <span className="hero-combo-title">{t.heroComboTitle}</span>
-                  <strong className="hero-combo-price">
-                    {comboPrice} {currency}
-                  </strong>
-                </div>
-              ) : null}
-              <p className="hero-note">{t.heroNote}</p>
+            <div className="hero-visual" aria-hidden="true">
+              <div
+                className="hero-planet"
+                style={{ backgroundImage: `url(${wallpaper})` }}
+              />
+              <div className="hero-orb" />
+              <div className="hero-logo-grid">
+                {heroLogos.map((service) => (
+                  <div key={service.id} className="hero-logo-tile">
+                    <ServiceIcon service={service} size="sm" />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -174,15 +190,10 @@ export default function HomePage({ lang, t }) {
       <section className="catalog-band" id="services">
         <div className="container catalog">
           <div className="catalog-header">
-            <div className="catalog-heading">
-              <h2>
-                <span className="catalog-crown" aria-hidden="true">
-                  <UiIcon name="crown" />
-                </span>
-                {showAll ? t.allServicesTitle : t.catalogTitle}
-              </h2>
-              {t.catalogLead ? <p className="catalog-lead">{t.catalogLead}</p> : null}
-            </div>
+            <h2>
+              <span className="catalog-bar" aria-hidden="true" />
+              {showAll ? t.allServicesTitle : t.catalogTitle}
+            </h2>
             {services.length > 6 ? (
               <button
                 type="button"
