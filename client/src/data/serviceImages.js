@@ -1,4 +1,4 @@
-/** Map catalog service IDs → uploaded brand artwork in /public. */
+/** Map catalog service IDs → brand artwork in /images. */
 const FILES = {
   "netflix-private": "Netflix.JPG",
   "netflix-prime": "Prime.JPG",
@@ -37,11 +37,10 @@ const assetBase = import.meta.env.BASE_URL || "/";
 export function serviceImageUrl(serviceId) {
   const file = FILES[serviceId];
   if (!file) return null;
-  // Keep "+" unescaped — static hosts and Vite both serve the literal filenames.
   const safe = file.replace(/ /g, "%20");
-  return `${assetBase}${safe}`;
+  return `${assetBase}images/${safe}`;
 }
 
 export function wallpaperUrl() {
-  return `${assetBase}Social_Store_bg.JPG`;
+  return `${assetBase}images/Social_Store_bg.JPG`;
 }
