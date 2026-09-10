@@ -3,9 +3,8 @@ name: Deploy to GitHub Pages
 # https://yunusbashashaik.github.io/Social_Store-Bahrain/
 # Pages setting: Deploy from a branch → gh-pages → / (root)
 
+# Manual only. Auto-push to gh-pages is off so the repo stays on main.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
