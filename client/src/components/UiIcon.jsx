@@ -1,4 +1,4 @@
-/** Shared outline icons for trust / feature bars (Point 3, 5, 7). */
+/** Shared outline icons for trust and feature bars. */
 export function UiIcon({ name, className = "ui-icon" }) {
   const common = {
     className,
