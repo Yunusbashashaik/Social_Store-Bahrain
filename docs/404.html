@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,8 +14,20 @@
       rel="stylesheet"
     />
     <script src="/Social_Store-Bahrain/runtime-config.js"></script>
-    <script type="module" crossorigin src="/Social_Store-Bahrain/assets/index-CvkBMcVx.js"></script>
-    <link rel="stylesheet" crossorigin href="/Social_Store-Bahrain/assets/index-B4F9Vkqa.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("globalstores_theme");
+          if (t !== "light" && t !== "dark") t = "dark";
+          document.documentElement.setAttribute("data-theme", t);
+          document.documentElement.style.colorScheme = t;
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/Social_Store-Bahrain/assets/index-DjEj7i29.js"></script>
+    <link rel="stylesheet" crossorigin href="/Social_Store-Bahrain/assets/index-B88bmwUl.css">
   </head>
   <body>
     <div id="root"></div>

@@ -5,6 +5,7 @@ import { SettingsProvider } from "./context/SettingsContext.jsx";
 import { COPY } from "./data/copy.js";
 import ComplaintPage from "./pages/ComplaintPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import { applyTheme, readTheme } from "./theme.js";
 import { useEffect, useState } from "react";
 
 const LANG_KEY = "globalstores_lang";
@@ -24,8 +25,23 @@ function useLanguage() {
   return [lang, setLang];
 }
 
+function useTheme() {
+  const [theme, setThemeState] = useState(() => readTheme());
+
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
+
+  const setTheme = (next) => {
+    setThemeState(applyTheme(next));
+  };
+
+  return [theme, setTheme];
+}
+
 export default function App() {
   const [lang, setLang] = useLanguage();
+  const [theme, setTheme] = useTheme();
   const t = COPY[lang];
 
   return (
@@ -33,7 +49,17 @@ export default function App() {
       <CartProvider>
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <Routes>
-            <Route element={<Layout lang={lang} setLang={setLang} t={t} />}>
+            <Route
+              element={
+                <Layout
+                  lang={lang}
+                  setLang={setLang}
+                  theme={theme}
+                  setTheme={setTheme}
+                  t={t}
+                />
+              }
+            >
               <Route index element={<HomePage lang={lang} t={t} />} />
               <Route path="complaint" element={<ComplaintPage t={t} />} />
             </Route>
