@@ -63,12 +63,18 @@ export default function HomePage({ lang, t }) {
 
   return (
     <main className="home-main">
-      <section
-        className="hero-banner"
-        id="top"
-        style={{ "--hero-wallpaper": `url(${wallpaper})` }}
-      >
-        <div className="hero-banner-media" aria-hidden="true" />
+      <section className="hero-banner" id="top">
+        <div className="hero-banner-media" aria-hidden="true">
+          <img
+            className="hero-banner-photo"
+            src={wallpaper}
+            alt=""
+            width={6400}
+            height={3288}
+            decoding="async"
+            fetchPriority="high"
+          />
+        </div>
         <div className="container hero">
           <div className="hero-layout">
             <div className="hero-copy">
