@@ -6,13 +6,14 @@ export default function ServicesSection({ services, lang, t, onViewPlans }) {
       className="services-grid all-services-grid catalog-expanded"
       data-count={services.length}
     >
-      {services.map((service) => (
+      {services.map((service, index) => (
         <ServiceCard
           key={service.id}
           service={service}
           lang={lang}
           t={t}
           onViewPlans={onViewPlans}
+          revealDelay={`${(index % 6) * 70}ms`}
         />
       ))}
     </div>

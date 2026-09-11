@@ -4,7 +4,7 @@ import ComplaintForm from "../components/ComplaintForm.jsx";
 export default function ComplaintPage({ t }) {
   return (
     <main className="complaint-page">
-      <section className="complaint-section container">
+      <section className="complaint-section container" data-reveal>
         <p className="complaint-back">
           <Link to="/">← {t.backToHome}</Link>
         </p>

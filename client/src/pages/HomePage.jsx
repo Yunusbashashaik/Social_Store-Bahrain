@@ -109,8 +109,12 @@ export default function HomePage({ lang, t }) {
                 </button>
               </div>
               <ul className="hero-trust">
-                {t.heroTrust.map((item) => (
-                  <li key={item.title}>
+                {t.heroTrust.map((item, index) => (
+                  <li
+                    key={item.title}
+                    data-reveal
+                    style={{ "--reveal-delay": `${180 + index * 90}ms` }}
+                  >
                     <span className="hero-trust-icon" aria-hidden="true">
                       <UiIcon name={item.icon} />
                     </span>
@@ -126,7 +130,7 @@ export default function HomePage({ lang, t }) {
         </div>
       </section>
 
-      <section className="trust-bar-wrap">
+      <section className="trust-bar-wrap" data-reveal>
         <div className="trust-bar container" aria-label={t.trustBarLabel}>
           {t.trustBarDetailed.map((item) => (
             <div key={item.title} className="trust-bar-item">
@@ -144,7 +148,7 @@ export default function HomePage({ lang, t }) {
 
       <section className="catalog-band" id="services">
         <div className="container catalog">
-          <div className="catalog-header">
+          <div className="catalog-header" data-reveal>
             <h2>
               <span className="catalog-bar" aria-hidden="true" />
               {t.catalogTitle}
@@ -161,7 +165,7 @@ export default function HomePage({ lang, t }) {
       </section>
 
       <section className="feature-bars container" aria-label={t.featureBarsLabel}>
-        <div className="feature-bar feature-bar--dark">
+        <div className="feature-bar feature-bar--dark" data-reveal>
           {t.featureBarDark.map((item) => (
             <div key={item.title} className="feature-bar-item">
               <span className="feature-bar-icon" aria-hidden="true">
@@ -174,7 +178,7 @@ export default function HomePage({ lang, t }) {
             </div>
           ))}
         </div>
-        <div className="feature-bar feature-bar--support">
+        <div className="feature-bar feature-bar--support" data-reveal>
           {t.featureBarSupport.map((item) => (
             <div key={item.title} className="feature-bar-item">
               <span className="feature-bar-icon" aria-hidden="true">
