@@ -40,6 +40,11 @@ export const COPY = {
     brandIntro:
       "At Social Store, we bring world-class entertainment right to your screen without breaking the bank. We offer instant access to top premium OTT subscriptions in Bahrain at reasonable, budget-friendly prices—making streaming simple, affordable, and seamless.",
     catalogTitle: "Popular Subscriptions",
+    catalogSearchPlaceholder: "Search subscriptions…",
+    catalogSearchLabel: "Search subscriptions",
+    catalogSearchClear: "Clear search",
+    catalogSearchEmpty: "No subscriptions match “{query}”.",
+    ownedManagedBy: "Owned & Managed by",
     viewAll: "View All",
     showLess: "Show Less",
     allServicesTitle: "All Subscriptions",
@@ -218,6 +223,11 @@ export const COPY = {
     brandIntro:
       "في Social Store، نقدم لك ترفيهاً عالمياً على شاشتك دون إرهاق ميزانيتك. نوفر وصولاً فورياً إلى أفضل اشتراكات OTT المميزة في البحرين بأسعار معقولة وصديقة للميزانية—لتجعل البث بسيطاً وميسور التكلفة وسلساً.",
     catalogTitle: "الاشتراكات الشائعة",
+    catalogSearchPlaceholder: "ابحث عن الاشتراكات…",
+    catalogSearchLabel: "البحث في الاشتراكات",
+    catalogSearchClear: "مسح البحث",
+    catalogSearchEmpty: "لا توجد اشتراكات تطابق “{query}”.",
+    ownedManagedBy: "مملوك ويُدار بواسطة",
     viewAll: "عرض الكل",
     showLess: "عرض أقل",
     allServicesTitle: "جميع الاشتراكات",

@@ -701,7 +701,8 @@ button,
   min-height: 72px;
 }
 
-.admin-sr-only {
+.admin-sr-only,
+.visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1514,6 +1515,8 @@ body.rtl .hero-banner-media::after {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.1rem;
   margin-bottom: 1.4rem;
 }
 
@@ -2109,6 +2112,24 @@ body.rtl .hero-banner-media::after {
   color: var(--muted);
 }
 
+.owner-block-numbers {
+  list-style: none;
+  margin: 0.15rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.28rem;
+}
+
+.owner-block-numbers a {
+  color: var(--accent-hover);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.owner-block-numbers a:hover {
+  color: #fff;
+}
+
 .how-steps {
   margin: 0;
   padding: 0;
@@ -2333,6 +2354,96 @@ body.rtl .hero-banner-media::after {
 
 .catalog-header {
   margin-bottom: 1.35rem;
+}
+
+.catalog-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 16rem;
+  max-width: 24rem;
+  margin-inline-start: auto;
+}
+
+.catalog-search-icon {
+  position: absolute;
+  inset-inline-start: 0.9rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.catalog-search input {
+  width: 100%;
+  height: 2.7rem;
+  border: 1px solid #d7e2ef;
+  border-radius: 999px;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 0 2.55rem 0 2.55rem;
+  font-size: 0.94rem;
+  outline: none;
+  transition:
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    background 0.2s var(--ease);
+}
+
+.catalog-search input::placeholder {
+  color: #94a3b8;
+}
+
+.catalog-search input::-webkit-search-decoration,
+.catalog-search input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.catalog-search input:hover {
+  border-color: #b8c9de;
+  background: #fff;
+}
+
+.catalog-search input:focus {
+  border-color: #0055ff;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 85, 255, 0.14);
+}
+
+.catalog-search-clear {
+  position: absolute;
+  inset-inline-end: 0.35rem;
+  width: 1.85rem;
+  height: 1.85rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #64748b;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.catalog-search-clear:hover {
+  background: #e8eef6;
+  color: #0f172a;
+}
+
+.catalog-empty {
+  margin: 0;
+  padding: 2.4rem 0.75rem;
+  text-align: center;
+  color: #64748b;
+  font-weight: 500;
+}
+
+@media (max-width: 720px) {
+  .catalog-search {
+    max-width: none;
+    margin-inline-start: 0;
+    flex-basis: 100%;
+  }
 }
 
 .catalog h2 {

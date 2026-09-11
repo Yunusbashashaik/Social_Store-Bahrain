@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ServicesSection from "../components/ServicesSection.jsx";
 import { UiIcon } from "../components/UiIcon.jsx";
 import ViewPlansModal from "../components/ViewPlansModal.jsx";
-import { SERVICES, fetchServices } from "../data/catalog.js";
+import { SERVICES, fetchServices, filterServices } from "../data/catalog.js";
 import { wallpaperUrl } from "../data/serviceImages.js";
 
 export default function HomePage({ lang, t }) {
   const [services, setServices] = useState(SERVICES);
   const [loadError, setLoadError] = useState("");
   const [plansService, setPlansService] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const wallpaper = wallpaperUrl();
 
   useEffect(() => {
@@ -56,6 +57,11 @@ export default function HomePage({ lang, t }) {
     highlight: "",
     after: "",
   };
+
+  const visibleServices = useMemo(
+    () => filterServices(services, searchQuery),
+    [services, searchQuery],
+  );
 
   const scrollToServices = () => {
     document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
@@ -159,14 +165,49 @@ export default function HomePage({ lang, t }) {
               <span className="catalog-bar" aria-hidden="true" />
               {t.catalogTitle}
             </h2>
+            <label className="catalog-search">
+              <span className="visually-hidden">{t.catalogSearchLabel}</span>
+              <svg className="catalog-search-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                />
+              </svg>
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder={t.catalogSearchPlaceholder}
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck="false"
+                enterKeyHint="search"
+              />
+              {searchQuery ? (
+                <button
+                  type="button"
+                  className="catalog-search-clear"
+                  onClick={() => setSearchQuery("")}
+                  aria-label={t.catalogSearchClear}
+                >
+                  ×
+                </button>
+              ) : null}
+            </label>
           </div>
           {loadError ? <p className="catalog-note">{loadError}</p> : null}
-          <ServicesSection
-            services={services}
-            lang={lang}
-            t={t}
-            onViewPlans={setPlansService}
-          />
+          {visibleServices.length ? (
+            <ServicesSection
+              services={visibleServices}
+              lang={lang}
+              t={t}
+              onViewPlans={setPlansService}
+            />
+          ) : (
+            <p className="catalog-empty" role="status">
+              {t.catalogSearchEmpty.replace("{query}", searchQuery.trim())}
+            </p>
+          )}
         </div>
       </section>
 

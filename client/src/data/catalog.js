@@ -25,6 +25,35 @@ export function nextSupportNumber() {
   return num;
 }
 
+export function formatWhatsAppDisplay(num) {
+  const digits = String(num || "").replace(/\D/g, "");
+  return digits ? `+${digits}` : "";
+}
+
+export function serviceMatchesQuery(service, query) {
+  const needle = String(query || "").trim().toLowerCase();
+  if (!needle) return true;
+  const hay = [
+    service.id,
+    service.nameEn,
+    service.nameAr,
+    service.typeEn,
+    service.typeAr,
+    service.descriptionEn,
+    service.descriptionAr,
+    service.icon,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+  return hay.includes(needle);
+}
+
+export function filterServices(services, query) {
+  if (!Array.isArray(services)) return [];
+  return services.filter((service) => serviceMatchesQuery(service, query));
+}
+
 export function buildWhatsAppUrl(phone, message) {
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }

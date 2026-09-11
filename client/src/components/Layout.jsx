@@ -5,6 +5,7 @@ import {
   SERVICES,
   buildWhatsAppUrl,
   fetchServices,
+  formatWhatsAppDisplay,
   nextSupportNumber,
   setSupportNumbers,
 } from "../data/catalog.js";
@@ -19,11 +20,6 @@ import OwnerBlock from "./OwnerBlock.jsx";
 import SocialLinks from "./SocialLinks.jsx";
 import { useCart } from "../cart/CartContext.jsx";
 import ScrollReveal from "./ScrollReveal.jsx";
-
-function formatWhatsAppDisplay(num) {
-  const digits = String(num || "").replace(/\D/g, "");
-  return digits ? `+${digits}` : "";
-}
 
 export default function Layout({ lang, setLang, t }) {
   const location = useLocation();
@@ -473,7 +469,11 @@ export default function Layout({ lang, setLang, t }) {
       {modal === "about" ? (
         <GlassModal title={t.aboutTitle} onClose={closeModal}>
           <p className="modal-prose">{aboutText || t.brandIntro}</p>
-          <OwnerBlock label={t.adminOwnerBlock} text={ownersText} />
+          <OwnerBlock
+            label={t.ownedManagedBy}
+            text={ownersText}
+            numbers={whatsappNumbers}
+          />
           <SocialLinks t={t} />
         </GlassModal>
       ) : null}
