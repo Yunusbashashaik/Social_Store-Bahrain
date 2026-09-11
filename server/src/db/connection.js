@@ -1,14 +1,17 @@
 import { createRequire } from "module";
 import fs from "fs";
+import os from "os";
 import path from "path";
 import { fileURLToPath } from "url";
 import { JsonDatabase } from "./jsonDb.js";
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const DATA_DIR = path.join(__dirname, "..", "..", "data");
-export const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
-export const SERVICE_UPLOADS_DIR = path.join(UPLOADS_DIR, "services");
+const LEGACY_DATA_DIR = path.join(__dirname, "..", "..", "data");
+
+export let DATA_DIR = LEGACY_DATA_DIR;
+export let UPLOADS_DIR = path.join(DATA_DIR, "uploads");
+export let SERVICE_UPLOADS_DIR = path.join(UPLOADS_DIR, "services");
 
 const SCHEMA_SQL = `
     CREATE TABLE IF NOT EXISTS services (
@@ -52,6 +55,63 @@ let db;
 let activeDbPath;
 let dbEngine = "none";
 
+function setDataDir(dir) {
+  DATA_DIR = dir;
+  UPLOADS_DIR = path.join(DATA_DIR, "uploads");
+  SERVICE_UPLOADS_DIR = path.join(UPLOADS_DIR, "services");
+}
+
+function copyIfMissing(from, to) {
+  if (!fs.existsSync(from) || fs.existsSync(to)) return;
+  fs.mkdirSync(path.dirname(to), { recursive: true });
+  fs.copyFileSync(from, to);
+}
+
+function copyDirIfMissing(from, to) {
+  if (!fs.existsSync(from)) return;
+  const destHasFiles =
+    fs.existsSync(to) && fs.readdirSync(to, { withFileTypes: true }).length > 0;
+  if (destHasFiles) return;
+  fs.mkdirSync(to, { recursive: true });
+  fs.cpSync(from, to, { recursive: true, force: false });
+}
+
+/** Keep live catalog outside the git/app folder so deploys cannot wipe admin edits. */
+export function resolveProductionDataDir() {
+  if (process.env.DATA_DIR) return path.resolve(process.env.DATA_DIR);
+  if (process.env.DATABASE_PATH) {
+    return path.dirname(path.resolve(process.env.DATABASE_PATH));
+  }
+  const home = os.homedir();
+  if (home && home !== "/") {
+    return path.join(home, "social-store-bahrain-data");
+  }
+  return LEGACY_DATA_DIR;
+}
+
+export function migrateLegacyDataDir(fromDir, toDir) {
+  if (!fromDir || !toDir || path.resolve(fromDir) === path.resolve(toDir)) return false;
+  if (!fs.existsSync(fromDir)) return false;
+  fs.mkdirSync(toDir, { recursive: true });
+  let copied = false;
+  for (const name of [
+    "globalstore.db",
+    "globalstore.db-wal",
+    "globalstore.db-shm",
+    "globalstore.json",
+    "globalstore.json.bak",
+  ]) {
+    const src = path.join(fromDir, name);
+    const dest = path.join(toDir, name);
+    if (fs.existsSync(src) && !fs.existsSync(dest)) {
+      copyIfMissing(src, dest);
+      copied = true;
+    }
+  }
+  copyDirIfMissing(path.join(fromDir, "uploads"), path.join(toDir, "uploads"));
+  return copied;
+}
+
 export function getDbPath() {
   return process.env.DATABASE_PATH || path.join(DATA_DIR, "globalstore.db");
 }
@@ -71,12 +131,21 @@ function openSqlite(dbPath) {
   const Database = require("better-sqlite3");
   const sqlite = new Database(dbPath);
   sqlite.pragma("journal_mode = WAL");
+  sqlite.pragma("synchronous = FULL");
   sqlite.pragma("foreign_keys = ON");
   sqlite.exec(SCHEMA_SQL);
   return sqlite;
 }
 
-export function initDatabase(dbPath = getDbPath(), options = {}) {
+export function initDatabase(dbPath, options = {}) {
+  if (dbPath || options.jsonPath) {
+    setDataDir(path.dirname(path.resolve(options.jsonPath || dbPath)));
+  } else {
+    setDataDir(resolveProductionDataDir());
+    migrateLegacyDataDir(LEGACY_DATA_DIR, DATA_DIR);
+    dbPath = getDbPath();
+  }
+
   fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.mkdirSync(SERVICE_UPLOADS_DIR, { recursive: true });
   fs.mkdirSync(path.dirname(dbPath), { recursive: true });
@@ -129,4 +198,4 @@ export function closeDatabase() {
   dbEngine = "none";
 }
 
-export { activeDbPath };
+export { activeDbPath, LEGACY_DATA_DIR };

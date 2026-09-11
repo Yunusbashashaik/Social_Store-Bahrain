@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { getDbEngine, initDatabase, UPLOADS_DIR } from "./db/connection.js";
+import { getDbEngine, initDatabase, DATA_DIR, UPLOADS_DIR } from "./db/connection.js";
 import { seedDatabase } from "./db/seed.js";
 import { adminRouter } from "./routes/admin.js";
 import { complaintRouter } from "./routes/complaints.js";
@@ -27,6 +27,7 @@ app.get("/api/health", (_req, res) => {
     ok: true,
     service: "global-store-api",
     db: getDbEngine(),
+    dataDir: DATA_DIR,
     time: new Date().toISOString(),
   });
 });

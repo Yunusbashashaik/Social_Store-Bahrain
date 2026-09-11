@@ -30,10 +30,11 @@ npm start   # serves built client + API on port 3001
 
 ### Dynamic database (SQLite)
 
-Admin edits and public catalog/settings are stored in **`server/data/globalstore.db`** (not GitHub-tracked static files). Every visitor hitting the Node API sees the same live data.
+Admin edits and public catalog/settings are stored **outside the git folder** in `~/social-store-bahrain-data/` (SQLite or JSON, plus uploads). Existing `server/data/` files are copied there once on first start. Replacing the app folder on GoDaddy therefore cannot reset prices, new services, complaint email, WhatsApp numbers, or About Us.
 
 Optional env:
 
+- `DATA_DIR` — override the persistent data folder
 - `DATABASE_PATH` — custom SQLite file path
 - `ADMIN_USERNAME` (default: `admin`)
 - `ADMIN_PASSWORD` (default: `Qz@02846?`)
@@ -80,7 +81,7 @@ If the website and API use different URLs, edit `client/public/runtime-config.js
 window.__GLOBALSTORE_CONFIG__ = { apiUrl: "https://your-node-api-url" };
 ```
 
-Keep `server/data/` on a persistent disk so SQLite and uploads survive restarts.
+Keep admin data in `~/social-store-bahrain-data/` (or `DATA_DIR`). Do **not** upload over that folder when you deploy code.
 
 ### Complaint email
 
@@ -101,4 +102,4 @@ After a push to **`main`**, wait 1–2 minutes, then open:
 
 **https://yunusbashashaik.github.io/Social_Store-Bahrain/**
 
-The homepage uses built-in catalog data if the API is unavailable. **Admin**, **live price/settings edits**, and **complaint email via SMTP** need the Node server (`npm start` on a host such as Render or GoDaddy Node). Point that host at a persistent disk so `server/data/globalstore.db` survives restarts.
+The homepage uses built-in catalog data only if the API has never saved a live catalog in this browser. **Admin**, **live price/settings edits**, and **complaint email via SMTP** need the Node server (`npm start` on a host such as Render or GoDaddy Node). Admin data lives in `~/social-store-bahrain-data/` so deploys and restarts do not restore old prices.
