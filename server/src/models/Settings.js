@@ -99,3 +99,21 @@ export function seedSettingsIfEmpty() {
   }
   return true;
 }
+
+/** Replace the old Qatar WhatsApp digit with the Bahrain number without wiping other settings. */
+export function migrateWhatsAppNumbers() {
+  const numbers = getSetting("whatsappNumbers", DEFAULT_SETTINGS.whatsappNumbers);
+  if (!Array.isArray(numbers)) return false;
+  let changed = false;
+  const next = numbers.map((n) => {
+    const digits = String(n).replace(/\D/g, "");
+    if (digits === "97466382981") {
+      changed = true;
+      return "97366382981";
+    }
+    return digits || String(n);
+  }).filter(Boolean);
+  if (!changed || !next.length) return false;
+  setSetting("whatsappNumbers", next);
+  return true;
+}

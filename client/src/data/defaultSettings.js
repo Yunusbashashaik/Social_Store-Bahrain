@@ -1,7 +1,7 @@
 /** Fallback site settings when the API is unavailable. */
 export const DEFAULT_SETTINGS = {
   complaintEmail: "global2stor2@gmail.com",
-  whatsappNumbers: ["923394077636", "97466382981"],
+  whatsappNumbers: ["923394077636", "97366382981"],
   aboutEn:
     "At Social Store, we bring world-class entertainment right to your screen without breaking the bank. We offer instant access to top premium OTT subscriptions in Bahrain at reasonable, budget-friendly prices—making streaming simple, affordable, and seamless.",
   aboutAr:
