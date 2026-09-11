@@ -71,9 +71,34 @@ function copyDirIfMissing(from, to) {
   if (!fs.existsSync(from)) return;
   const destHasFiles =
     fs.existsSync(to) && fs.readdirSync(to, { withFileTypes: true }).length > 0;
-  if (destHasFiles) return;
+  if (destHasFiles) {
+    mergeMissingFiles(from, to);
+    return;
+  }
   fs.mkdirSync(to, { recursive: true });
   fs.cpSync(from, to, { recursive: true, force: false });
+}
+
+function mergeMissingFiles(from, to) {
+  if (!fs.existsSync(from)) return;
+  fs.mkdirSync(to, { recursive: true });
+  for (const entry of fs.readdirSync(from, { withFileTypes: true })) {
+    const src = path.join(from, entry.name);
+    const dest = path.join(to, entry.name);
+    if (entry.isDirectory()) {
+      mergeMissingFiles(src, dest);
+    } else if (!fs.existsSync(dest)) {
+      fs.copyFileSync(src, dest);
+    }
+  }
+}
+
+export function getUploadsDir() {
+  return UPLOADS_DIR;
+}
+
+export function getServiceUploadsDir() {
+  return SERVICE_UPLOADS_DIR;
 }
 
 /** Keep live catalog outside the git/app folder so deploys cannot wipe admin edits. */

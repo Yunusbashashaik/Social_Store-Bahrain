@@ -1,7 +1,7 @@
 import fs from "fs";
 import multer from "multer";
 import path from "path";
-import { SERVICE_UPLOADS_DIR, UPLOADS_DIR } from "../db/connection.js";
+import { getServiceUploadsDir, getUploadsDir } from "../db/connection.js";
 
 export const MAX_SCREENSHOT_BYTES = 5 * 1024 * 1024;
 export const MAX_SERVICE_IMAGE_BYTES = 5 * 1024 * 1024;
@@ -10,10 +10,11 @@ function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
-function makeStorage(destDir) {
+function makeStorage(getDestDir) {
   return multer.diskStorage({
     destination: (_req, _file, cb) => {
       try {
+        const destDir = getDestDir();
         ensureDir(destDir);
         cb(null, destDir);
       } catch (err) {
@@ -51,13 +52,13 @@ const anyImage = (_req, file, cb) => {
 };
 
 export const uploadServiceImage = multer({
-  storage: makeStorage(SERVICE_UPLOADS_DIR),
+  storage: makeStorage(() => getServiceUploadsDir()),
   limits: { fileSize: MAX_SERVICE_IMAGE_BYTES },
   fileFilter: jpegOnly,
 }).single("image");
 
 export const uploadComplaintScreenshot = multer({
-  storage: makeStorage(path.join(UPLOADS_DIR)),
+  storage: makeStorage(() => getUploadsDir()),
   limits: { fileSize: MAX_SCREENSHOT_BYTES },
   fileFilter: anyImage,
 }).single("screenshot");

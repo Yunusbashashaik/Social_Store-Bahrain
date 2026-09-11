@@ -6,6 +6,7 @@ import path from "path";
 import {
   closeDatabase,
   getDbEngine,
+  getServiceUploadsDir,
   initDatabase,
   migrateLegacyDataDir,
 } from "../src/db/connection.js";
@@ -51,15 +52,29 @@ describe("admin catalog persistence", () => {
     assert.ok(fs.existsSync(`${jsonPath}.bak`));
   });
 
-  it("copies legacy server/data into the persistent folder once", () => {
-    const fromDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-legacy-"));
-    const toDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-dest-"));
+  it("copies leftover upload files into a data folder that already exists", () => {
+    const fromDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-legacy-up-"));
+    const toDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-dest-up-"));
     dirs.push(fromDir, toDir);
-    fs.writeFileSync(path.join(fromDir, "globalstore.json"), "{}\n");
-    const copied = migrateLegacyDataDir(fromDir, toDir);
-    assert.equal(copied, true);
-    assert.ok(fs.existsSync(path.join(toDir, "globalstore.json")));
-    const second = migrateLegacyDataDir(fromDir, toDir);
-    assert.equal(second, false);
+    fs.mkdirSync(path.join(fromDir, "uploads", "services"), { recursive: true });
+    fs.mkdirSync(path.join(toDir, "uploads", "services"), { recursive: true });
+    fs.writeFileSync(path.join(fromDir, "uploads", "services", "netflix.jpg"), "img");
+    fs.writeFileSync(path.join(toDir, "uploads", "keep.txt"), "x");
+    migrateLegacyDataDir(fromDir, toDir);
+    assert.ok(
+      fs.existsSync(path.join(toDir, "uploads", "services", "netflix.jpg")),
+    );
+  });
+
+  it("writes new service images into the active data directory", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-upload-"));
+    dirs.push(dir);
+    initDatabase(path.join(dir, "unused.db"), {
+      engine: "json",
+      jsonPath: path.join(dir, "globalstore.json"),
+    });
+    const dest = getServiceUploadsDir();
+    assert.equal(dest, path.join(dir, "uploads", "services"));
+    assert.ok(fs.existsSync(dest));
   });
 });
