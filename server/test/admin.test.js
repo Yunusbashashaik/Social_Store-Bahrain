@@ -220,6 +220,24 @@ describe("services + admin API", () => {
     assert.equal(again.body.settings.ownersEn, "Owned by Test Owners");
   });
 
+  it("migrates the old Qatar WhatsApp number to Bahrain on seed", async () => {
+    const login = await request(app)
+      .post("/api/admin/login")
+      .send({ username: "admin", password: "globalstores" });
+    const token = login.body.token;
+    await request(app)
+      .put("/api/admin/settings")
+      .set("Authorization", `Bearer ${token}`)
+      .send({ whatsappNumbers: ["923394077636", "97466382981"] });
+
+    seedDatabase();
+    const res = await request(app).get("/api/settings");
+    assert.deepEqual(res.body.settings.whatsappNumbers, [
+      "923394077636",
+      "97366382981",
+    ]);
+  });
+
   it("rejects unauthenticated translate and delete", async () => {
     const translate = await request(app)
       .post("/api/admin/translate")
