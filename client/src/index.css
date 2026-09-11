@@ -100,9 +100,9 @@ body {
   background-image:
     var(--page-overlay),
     var(--wallpaper-image, none);
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
+  background-size: 100% auto;
+  background-position: center top;
+  background-attachment: scroll;
   background-repeat: no-repeat;
   transition: color 0.28s var(--ease), background-color 0.28s var(--ease);
 }
@@ -1162,7 +1162,9 @@ body.rtl .nav-dropdown-panel {
   position: relative;
   overflow: hidden;
   padding: clamp(1.25rem, 3vw, 2.4rem) 0 clamp(2rem, 4vw, 3.25rem);
-  min-height: min(88vh, 760px);
+  width: 100%;
+  aspect-ratio: 6400 / 3288;
+  min-height: clamp(22rem, 52vw, 42rem);
   display: flex;
   align-items: center;
   background: transparent;
@@ -1170,22 +1172,30 @@ body.rtl .nav-dropdown-panel {
 
 .hero-banner-media {
   position: absolute;
-  inset: -10%;
-  background-image:
-    var(--hero-scrim),
-    var(--hero-wallpaper, var(--wallpaper-image, none));
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  inset: 0;
+  overflow: hidden;
   pointer-events: none;
-  will-change: transform;
-  transform: translate3d(0, 0, 0) scale(1.08);
+  background-color: var(--page-bg);
 }
 
-body.rtl .hero-banner-media {
-  background-image:
-    var(--hero-scrim-rtl),
-    var(--hero-wallpaper, var(--wallpaper-image, none));
+.hero-banner-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+}
+
+.hero-banner-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--hero-scrim);
+  pointer-events: none;
+}
+
+body.rtl .hero-banner-media::after {
+  background-image: var(--hero-scrim-rtl);
 }
 
 .hero {
@@ -2293,7 +2303,8 @@ body.rtl .hero-banner-media {
     filter: none !important;
   }
 
-  .hero-banner-media {
+  .hero-banner-media,
+  .hero-banner-photo {
     inset: 0 !important;
     transform: none !important;
     will-change: auto;
@@ -3049,7 +3060,7 @@ body.rtl .cart-sheet {
 
 @media (max-width: 900px) {
   .hero-banner {
-    min-height: auto;
+    min-height: clamp(20rem, 70vw, 28rem);
     padding-top: 1rem;
   }
 }

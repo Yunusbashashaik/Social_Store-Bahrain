@@ -59,29 +59,9 @@ export default function ScrollReveal() {
     });
     mo.observe(document.body, { childList: true, subtree: true });
 
-    const media = () => document.querySelector(".hero-banner-media");
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        ticking = false;
-        const el = media();
-        const hero = document.querySelector(".hero-banner");
-        if (!el || !hero) return;
-        const y = window.scrollY;
-        const limit = hero.offsetHeight;
-        const shift = Math.min(Math.max(y, 0), limit) * 0.22;
-        el.style.transform = `translate3d(0, ${shift}px, 0) scale(1.08)`;
-      });
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-
     return () => {
       io.disconnect();
       mo.disconnect();
-      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
