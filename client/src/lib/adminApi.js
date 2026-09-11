@@ -1,4 +1,10 @@
 import { SERVICES } from "../data/catalog.js";
+import {
+  readLiveServices,
+  readLiveSettings,
+  writeLiveServices,
+  writeLiveSettings,
+} from "./liveStore.js";
 
 function trimSlash(value) {
   return String(value || "").replace(/\/$/, "");
@@ -221,6 +227,7 @@ export async function adminSaveSettings(token, patch) {
     body: patch,
   });
   window.dispatchEvent(new Event("gs:settings-updated"));
+  writeLiveSettings(data.settings);
   return data.settings;
 }
 
@@ -229,6 +236,9 @@ export async function adminDeleteService(token, id) {
 }
 
 export function notifyServicesUpdated(services) {
+  if (Array.isArray(services) && services.length) {
+    writeLiveServices(services);
+  }
   window.dispatchEvent(
     new CustomEvent("gs:services-updated", {
       detail: Array.isArray(services) ? { services } : undefined,
@@ -249,11 +259,16 @@ export async function fetchPublicServices() {
   if (await hasBackendApi()) {
     try {
       const data = await requestJson("/api/services");
-      return data.services;
+      if (Array.isArray(data.services) && data.services.length) {
+        writeLiveServices(data.services);
+        return data.services;
+      }
     } catch {
-      /* fall through */
+      /* use last saved catalog instead of the built-in defaults */
     }
   }
+  const cached = readLiveServices();
+  if (cached) return cached;
   return JSON.parse(JSON.stringify(SERVICES));
 }
 
@@ -261,10 +276,13 @@ export async function fetchPublicSettings() {
   if (await hasBackendApi()) {
     try {
       const data = await requestJson("/api/settings");
-      return data.settings;
+      if (data.settings) {
+        writeLiveSettings(data.settings);
+        return data.settings;
+      }
     } catch {
-      /* fall through */
+      /* use last saved settings instead of the built-in defaults */
     }
   }
-  return null;
+  return readLiveSettings();
 }

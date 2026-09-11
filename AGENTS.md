@@ -23,7 +23,7 @@ Vite proxies `/api` to port **3001** during development. For production-style se
 
 ### Dynamic database
 
-Catalog, site settings (complaint email, WhatsApp numbers, About Us, social links), and complaints persist in **SQLite** at `server/data/globalstore.db` (override with `DATABASE_PATH`). Uploaded service images live under `server/data/uploads/services/` and are served from `/api/uploads/...`. Public pages load live data via `GET /api/services` and `GET /api/settings`.
+Catalog, site settings (complaint email, WhatsApp numbers, About Us, social links), and complaints persist in **`~/social-store-bahrain-data/`** (override with `DATA_DIR` / `DATABASE_PATH`). First start copies any existing `server/data/` files there. Uploaded service images live under that folder’s `uploads/services/` and are served from `/api/uploads/...`. Public pages load live data via `GET /api/services` and `GET /api/settings`. If the API is down, the browser keeps the last live catalog instead of restoring built-in prices.
 
 ### Complaint email
 

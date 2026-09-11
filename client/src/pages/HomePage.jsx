@@ -3,10 +3,11 @@ import ServicesSection from "../components/ServicesSection.jsx";
 import { UiIcon } from "../components/UiIcon.jsx";
 import ViewPlansModal from "../components/ViewPlansModal.jsx";
 import { SERVICES, fetchServices, filterServices } from "../data/catalog.js";
+import { readLiveServices } from "../lib/liveStore.js";
 import { wallpaperUrl } from "../data/serviceImages.js";
 
 export default function HomePage({ lang, t }) {
-  const [services, setServices] = useState(SERVICES);
+  const [services, setServices] = useState(() => readLiveServices() || SERVICES);
   const [loadError, setLoadError] = useState("");
   const [plansService, setPlansService] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
