@@ -18,6 +18,7 @@ import Logo from "./Logo.jsx";
 import OwnerBlock from "./OwnerBlock.jsx";
 import SocialLinks from "./SocialLinks.jsx";
 import { useCart } from "../cart/CartContext.jsx";
+import ScrollReveal from "./ScrollReveal.jsx";
 
 function formatWhatsAppDisplay(num) {
   const digits = String(num || "").replace(/\D/g, "");
@@ -39,7 +40,15 @@ export default function Layout({ lang, setLang, t }) {
   const cartRef = useRef(null);
   const langRef = useRef(null);
   const [cartOpen, setCartOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { totalItems } = useCart();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const whatsappNumbers = useMemo(
     () =>
@@ -185,7 +194,8 @@ export default function Layout({ lang, setLang, t }) {
 
   return (
     <div className="app-shell">
-      <header className="site-header">
+      <ScrollReveal />
+      <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
         <div className="container header-inner">
           <Link to="/" className="logo" aria-label="Social Store" onClick={reloadHome}>
             <Logo showTagline t={t} />
@@ -408,7 +418,7 @@ export default function Layout({ lang, setLang, t }) {
 
       <Outlet />
 
-      <footer className="site-footer">
+      <footer className="site-footer" data-reveal>
         <div className="container footer-grid footer-grid--compact">
           <div className="footer-brand-block">
             <strong className="footer-brand">

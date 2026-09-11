@@ -2,7 +2,7 @@ import ServiceIcon from "./ServiceIcon.jsx";
 import { isOutOfStock } from "../data/catalog.js";
 
 /** Compact catalog card — full description is in View Plans. */
-export default function ServiceCard({ service, lang, t, onViewPlans }) {
+export default function ServiceCard({ service, lang, t, onViewPlans, revealDelay }) {
   const name = lang === "ar" ? service.nameAr : service.nameEn;
   const type =
     lang === "ar"
@@ -21,6 +21,8 @@ export default function ServiceCard({ service, lang, t, onViewPlans }) {
     <article
       className={`card service-card${oos ? " service-card--oos" : ""}`}
       id={service.id}
+      data-reveal
+      style={revealDelay ? { "--reveal-delay": revealDelay } : undefined}
     >
       {oos ? (
         <span className="service-oos-badge">
