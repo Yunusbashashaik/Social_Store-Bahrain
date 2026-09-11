@@ -24,7 +24,7 @@ function formatWhatsAppDisplay(num) {
   return digits ? `+${digits}` : "";
 }
 
-export default function Layout({ lang, setLang, theme, setTheme, t }) {
+export default function Layout({ lang, setLang, t }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { settings } = useSettings();
@@ -328,30 +328,6 @@ export default function Layout({ lang, setLang, theme, setTheme, t }) {
                 t={t}
               />
             </div>
-
-            <button
-              type="button"
-              className="header-icon-btn header-theme-toggle"
-              aria-label={theme === "light" ? t.themeToDark : t.themeToLight}
-              title={theme === "light" ? t.themeToDark : t.themeToLight}
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            >
-              {theme === "light" ? (
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path
-                    fill="currentColor"
-                    d="M12.1 22c-5.2-.3-9.3-4.6-9.1-9.9.2-4.6 3.8-8.4 8.4-8.9.7-.1 1.1.8.6 1.3-1.4 1.4-2.1 3.3-2 5.3.2 3.4 3 6.2 6.4 6.4 2 .1 3.9-.6 5.3-2 .5-.5 1.4-.1 1.3.6-.5 4.6-4.3 8.2-8.9 8.4z"
-                  />
-                </svg>
-              ) : (
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path
-                    fill="currentColor"
-                    d="M6.76 4.84 4.96 3.05 3.55 4.46l1.79 1.79 1.42-1.41ZM1 13h3v-2H1v2Zm10-9h2V1h-2v3Zm7.45.46-1.41-1.41-1.8 1.79 1.42 1.41 1.79-1.79ZM17.24 19.16l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4ZM20 11v2h3v-2h-3ZM11 23h2v-3h-2v3ZM4.22 19.78l1.41 1.41 1.79-1.8-1.41-1.4-1.79 1.79ZM12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"
-                  />
-                </svg>
-              )}
-            </button>
 
             <div className="lang-switch" ref={langRef}>
               <button
