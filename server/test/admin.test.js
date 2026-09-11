@@ -57,7 +57,7 @@ describe("services + admin API", () => {
   it("logs in and updates a service price/description", async () => {
     const login = await request(app)
       .post("/api/admin/login")
-      .send({ username: "admin", password: "globalstores" });
+      .send({ username: "admin", password: "Qz@02846?" });
     assert.equal(login.status, 200);
     assert.ok(login.body.token);
 
@@ -84,7 +84,7 @@ describe("services + admin API", () => {
   it("creates a new service that appears on the public list", async () => {
     const login = await request(app)
       .post("/api/admin/login")
-      .send({ username: "admin", password: "globalstores" });
+      .send({ username: "admin", password: "Qz@02846?" });
     const token = login.body.token;
 
     const create = await request(app)
@@ -110,7 +110,7 @@ describe("services + admin API", () => {
   it("marks zero-price services as out of stock", async () => {
     const login = await request(app)
       .post("/api/admin/login")
-      .send({ username: "admin", password: "globalstores" });
+      .send({ username: "admin", password: "Qz@02846?" });
     const token = login.body.token;
 
     const update = await request(app)
@@ -126,7 +126,7 @@ describe("services + admin API", () => {
   it("updates complaint email and WhatsApp numbers in settings", async () => {
     const login = await request(app)
       .post("/api/admin/login")
-      .send({ username: "admin", password: "globalstores" });
+      .send({ username: "admin", password: "Qz@02846?" });
     const token = login.body.token;
 
     const update = await request(app)
@@ -175,7 +175,7 @@ describe("services + admin API", () => {
   it("deletes a service from the public catalog", async () => {
     const login = await request(app)
       .post("/api/admin/login")
-      .send({ username: "admin", password: "globalstores" });
+      .send({ username: "admin", password: "Qz@02846?" });
     const token = login.body.token;
 
     const created = await request(app)
@@ -207,7 +207,7 @@ describe("services + admin API", () => {
 
     const login = await request(app)
       .post("/api/admin/login")
-      .send({ username: "admin", password: "globalstores" });
+      .send({ username: "admin", password: "Qz@02846?" });
     const token = login.body.token;
     const put = await request(app)
       .put("/api/admin/settings")
@@ -223,7 +223,7 @@ describe("services + admin API", () => {
   it("migrates the old Qatar WhatsApp number to Bahrain on seed", async () => {
     const login = await request(app)
       .post("/api/admin/login")
-      .send({ username: "admin", password: "globalstores" });
+      .send({ username: "admin", password: "Qz@02846?" });
     const token = login.body.token;
     await request(app)
       .put("/api/admin/settings")
