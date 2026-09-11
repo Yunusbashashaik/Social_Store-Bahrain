@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { getDbEngine, initDatabase, DATA_DIR, UPLOADS_DIR } from "./db/connection.js";
+import { getDbEngine, initDatabase, DATA_DIR, LEGACY_DATA_DIR, UPLOADS_DIR } from "./db/connection.js";
 import { seedDatabase } from "./db/seed.js";
 import { adminRouter } from "./routes/admin.js";
 import { complaintRouter } from "./routes/complaints.js";
@@ -33,6 +33,7 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.use("/api/uploads", express.static(UPLOADS_DIR));
+app.use("/api/uploads", express.static(path.join(LEGACY_DATA_DIR, "uploads")));
 app.use("/api/services", servicesRouter);
 app.use("/api/settings", settingsRouter);
 app.use("/api/admin", adminRouter);

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { serviceImageUrl } from "../data/serviceImages.js";
 import { apiUrl } from "../lib/adminApi.js";
 
@@ -10,8 +11,15 @@ export default function ServiceIcon({ service, size = "md" }) {
       ? service.imageUrl
       : apiUrl(service.imageUrl)
     : null;
-  const imageUrl = uploaded || serviceImageUrl(id);
+  const bundled = serviceImageUrl(id);
+  const [src, setSrc] = useState(uploaded || bundled);
+  const [failed, setFailed] = useState(false);
   const name = service.nameEn || id;
+
+  useEffect(() => {
+    setSrc(uploaded || bundled);
+    setFailed(false);
+  }, [uploaded, bundled]);
 
   return (
     <div
@@ -21,21 +29,23 @@ export default function ServiceIcon({ service, size = "md" }) {
     >
       <span className="service-icon-glow" />
       <span className="service-icon-mark" data-brand={id}>
-        {imageUrl ? (
+        {src && !failed ? (
           <img
             className="service-icon-img"
-            src={imageUrl}
+            src={src}
             alt=""
             loading="lazy"
             decoding="async"
-            onError={(e) => {
-              e.currentTarget.style.display = "none";
-              const fallback = e.currentTarget.nextElementSibling;
-              if (fallback) fallback.hidden = false;
+            onError={() => {
+              if (bundled && src !== bundled) {
+                setSrc(bundled);
+                return;
+              }
+              setFailed(true);
             }}
           />
         ) : null}
-        <span hidden={Boolean(imageUrl)} className="service-icon-fallback">
+        <span hidden={Boolean(src) && !failed} className="service-icon-fallback">
           {renderFallback(id, accent, name)}
         </span>
       </span>
