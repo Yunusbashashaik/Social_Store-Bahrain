@@ -102,6 +102,7 @@ describe("services + admin API", () => {
     assert.equal(create.body.service.prices.month, 2.5);
 
     const listed = await request(app).get("/api/services");
+    assert.equal(listed.body.services[0].nameEn, "Test Stream");
     const item = listed.body.services.find((s) => s.nameEn === "Test Stream");
     assert.ok(item);
   });

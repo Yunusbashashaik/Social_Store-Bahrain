@@ -113,8 +113,6 @@ export const COPY = {
     close: "Close",
     footerOwners: "M Hamza Tariq",
     fabLabel: "WhatsApp Support",
-    themeToLight: "Switch to light theme",
-    themeToDark: "Switch to dark theme",
     servicesLoadFallback:
       "Showing cached catalog — live prices will refresh when the API is available.",
     adminNavLabel: "Administrator",
@@ -292,8 +290,6 @@ export const COPY = {
     close: "إغلاق",
     footerOwners: "م. حمزة طارق",
     fabLabel: "دعم واتساب",
-    themeToLight: "التبديل إلى المظهر الفاتح",
-    themeToDark: "التبديل إلى المظهر الداكن",
     servicesLoadFallback:
       "عرض الكتالوج المحفوظ — ستتحدث الأسعار عند توفر الخادم.",
     adminNavLabel: "لوحة المسؤول",
