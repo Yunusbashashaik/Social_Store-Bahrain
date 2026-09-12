@@ -203,8 +203,8 @@ describe("services + admin API", () => {
     assert.equal(res.status, 200);
     seedDatabase();
     const again = await request(app).get("/api/services");
-    assert.equal(again.body.services.some((s) => s.id === "netflix-private"), false);
-    assert.equal(again.body.services.some((s) => s.id === "disney-plus"), false);
+    assert.equal(again.body.services.some((s) => s.id === "builtin-one"), false);
+    assert.equal(again.body.services.some((s) => s.id === "builtin-two"), false);
   });
 
   it("deletes a service from the public catalog", async () => {

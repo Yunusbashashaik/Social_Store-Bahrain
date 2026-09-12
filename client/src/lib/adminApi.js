@@ -264,7 +264,7 @@ export async function fetchPublicServices() {
         return data.services;
       }
     } catch {
-      /* use last saved catalog instead of the built-in defaults */
+      /* use last saved live catalog */
     }
   }
   const cached = readLiveServices();

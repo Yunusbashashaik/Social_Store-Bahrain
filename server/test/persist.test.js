@@ -56,7 +56,19 @@ describe("admin catalog persistence", () => {
     const settings = getAllSettings();
     assert.equal(settings.complaintEmail, "persist@example.com");
     assert.equal(settings.aboutEn, "Kept about text");
-    assert.ok(fs.existsSync(`${jsonPath}.bak`));
+    assert.equal(fs.existsSync(`${jsonPath}.bak`), false);
+  });
+
+  it("does not copy or keep JSON catalog backup files", () => {
+    const fromDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-legacy-bak-"));
+    const toDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-dest-bak-"));
+    dirs.push(fromDir, toDir);
+    fs.writeFileSync(path.join(fromDir, "globalstore.json"), '{"services":[]}\n');
+    fs.writeFileSync(path.join(fromDir, "globalstore.json.bak"), '{"services":[{"id":"old"}]}\n');
+    migrateLegacyDataDir(fromDir, toDir);
+    assert.equal(fs.existsSync(path.join(toDir, "globalstore.json.bak")), false);
+    assert.equal(fs.existsSync(path.join(fromDir, "globalstore.json.bak")), false);
+    assert.ok(fs.existsSync(path.join(toDir, "globalstore.json")));
   });
 
   it("copies leftover upload files into a data folder that already exists", () => {
@@ -65,11 +77,11 @@ describe("admin catalog persistence", () => {
     dirs.push(fromDir, toDir);
     fs.mkdirSync(path.join(fromDir, "uploads", "services"), { recursive: true });
     fs.mkdirSync(path.join(toDir, "uploads", "services"), { recursive: true });
-    fs.writeFileSync(path.join(fromDir, "uploads", "services", "netflix.jpg"), "img");
+    fs.writeFileSync(path.join(fromDir, "uploads", "services", "sample.jpg"), "img");
     fs.writeFileSync(path.join(toDir, "uploads", "keep.txt"), "x");
     migrateLegacyDataDir(fromDir, toDir);
     assert.ok(
-      fs.existsSync(path.join(toDir, "uploads", "services", "netflix.jpg")),
+      fs.existsSync(path.join(toDir, "uploads", "services", "sample.jpg")),
     );
   });
 
