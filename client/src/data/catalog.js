@@ -88,11 +88,7 @@ Please provide payment details and complete my order.`;
 export const SERVICES = structuredClone(DEFAULT_SERVICES);
 
 /** Featured names shown in the Subscriptions dropdown (first 3). */
-export const FEATURED_SERVICE_IDS = [
-  "netflix-private",
-  "youtube-premium",
-  "disney-plus",
-];
+export const FEATURED_SERVICE_IDS = [];
 
 export async function fetchServices() {
   const { fetchPublicServices } = await import("../lib/adminApi.js");

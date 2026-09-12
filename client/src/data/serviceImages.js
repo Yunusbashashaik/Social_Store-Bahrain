@@ -1,44 +1,9 @@
-/** Map catalog service IDs → brand artwork in /images. */
-const FILES = {
-  "netflix-private": "Netflix.JPG",
-  "netflix-prime": "Prime.JPG",
-  "youtube-premium": "YTPremium.JPG",
-  "youtube-music": "YTMusic.JPG",
-  iptv: "IPTV.JPG",
-  canva: "CanvaPro.JPG",
-  grok: "Grok.JPG",
-  "google-gemini": "Gemini.JPG",
-  "capcut-pro": "CapCutPro.JPG",
-  mubi: "Mubi.JPG",
-  hulu: "Hulu.JPG",
-  peacock: "Peacock.JPG",
-  sonyliv: "SonyLiv.JPG",
-  starzplay: "StarzPlay.JPG",
-  "osn-plus": "osnPlus.JPG",
-  "disney-plus": "DisneyPlus.JPG",
-  shahid: "Shahid.JPG",
-  "chatgpt-plus": "ChatGPTPlus.JPG",
-  crunchyroll: "Crunchyroll.JPG",
-  "paramount-plus": "ParamountPlus.JPG",
-  "hbo-max": "HBOMax.JPG",
-  zee5: "Zee5.JPG",
-  "apple-tv-plus": "AppleTVPlus.JPG",
-  "apple-music": "AppleMusic.JPG",
-  "spotify-premium": "SpotifyPremium.JPG",
-  "proton-vpn": "ProtonVPN.JPG",
-  "cyberghost-vpn": "CyberGhostVPN.JPG",
-  "surfshark-vpn": "Surfshark.JPG",
-  expressvpn: "ExpressVPN.JPG",
-  nordvpn: "NordVPN.JPG",
-};
+/** Admin-uploaded artwork is served from /api/uploads. Only the hero wallpaper is bundled. */
 
 const assetBase = import.meta.env.BASE_URL || "/";
 
-export function serviceImageUrl(serviceId) {
-  const file = FILES[serviceId];
-  if (!file) return null;
-  const safe = file.replace(/ /g, "%20");
-  return `${assetBase}images/${safe}`;
+export function serviceImageUrl(_serviceId) {
+  return null;
 }
 
 export function wallpaperUrl() {

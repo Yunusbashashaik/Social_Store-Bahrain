@@ -236,7 +236,7 @@ export async function adminDeleteService(token, id) {
 }
 
 export function notifyServicesUpdated(services) {
-  if (Array.isArray(services) && services.length) {
+  if (Array.isArray(services)) {
     writeLiveServices(services);
   }
   window.dispatchEvent(
@@ -259,7 +259,7 @@ export async function fetchPublicServices() {
   if (await hasBackendApi()) {
     try {
       const data = await requestJson("/api/services");
-      if (Array.isArray(data.services) && data.services.length) {
+      if (Array.isArray(data.services)) {
         writeLiveServices(data.services);
         return data.services;
       }

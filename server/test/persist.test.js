@@ -11,7 +11,7 @@ import {
   migrateLegacyDataDir,
 } from "../src/db/connection.js";
 import { seedDatabase } from "../src/db/seed.js";
-import { listServices, updateService } from "../src/models/Service.js";
+import { insertService, listServices, updateService } from "../src/models/Service.js";
 import { getAllSettings, updateSettings } from "../src/models/Settings.js";
 
 describe("admin catalog persistence", () => {
@@ -31,7 +31,14 @@ describe("admin catalog persistence", () => {
     initDatabase(path.join(dir, "unused.db"), { engine: "json", jsonPath });
     seedDatabase();
 
-    const first = listServices()[0];
+    const first = insertService({
+      id: "persist-service",
+      nameEn: "Persist Service",
+      nameAr: "خدمة",
+      descriptionEn: "en",
+      descriptionAr: "ar",
+      prices: { month: 1, year: 8 },
+    });
     updateService(first.id, { prices: { month: 7.77, year: 77.7 } });
     updateSettings({
       complaintEmail: "persist@example.com",

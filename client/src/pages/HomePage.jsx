@@ -206,7 +206,9 @@ export default function HomePage({ lang, t }) {
             />
           ) : (
             <p className="catalog-empty" role="status">
-              {t.catalogSearchEmpty.replace("{query}", searchQuery.trim())}
+              {searchQuery.trim()
+                ? t.catalogSearchEmpty.replace("{query}", searchQuery.trim())
+                : t.catalogEmpty}
             </p>
           )}
         </div>
