@@ -39,13 +39,6 @@ export class JsonDatabase {
     const payload = `${JSON.stringify(this.data, null, 2)}\n`;
     const tmp = `${this.filePath}.tmp`;
     fs.writeFileSync(tmp, payload);
-    try {
-      if (fs.existsSync(this.filePath)) {
-        fs.copyFileSync(this.filePath, `${this.filePath}.bak`);
-      }
-    } catch {
-      /* backup is best-effort */
-    }
     fs.renameSync(tmp, this.filePath);
   }
 

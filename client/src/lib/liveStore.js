@@ -11,7 +11,7 @@ export function readLiveServices() {
   if (!canUseStorage()) return null;
   try {
     const parsed = JSON.parse(window.localStorage.getItem(SERVICES_KEY) || "null");
-    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    if (Array.isArray(parsed)) return parsed;
   } catch {
     /* ignore */
   }
@@ -19,7 +19,7 @@ export function readLiveServices() {
 }
 
 export function writeLiveServices(services) {
-  if (!canUseStorage() || !Array.isArray(services) || services.length === 0) return;
+  if (!canUseStorage() || !Array.isArray(services)) return;
   try {
     window.localStorage.setItem(SERVICES_KEY, JSON.stringify(services));
   } catch {

@@ -7,7 +7,6 @@ import express from "express";
 import request from "supertest";
 import { closeDatabase, initDatabase } from "../src/db/connection.js";
 import { seedDatabase } from "../src/db/seed.js";
-import { DEFAULT_SERVICES } from "../src/config/defaultServices.js";
 import { adminRouter } from "../src/routes/admin.js";
 import { servicesRouter } from "../src/routes/services.js";
 import { settingsRouter } from "../src/routes/settings.js";
@@ -37,7 +36,7 @@ describe("services + admin API", () => {
     const res = await request(app).get("/api/services");
     assert.equal(res.status, 200);
     assert.ok(Array.isArray(res.body.services));
-    assert.ok(res.body.services.length >= 1);
+    assert.equal(res.body.services.length, 0);
   });
 
   it("lists public settings from the database", async () => {
@@ -62,8 +61,18 @@ describe("services + admin API", () => {
     assert.ok(login.body.token);
 
     const token = login.body.token;
+    const created = await request(app)
+      .post("/api/admin/services")
+      .set("Authorization", `Bearer ${token}`)
+      .field("nameEn", "Price Edit")
+      .field("nameAr", "تعديل السعر")
+      .field("descriptionEn", "EN")
+      .field("descriptionAr", "AR")
+      .field("priceMonth", "1")
+      .field("priceYear", "8");
+    const id = created.body.service.id;
     const update = await request(app)
-      .put("/api/admin/services/netflix-private")
+      .put(`/api/admin/services/${id}`)
       .set("Authorization", `Bearer ${token}`)
       .send({
         prices: { month: 3, year: 20 },
@@ -76,7 +85,7 @@ describe("services + admin API", () => {
     assert.equal(update.body.service.descriptionEn, "Updated EN desc");
 
     const listed = await request(app).get("/api/services");
-    const item = listed.body.services.find((s) => s.id === "netflix-private");
+    const item = listed.body.services.find((s) => s.id === id);
     assert.equal(item.prices.month, 3);
     assert.equal(item.descriptionAr, "وصف محدث");
   });
@@ -113,8 +122,16 @@ describe("services + admin API", () => {
       .send({ username: "admin", password: "Qz@02846?" });
     const token = login.body.token;
 
+    const created = await request(app)
+      .post("/api/admin/services")
+      .set("Authorization", `Bearer ${token}`)
+      .field("nameEn", "OOS Service")
+      .field("descriptionEn", "EN")
+      .field("descriptionAr", "AR")
+      .field("priceMonth", "1")
+      .field("priceYear", "8");
     const update = await request(app)
-      .put("/api/admin/services/netflix-private")
+      .put(`/api/admin/services/${created.body.service.id}`)
       .set("Authorization", `Bearer ${token}`)
       .send({ prices: { month: 0, year: 0 } });
 
@@ -157,19 +174,37 @@ describe("services + admin API", () => {
 
   it("requires auth for updates", async () => {
     const res = await request(app)
-      .put("/api/admin/services/netflix-private")
+      .put("/api/admin/services/missing-service")
       .send({ prices: { month: 9 } });
     assert.equal(res.status, 401);
   });
 
-  it("includes newly seeded catalog services", async () => {
+  it("keeps admin-created services after another seed", async () => {
+    const login = await request(app)
+      .post("/api/admin/login")
+      .send({ username: "admin", password: "Qz@02846?" });
+    const token = login.body.token;
+    const created = await request(app)
+      .post("/api/admin/services")
+      .set("Authorization", `Bearer ${token}`)
+      .field("nameEn", "Keep Me")
+      .field("descriptionEn", "EN")
+      .field("descriptionAr", "AR")
+      .field("priceMonth", "4")
+      .field("priceYear", "30");
+    assert.equal(created.status, 201);
+    seedDatabase();
+    const listed = await request(app).get("/api/services");
+    assert.ok(listed.body.services.some((s) => s.nameEn === "Keep Me"));
+  });
+
+  it("does not restore a built-in catalog after seed", async () => {
     const res = await request(app).get("/api/services");
     assert.equal(res.status, 200);
-    const ids = res.body.services.map((s) => s.id);
-    assert.ok(ids.includes("disney-plus"));
-    assert.ok(ids.includes("chatgpt-plus"));
-    assert.ok(ids.includes("expressvpn"));
-    assert.ok(res.body.services.length >= DEFAULT_SERVICES.length);
+    seedDatabase();
+    const again = await request(app).get("/api/services");
+    assert.equal(again.body.services.some((s) => s.id === "builtin-one"), false);
+    assert.equal(again.body.services.some((s) => s.id === "builtin-two"), false);
   });
 
   it("deletes a service from the public catalog", async () => {
@@ -244,7 +279,7 @@ describe("services + admin API", () => {
       .send({ text: "Hello" });
     assert.equal(translate.status, 401);
 
-    const del = await request(app).delete("/api/admin/services/netflix-private");
+    const del = await request(app).delete("/api/admin/services/missing-service");
     assert.equal(del.status, 401);
   });
 });

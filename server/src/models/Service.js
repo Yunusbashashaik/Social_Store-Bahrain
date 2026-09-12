@@ -171,6 +171,7 @@ export function deleteService(id) {
 }
 
 export function seedServicesIfEmpty(defaults) {
+  if (!Array.isArray(defaults) || defaults.length === 0) return false;
   if (countServices() > 0) return false;
   const insert = getDb().transaction((services) => {
     services.forEach((service, index) => {

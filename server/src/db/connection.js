@@ -79,6 +79,16 @@ function copyDirIfMissing(from, to) {
   fs.cpSync(from, to, { recursive: true, force: false });
 }
 
+function removeJsonBackupFiles(dir) {
+  if (!dir || !fs.existsSync(dir)) return;
+  for (const name of ["globalstore.json.bak", "globalstore.json.tmp"]) {
+    const target = path.join(dir, name);
+    if (fs.existsSync(target)) {
+      fs.rmSync(target, { force: true });
+    }
+  }
+}
+
 function mergeMissingFiles(from, to) {
   if (!fs.existsSync(from)) return;
   fs.mkdirSync(to, { recursive: true });
@@ -124,7 +134,6 @@ export function migrateLegacyDataDir(fromDir, toDir) {
     "globalstore.db-wal",
     "globalstore.db-shm",
     "globalstore.json",
-    "globalstore.json.bak",
   ]) {
     const src = path.join(fromDir, name);
     const dest = path.join(toDir, name);
@@ -134,6 +143,8 @@ export function migrateLegacyDataDir(fromDir, toDir) {
     }
   }
   copyDirIfMissing(path.join(fromDir, "uploads"), path.join(toDir, "uploads"));
+  removeJsonBackupFiles(fromDir);
+  removeJsonBackupFiles(toDir);
   return copied;
 }
 
@@ -174,6 +185,7 @@ export function initDatabase(dbPath, options = {}) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.mkdirSync(SERVICE_UPLOADS_DIR, { recursive: true });
   fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+  removeJsonBackupFiles(DATA_DIR);
 
   if (db) {
     try {

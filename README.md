@@ -102,4 +102,4 @@ After a push to **`main`**, wait 1–2 minutes, then open:
 
 **https://yunusbashashaik.github.io/Social_Store-Bahrain/**
 
-The homepage uses built-in catalog data only if the API has never saved a live catalog in this browser. **Admin**, **live price/settings edits**, and **complaint email via SMTP** need the Node server (`npm start` on a host such as Render or GoDaddy Node). Admin data lives in `~/social-store-bahrain-data/` so deploys and restarts do not restore old prices.
+The homepage catalog starts empty. Add every service in Admin. **Admin**, **live price/settings edits**, and **complaint email via SMTP** need the Node server (`npm start` on a host such as Render or GoDaddy Node). Admin data lives in `~/social-store-bahrain-data/` so deploys and restarts do not restore a built-in catalog.

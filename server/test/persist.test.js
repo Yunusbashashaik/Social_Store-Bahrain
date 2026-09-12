@@ -11,7 +11,7 @@ import {
   migrateLegacyDataDir,
 } from "../src/db/connection.js";
 import { seedDatabase } from "../src/db/seed.js";
-import { listServices, updateService } from "../src/models/Service.js";
+import { insertService, listServices, updateService } from "../src/models/Service.js";
 import { getAllSettings, updateSettings } from "../src/models/Settings.js";
 
 describe("admin catalog persistence", () => {
@@ -31,7 +31,14 @@ describe("admin catalog persistence", () => {
     initDatabase(path.join(dir, "unused.db"), { engine: "json", jsonPath });
     seedDatabase();
 
-    const first = listServices()[0];
+    const first = insertService({
+      id: "persist-service",
+      nameEn: "Persist Service",
+      nameAr: "خدمة",
+      descriptionEn: "en",
+      descriptionAr: "ar",
+      prices: { month: 1, year: 8 },
+    });
     updateService(first.id, { prices: { month: 7.77, year: 77.7 } });
     updateSettings({
       complaintEmail: "persist@example.com",
@@ -49,7 +56,19 @@ describe("admin catalog persistence", () => {
     const settings = getAllSettings();
     assert.equal(settings.complaintEmail, "persist@example.com");
     assert.equal(settings.aboutEn, "Kept about text");
-    assert.ok(fs.existsSync(`${jsonPath}.bak`));
+    assert.equal(fs.existsSync(`${jsonPath}.bak`), false);
+  });
+
+  it("does not copy or keep JSON catalog backup files", () => {
+    const fromDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-legacy-bak-"));
+    const toDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-dest-bak-"));
+    dirs.push(fromDir, toDir);
+    fs.writeFileSync(path.join(fromDir, "globalstore.json"), '{"services":[]}\n');
+    fs.writeFileSync(path.join(fromDir, "globalstore.json.bak"), '{"services":[{"id":"old"}]}\n');
+    migrateLegacyDataDir(fromDir, toDir);
+    assert.equal(fs.existsSync(path.join(toDir, "globalstore.json.bak")), false);
+    assert.equal(fs.existsSync(path.join(fromDir, "globalstore.json.bak")), false);
+    assert.ok(fs.existsSync(path.join(toDir, "globalstore.json")));
   });
 
   it("copies leftover upload files into a data folder that already exists", () => {
@@ -58,11 +77,11 @@ describe("admin catalog persistence", () => {
     dirs.push(fromDir, toDir);
     fs.mkdirSync(path.join(fromDir, "uploads", "services"), { recursive: true });
     fs.mkdirSync(path.join(toDir, "uploads", "services"), { recursive: true });
-    fs.writeFileSync(path.join(fromDir, "uploads", "services", "netflix.jpg"), "img");
+    fs.writeFileSync(path.join(fromDir, "uploads", "services", "sample.jpg"), "img");
     fs.writeFileSync(path.join(toDir, "uploads", "keep.txt"), "x");
     migrateLegacyDataDir(fromDir, toDir);
     assert.ok(
-      fs.existsSync(path.join(toDir, "uploads", "services", "netflix.jpg")),
+      fs.existsSync(path.join(toDir, "uploads", "services", "sample.jpg")),
     );
   });
 
