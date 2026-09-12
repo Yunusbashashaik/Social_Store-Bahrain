@@ -273,6 +273,30 @@ describe("services + admin API", () => {
     ]);
   });
 
+  it("translates English service copy to Arabic", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async () => ({
+      ok: true,
+      text: async () =>
+        JSON.stringify({
+          responseData: { translatedText: "نتفلكس الخاص" },
+        }),
+    });
+    try {
+      const login = await request(app)
+        .post("/api/admin/login")
+        .send({ username: "admin", password: "Qz@02846?" });
+      const res = await request(app)
+        .post("/api/admin/translate")
+        .set("Authorization", `Bearer ${login.body.token}`)
+        .send({ text: "Netflix Private" });
+      assert.equal(res.status, 200);
+      assert.equal(res.body.text, "نتفلكس الخاص");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
   it("rejects unauthenticated translate and delete", async () => {
     const translate = await request(app)
       .post("/api/admin/translate")
