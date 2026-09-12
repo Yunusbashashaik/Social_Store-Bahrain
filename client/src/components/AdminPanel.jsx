@@ -299,10 +299,13 @@ export default function AdminPanel({ open, onClose, t }) {
     }
   };
 
-  const onTranslate = async (field) => {
+  const fillArabic = async (field, { overwrite = true } = {}) => {
     const source =
       field === "name" ? draft.nameEn.trim() : draft.descriptionEn.trim();
-    if (!source) return;
+    if (!source) return "";
+    const current =
+      field === "name" ? draft.nameAr.trim() : draft.descriptionAr.trim();
+    if (!overwrite && current) return current;
     setTranslating(field);
     setError("");
     try {
@@ -312,11 +315,36 @@ export default function AdminPanel({ open, onClose, t }) {
           ? { ...d, nameAr: arabic }
           : { ...d, descriptionAr: arabic },
       );
+      return arabic;
     } catch (err) {
       setError(err.message);
+      throw err;
     } finally {
       setTranslating("");
     }
+  };
+
+  const onTranslate = async (field) => {
+    try {
+      await fillArabic(field, { overwrite: true });
+    } catch {
+      /* error is shown in the form */
+    }
+  };
+
+  const arabicForSave = async () => {
+    const nameAr =
+      draft.nameAr.trim() ||
+      (draft.nameEn.trim() ? await fillArabic("name", { overwrite: false }) : "");
+    const descriptionAr =
+      draft.descriptionAr.trim() ||
+      (draft.descriptionEn.trim()
+        ? await fillArabic("desc", { overwrite: false })
+        : "");
+    return {
+      nameAr: nameAr || draft.nameEn,
+      descriptionAr,
+    };
   };
 
   const onSaveNew = async (e) => {
@@ -324,13 +352,14 @@ export default function AdminPanel({ open, onClose, t }) {
     setBusy(true);
     setError("");
     try {
+      const arabic = await arabicForSave();
       const created = await adminCreateService(
         token,
         {
           nameEn: draft.nameEn,
-          nameAr: draft.nameAr || draft.nameEn,
+          nameAr: arabic.nameAr,
           descriptionEn: draft.descriptionEn,
-          descriptionAr: draft.descriptionAr,
+          descriptionAr: arabic.descriptionAr,
           prices: {
             month: Number(draft.prices.month),
             year: Number(draft.prices.year),
@@ -360,14 +389,15 @@ export default function AdminPanel({ open, onClose, t }) {
     setBusy(true);
     setError("");
     try {
+      const arabic = await arabicForSave();
       const updated = await adminSaveService(
         token,
         selectedId,
         {
           nameEn: draft.nameEn,
-          nameAr: draft.nameAr,
+          nameAr: arabic.nameAr,
           descriptionEn: draft.descriptionEn,
-          descriptionAr: draft.descriptionAr,
+          descriptionAr: arabic.descriptionAr,
           prices: {
             month: Number(draft.prices.month),
             year: Number(draft.prices.year),
@@ -629,6 +659,9 @@ export default function AdminPanel({ open, onClose, t }) {
                 imagePreview={imagePreview}
                 onPickImage={onPickImage}
                 onTranslate={onTranslate}
+                onAutoTranslate={(field) =>
+                  fillArabic(field, { overwrite: false }).catch(() => {})
+                }
                 translating={translating}
                 onSubmit={onSaveNew}
                 onCancel={goDashboard}
@@ -666,6 +699,9 @@ export default function AdminPanel({ open, onClose, t }) {
                   imagePreview={imagePreview}
                   onPickImage={onPickImage}
                   onTranslate={onTranslate}
+                  onAutoTranslate={(field) =>
+                    fillArabic(field, { overwrite: false }).catch(() => {})
+                  }
                   translating={translating}
                   onSubmit={onSaveEditService}
                   onCancel={cancelServiceEdit}
@@ -928,6 +964,7 @@ function ServiceForm({
   imagePreview,
   onPickImage,
   onTranslate,
+  onAutoTranslate,
   translating,
   onSubmit,
   onCancel,
@@ -973,6 +1010,7 @@ function ServiceForm({
         id="admin-name-en"
         value={draft.nameEn}
         onChange={(e) => setDraft((d) => ({ ...d, nameEn: e.target.value }))}
+        onBlur={() => onAutoTranslate?.("name")}
         required
         disabled={disabled}
       />
@@ -1005,6 +1043,7 @@ function ServiceForm({
         onChange={(e) =>
           setDraft((d) => ({ ...d, descriptionEn: e.target.value }))
         }
+        onBlur={() => onAutoTranslate?.("desc")}
         required
         disabled={disabled}
       />
