@@ -84,7 +84,7 @@ Price: ${priceBhd} BHD
 Please provide payment details and complete my order.`;
 }
 
-/** Fallback catalog if the API is unavailable. */
+/** Fallback catalog if the API is unavailable. Matches shared/defaultServices.js. */
 export const SERVICES = structuredClone(DEFAULT_SERVICES);
 
 /** Featured names shown in the Subscriptions dropdown (first 3). */

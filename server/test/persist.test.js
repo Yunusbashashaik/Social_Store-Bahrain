@@ -11,7 +11,7 @@ import {
   migrateLegacyDataDir,
 } from "../src/db/connection.js";
 import { seedDatabase } from "../src/db/seed.js";
-import { insertService, listServices, updateService } from "../src/models/Service.js";
+import { insertService, listServices, syncHardcodedServices, updateService } from "../src/models/Service.js";
 import { getAllSettings, updateSettings } from "../src/models/Settings.js";
 
 describe("admin catalog persistence", () => {
@@ -95,5 +95,61 @@ describe("admin catalog persistence", () => {
     const dest = getServiceUploadsDir();
     assert.equal(dest, path.join(dir, "uploads", "services"));
     assert.ok(fs.existsSync(dest));
+  });
+
+  it("does not wipe database rows when the hardcoded list is empty", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-empty-hard-"));
+    dirs.push(dir);
+    initDatabase(path.join(dir, "unused.db"), {
+      engine: "json",
+      jsonPath: path.join(dir, "globalstore.json"),
+    });
+    seedDatabase();
+    insertService({
+      id: "live-row",
+      nameEn: "Live Row",
+      nameAr: "حي",
+      descriptionEn: "en",
+      descriptionAr: "ar",
+      prices: { month: 1, year: 8 },
+    });
+    seedDatabase();
+    assert.ok(listServices().some((s) => s.id === "live-row"));
+  });
+
+  it("restores hardcoded services on every seed", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-hard-"));
+    dirs.push(dir);
+    initDatabase(path.join(dir, "unused.db"), {
+      engine: "json",
+      jsonPath: path.join(dir, "globalstore.json"),
+    });
+    seedDatabase();
+    const catalog = [
+      {
+        id: "hard-one",
+        nameEn: "Hard One",
+        nameAr: "واحد",
+        descriptionEn: "EN one",
+        descriptionAr: "AR one",
+        prices: { month: 1, year: 8 },
+        imageFile: "HardOne.JPG",
+      },
+    ];
+    syncHardcodedServices(catalog);
+    insertService({
+      id: "extra-admin",
+      nameEn: "Extra",
+      nameAr: "إضافي",
+      descriptionEn: "en",
+      descriptionAr: "ar",
+      prices: { month: 2, year: 9 },
+    });
+    syncHardcodedServices(catalog);
+    const listed = listServices();
+    assert.equal(listed.length, 1);
+    assert.equal(listed[0].id, "hard-one");
+    assert.equal(listed[0].imageUrl, "/images/HardOne.JPG");
+    assert.equal(listed[0].prices.month, 1);
   });
 });

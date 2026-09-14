@@ -279,7 +279,7 @@ describe("services + admin API", () => {
       ok: true,
       text: async () =>
         JSON.stringify({
-          responseData: { translatedText: "نتفلكس الخاص" },
+          responseData: { translatedText: "مرحبا بالعالم" },
         }),
     });
     try {
@@ -289,9 +289,9 @@ describe("services + admin API", () => {
       const res = await request(app)
         .post("/api/admin/translate")
         .set("Authorization", `Bearer ${login.body.token}`)
-        .send({ text: "Netflix Private" });
+        .send({ text: "Hello World" });
       assert.equal(res.status, 200);
-      assert.equal(res.body.text, "نتفلكس الخاص");
+      assert.equal(res.body.text, "مرحبا بالعالم");
     } finally {
       globalThis.fetch = originalFetch;
     }

@@ -102,4 +102,4 @@ After a push to **`main`**, wait 1–2 minutes, then open:
 
 **https://yunusbashashaik.github.io/Social_Store-Bahrain/**
 
-The homepage catalog starts empty. Add every service in Admin. **Admin**, **live price/settings edits**, and **complaint email via SMTP** need the Node server (`npm start` on a host such as Render or GoDaddy Node). Admin data lives in `~/social-store-bahrain-data/` so deploys and restarts do not restore a built-in catalog.
+The homepage catalog is hardcoded in `shared/defaultServices.js`. Add services in that file (with images under `images/`) and redeploy. That list is restored on every Node start, so it does not vanish. **Admin**, **settings edits**, and **complaint email via SMTP** still need the Node server (`npm start` on a host such as Render or GoDaddy Node). Site settings live in `~/social-store-bahrain-data/`.

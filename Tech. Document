@@ -22,7 +22,7 @@ Subscription Catalog Grid: Immediate display of all digital subscription cards w
 Customer Support & WhatsApp Showcase: Highlights direct order routing to dedicated WhatsApp lines.
 Global Header & Footer: Persistent layout containers across all pages.
 3. Subscription Catalog
-The homepage catalog starts empty. Administrators add every service (name, English/Arabic description, prices, and photo) after publish. There is no built-in service list or bundled service artwork in the source.
+The catalog is hardcoded in the project (`shared/defaultServices.js` plus JPEG files under `images/`). After you add a service in source and publish, that service stays. Restarts and deploys restore the same list from source. There is no leftover built-in Netflix/Prime/YouTube catalog in the repository.
 4. Direct WhatsApp Ordering System & Multi-Number Logic
 Checkout routes directly to customer support over WhatsApp using two configured support numbers:
 Configured Support Numbers:

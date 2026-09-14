@@ -151,6 +151,7 @@ export class JsonDatabase {
         price_month: p.priceMonth,
         price_year: p.priceYear,
         out_of_stock: p.outOfStock,
+        sort_order: p.sortOrder ?? current.sort_order,
         updated_at: nowIso(),
       };
       this.save();
