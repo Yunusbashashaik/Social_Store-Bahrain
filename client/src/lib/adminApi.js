@@ -259,7 +259,7 @@ export async function fetchPublicServices() {
   if (await hasBackendApi()) {
     try {
       const data = await requestJson("/api/services");
-      if (Array.isArray(data.services)) {
+      if (Array.isArray(data.services) && (data.services.length || !SERVICES.length)) {
         writeLiveServices(data.services);
         return data.services;
       }
@@ -268,7 +268,7 @@ export async function fetchPublicServices() {
     }
   }
   const cached = readLiveServices();
-  if (cached) return cached;
+  if (cached && cached.length) return cached;
   return JSON.parse(JSON.stringify(SERVICES));
 }
 

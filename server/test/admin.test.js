@@ -10,6 +10,7 @@ import { seedDatabase } from "../src/db/seed.js";
 import { adminRouter } from "../src/routes/admin.js";
 import { servicesRouter } from "../src/routes/services.js";
 import { settingsRouter } from "../src/routes/settings.js";
+import { DEFAULT_SERVICES } from "../../shared/defaultServices.js";
 
 const testDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-admin-"));
 
@@ -36,7 +37,8 @@ describe("services + admin API", () => {
     const res = await request(app).get("/api/services");
     assert.equal(res.status, 200);
     assert.ok(Array.isArray(res.body.services));
-    assert.equal(res.body.services.length, 0);
+    assert.equal(res.body.services.length, DEFAULT_SERVICES.length);
+    assert.equal(res.body.services[0].id, "netflix-prime-combo");
   });
 
   it("lists public settings from the database", async () => {
@@ -179,7 +181,7 @@ describe("services + admin API", () => {
     assert.equal(res.status, 401);
   });
 
-  it("keeps admin-created services after another seed", async () => {
+  it("restores the hardcoded catalog after another seed", async () => {
     const login = await request(app)
       .post("/api/admin/login")
       .send({ username: "admin", password: "Qz@02846?" });
@@ -195,7 +197,8 @@ describe("services + admin API", () => {
     assert.equal(created.status, 201);
     seedDatabase();
     const listed = await request(app).get("/api/services");
-    assert.ok(listed.body.services.some((s) => s.nameEn === "Keep Me"));
+    assert.ok(listed.body.services.some((s) => s.id === "netflix-prime-combo"));
+    assert.equal(listed.body.services.length, DEFAULT_SERVICES.length);
   });
 
   it("does not restore a built-in catalog after seed", async () => {
@@ -279,7 +282,7 @@ describe("services + admin API", () => {
       ok: true,
       text: async () =>
         JSON.stringify({
-          responseData: { translatedText: "نتفلكس الخاص" },
+          responseData: { translatedText: "مرحبا بالعالم" },
         }),
     });
     try {
@@ -289,9 +292,9 @@ describe("services + admin API", () => {
       const res = await request(app)
         .post("/api/admin/translate")
         .set("Authorization", `Bearer ${login.body.token}`)
-        .send({ text: "Netflix Private" });
+        .send({ text: "Hello World" });
       assert.equal(res.status, 200);
-      assert.equal(res.body.text, "نتفلكس الخاص");
+      assert.equal(res.body.text, "مرحبا بالعالم");
     } finally {
       globalThis.fetch = originalFetch;
     }

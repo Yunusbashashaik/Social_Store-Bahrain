@@ -11,7 +11,8 @@ import {
   migrateLegacyDataDir,
 } from "../src/db/connection.js";
 import { seedDatabase } from "../src/db/seed.js";
-import { insertService, listServices, updateService } from "../src/models/Service.js";
+import { insertService, listServices, syncHardcodedServices, updateService } from "../src/models/Service.js";
+import { DEFAULT_SERVICES } from "../../shared/defaultServices.js";
 import { getAllSettings, updateSettings } from "../src/models/Settings.js";
 
 describe("admin catalog persistence", () => {
@@ -24,22 +25,13 @@ describe("admin catalog persistence", () => {
     }
   });
 
-  it("keeps edited prices and settings after close, reopen, and seed", () => {
+  it("keeps settings after close, reopen, and seed", () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-persist-"));
     dirs.push(dir);
     const jsonPath = path.join(dir, "globalstore.json");
     initDatabase(path.join(dir, "unused.db"), { engine: "json", jsonPath });
     seedDatabase();
 
-    const first = insertService({
-      id: "persist-service",
-      nameEn: "Persist Service",
-      nameAr: "خدمة",
-      descriptionEn: "en",
-      descriptionAr: "ar",
-      prices: { month: 1, year: 8 },
-    });
-    updateService(first.id, { prices: { month: 7.77, year: 77.7 } });
     updateSettings({
       complaintEmail: "persist@example.com",
       aboutEn: "Kept about text",
@@ -50,9 +42,7 @@ describe("admin catalog persistence", () => {
     seedDatabase();
 
     assert.equal(getDbEngine(), "json");
-    const again = listServices().find((s) => s.id === first.id);
-    assert.equal(again.prices.month, 7.77);
-    assert.equal(again.prices.year, 77.7);
+    assert.equal(listServices().length, DEFAULT_SERVICES.length);
     const settings = getAllSettings();
     assert.equal(settings.complaintEmail, "persist@example.com");
     assert.equal(settings.aboutEn, "Kept about text");
@@ -95,5 +85,62 @@ describe("admin catalog persistence", () => {
     const dest = getServiceUploadsDir();
     assert.equal(dest, path.join(dir, "uploads", "services"));
     assert.ok(fs.existsSync(dest));
+  });
+
+  it("restores the full hardcoded catalog on seed", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-empty-hard-"));
+    dirs.push(dir);
+    initDatabase(path.join(dir, "unused.db"), {
+      engine: "json",
+      jsonPath: path.join(dir, "globalstore.json"),
+    });
+    insertService({
+      id: "live-row",
+      nameEn: "Live Row",
+      nameAr: "حي",
+      descriptionEn: "en",
+      descriptionAr: "ar",
+      prices: { month: 1, year: 8 },
+    });
+    seedDatabase();
+    assert.equal(listServices().length, DEFAULT_SERVICES.length);
+    assert.equal(listServices().some((s) => s.id === "live-row"), false);
+    assert.ok(listServices().some((s) => s.id === "netflix-prime-combo"));
+  });
+
+  it("restores hardcoded services on every seed", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-hard-"));
+    dirs.push(dir);
+    initDatabase(path.join(dir, "unused.db"), {
+      engine: "json",
+      jsonPath: path.join(dir, "globalstore.json"),
+    });
+    seedDatabase();
+    const catalog = [
+      {
+        id: "hard-one",
+        nameEn: "Hard One",
+        nameAr: "واحد",
+        descriptionEn: "EN one",
+        descriptionAr: "AR one",
+        prices: { month: 1, year: 8 },
+        imageFile: "HardOne.JPG",
+      },
+    ];
+    syncHardcodedServices(catalog);
+    insertService({
+      id: "extra-admin",
+      nameEn: "Extra",
+      nameAr: "إضافي",
+      descriptionEn: "en",
+      descriptionAr: "ar",
+      prices: { month: 2, year: 9 },
+    });
+    syncHardcodedServices(catalog);
+    const listed = listServices();
+    assert.equal(listed.length, 1);
+    assert.equal(listed[0].id, "hard-one");
+    assert.equal(listed[0].imageUrl, "/images/HardOne.JPG");
+    assert.equal(listed[0].prices.month, 1);
   });
 });

@@ -138,6 +138,8 @@ export function updateService(id, patch) {
     priceMonth: outOfStock ? 0 : nextPrices.month,
     priceYear: outOfStock ? 0 : nextPrices.year,
     outOfStock: outOfStock ? 1 : 0,
+    sortOrder:
+      typeof patch.sortOrder === "number" ? patch.sortOrder : current.sortOrder,
   };
 
   getDb()
@@ -155,6 +157,7 @@ export function updateService(id, patch) {
         price_month = @priceMonth,
         price_year = @priceYear,
         out_of_stock = @outOfStock,
+        sort_order = @sortOrder,
         updated_at = datetime('now')
       WHERE id = @id`,
     )
@@ -170,18 +173,31 @@ export function deleteService(id) {
   return true;
 }
 
-export function seedServicesIfEmpty(defaults) {
+export function syncHardcodedServices(defaults) {
   if (!Array.isArray(defaults) || defaults.length === 0) return false;
-  if (countServices() > 0) return false;
-  const insert = getDb().transaction((services) => {
+
+  const apply = getDb().transaction((services) => {
+    const keep = new Set();
     services.forEach((service, index) => {
-      insertService({
+      keep.add(service.id);
+      const imageUrl =
+        service.imageUrl ||
+        (service.imageFile ? `/images/${service.imageFile}` : null);
+      const payload = {
         ...service,
+        imageUrl,
         sortOrder: index,
-        imageUrl: service.imageUrl || null,
-      });
+      };
+      if (getServiceById(service.id)) {
+        updateService(service.id, payload);
+      } else {
+        insertService(payload);
+      }
     });
+    for (const row of listServices()) {
+      if (!keep.has(row.id)) deleteService(row.id);
+    }
   });
-  insert(defaults);
+  apply(defaults);
   return true;
 }
