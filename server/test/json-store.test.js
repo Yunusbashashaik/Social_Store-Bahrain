@@ -7,6 +7,7 @@ import { closeDatabase, getDbEngine, initDatabase } from "../src/db/connection.j
 import { seedDatabase } from "../src/db/seed.js";
 import { insertService, listServices } from "../src/models/Service.js";
 import { getAllSettings, updateSettings } from "../src/models/Settings.js";
+import { DEFAULT_SERVICES } from "../../shared/defaultServices.js";
 
 const testDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-json-"));
 
@@ -24,9 +25,9 @@ describe("JSON file database fallback", () => {
     fs.rmSync(testDir, { recursive: true, force: true });
   });
 
-  it("starts with an empty catalog on the JSON engine", () => {
+  it("starts with the hardcoded catalog on the JSON engine", () => {
     assert.equal(getDbEngine(), "json");
-    assert.equal(listServices().length, 0);
+    assert.equal(listServices().length, DEFAULT_SERVICES.length);
   });
 
   it("creates a service and updates settings", () => {
