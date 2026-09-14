@@ -484,6 +484,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `spotify-premium`,
+    imageFile: "Service21.JPG",
     accent: `#1db954`,
     nameEn: `🎵 Spotify Premium Available`,
     nameAr: `🎵 سبوتيفاي بريميوم متوفر`,
@@ -511,6 +512,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `nordvpn`,
+    imageFile: "Service22.JPG",
     accent: `#4687ff`,
     nameEn: `🛡️ NordVPN Available`,
     nameAr: `🛡️ نورد VPN متوفر`,
@@ -540,6 +542,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `capcut-pro`,
+    imageFile: "Service23.JPG",
     accent: `#000000`,
     nameEn: `🎞️ CapCut Pro Available`,
     nameAr: `🎞️ كاب كات برو متوفر`,
@@ -571,6 +574,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `peacock-premium`,
+    imageFile: "Service24.JPG",
     accent: `#000000`,
     nameEn: `🦚 Peacock Premium Available`,
     nameAr: `🦚 بيكوك بريميوم متوفر`,
@@ -592,6 +596,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `sony-liv`,
+    imageFile: "Service25.JPG",
     accent: `#e11d48`,
     nameEn: `📺 Sony LIV Premium Available`,
     nameAr: `📺 سوني ليف بريميوم متوفر`,
@@ -615,6 +620,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `starzplay`,
+    imageFile: "Service26.JPG",
     accent: `#111111`,
     nameEn: `🎬 STARZPLAY Available`,
     nameAr: `🎬 STARZPLAY متوفر`,
@@ -634,6 +640,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `surfshark`,
+    imageFile: "Service27.JPG",
     accent: `#1ebacc`,
     nameEn: `🦈 Surfshark VPN Available`,
     nameAr: `🦈 Surfshark VPN متوفر`,
@@ -653,6 +660,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `expressvpn`,
+    imageFile: "Service28.JPG",
     accent: `#da3940`,
     nameEn: `🔒 ExpressVPN Premium`,
     nameAr: `🔒 ExpressVPN بريميوم`,
@@ -670,6 +678,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `proton-vpn`,
+    imageFile: "Service29.JPG",
     accent: `#6d4aff`,
     nameEn: `🔒 Proton VPN Premium`,
     nameAr: `🔒 Proton VPN بريميوم`,
@@ -687,6 +696,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `apple-tv-plus`,
+    imageFile: "Service30.JPG",
     accent: `#000000`,
     nameEn: `🍎 Apple TV+ Available`,
     nameAr: `🍎 Apple TV+ متوفر`,
@@ -706,6 +716,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `hbo-max`,
+    imageFile: "Service31.JPG",
     accent: `#b535f6`,
     nameEn: `🎬 HBO Max Available`,
     nameAr: `🎬 HBO Max متوفر`,
@@ -727,6 +738,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `paramount-plus`,
+    imageFile: "Service32.JPG",
     accent: `#0064ff`,
     nameEn: `🌟 Paramount+ Available`,
     nameAr: `🌟 Paramount+ متوفر`,
@@ -746,6 +758,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `shahid-vip`,
+    imageFile: "Service33.JPG",
     accent: `#e10600`,
     nameEn: `🌟 Shahid VIP Available`,
     nameAr: `🌟 شاهد VIP متوفر`,
@@ -767,6 +780,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `genspark-ai`,
+    imageFile: "Service34.JPG",
     accent: `#7c3aed`,
     nameEn: `✨ Genspark AI Available`,
     nameAr: `✨ Genspark AI متوفر`,
@@ -786,6 +800,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `claude-ai`,
+    imageFile: "Service35.JPG",
     accent: `#d97706`,
     nameEn: `🤖 Claude AI Available`,
     nameAr: `🤖 Claude AI متوفر`,
@@ -805,6 +820,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `magic-light-ai`,
+    imageFile: "Service36.JPG",
     accent: `#ec4899`,
     nameEn: `✨ Magic Light AI Available`,
     nameAr: `✨ Magic Light AI متوفر`,
@@ -824,6 +840,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `chaupal`,
+    imageFile: "Service37.JPG",
     accent: `#16a34a`,
     nameEn: `🎬 Chaupal Available`,
     nameAr: `🎬 تشوبال متوفر`,
@@ -843,6 +860,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `tod`,
+    imageFile: "Service38.JPG",
     accent: `#0ea5e9`,
     nameEn: `⚽ TOD Subscription Available`,
     nameAr: `⚽ اشتراك TOD متوفر`,
@@ -864,6 +882,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `iptv`,
+    imageFile: "Service39.JPG",
     accent: `#f97316`,
     nameEn: `📺 IPTV Subscription Available`,
     nameAr: `📺 اشتراك IPTV متوفر`,
@@ -885,6 +904,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `tiktok-usa`,
+    imageFile: "Service40.JPG",
     accent: `#111111`,
     nameEn: `🔥 TikTok USA Accounts Available`,
     nameAr: `🔥 حسابات تيك توك أمريكية متوفرة`,
