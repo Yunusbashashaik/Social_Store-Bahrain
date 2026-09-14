@@ -902,6 +902,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `esim-travel`,
+    imageFile: "Service41.JPG",
     accent: `#0ea5e9`,
     nameEn: `📶 eSIM With Travel Plans 🌍✈️`,
     nameAr: `📶 شريحة eSIM مع خطط سفر 🌍✈️`,
@@ -925,6 +926,7 @@ export const DEFAULT_SERVICES = [
   },
   {
     id: `whatsapp-number`,
+    imageFile: "Service42.JPG",
     accent: `#25d366`,
     nameEn: `📱 WhatsApp Number Available`,
     nameAr: `📱 أرقام واتساب متوفرة`,
