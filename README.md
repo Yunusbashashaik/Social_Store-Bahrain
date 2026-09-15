@@ -44,7 +44,7 @@ Optional env:
 
 Click the **Admin** icon in the header. A modal prompts for credentials, then opens the Admin Dashboard:
 
-- **Add Services** — JPEG image, name, EN/AR descriptions, 1-month and 1-year prices
+- **Add Services** — JPEG image, name, EN/AR descriptions, 1-month and 1-year prices, optional Eid/Special offer with expiry
 - **Edit Services** — dropdown for Services, Complaint Email ID, Contact Details (WhatsApp), and About Us / social links
 
 Default credentials: `admin` / `Qz@02846?` (override with `ADMIN_USERNAME` / `ADMIN_PASSWORD`).
@@ -102,4 +102,4 @@ After a push to **`main`**, wait 1–2 minutes, then open:
 
 **https://yunusbashashaik.github.io/Social_Store-Bahrain/**
 
-The homepage catalog is hardcoded in `shared/defaultServices.js`. Add services in that file (with images under `images/`) and redeploy. That list is restored on every Node start, so it does not vanish. **Admin**, **settings edits**, and **complaint email via SMTP** still need the Node server (`npm start` on a host such as Render or GoDaddy Node). Site settings live in `~/social-store-bahrain-data/`.
+The homepage catalog is loaded from the Node API. Factory names in `shared/defaultServices.js` are used only to seed an empty durable store. Admin edits survive `npm start` / GoDaddy Restart Published App. Keep admin data in `~/social-store-bahrain-data/` (or `DATA_DIR` / `/local/social-store-bahrain-data`). Do **not** upload over that folder when you deploy code.

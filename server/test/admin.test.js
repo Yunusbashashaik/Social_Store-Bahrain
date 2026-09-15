@@ -181,7 +181,7 @@ describe("services + admin API", () => {
     assert.equal(res.status, 401);
   });
 
-  it("restores the hardcoded catalog after another seed", async () => {
+  it("keeps admin-added services after another seed", async () => {
     const login = await request(app)
       .post("/api/admin/login")
       .send({ username: "admin", password: "Qz@02846?" });
@@ -198,7 +198,7 @@ describe("services + admin API", () => {
     seedDatabase();
     const listed = await request(app).get("/api/services");
     assert.ok(listed.body.services.some((s) => s.id === "netflix-prime-combo"));
-    assert.equal(listed.body.services.length, DEFAULT_SERVICES.length);
+    assert.ok(listed.body.services.some((s) => s.id === created.body.service.id));
   });
 
   it("does not restore a built-in catalog after seed", async () => {
@@ -308,5 +308,61 @@ describe("services + admin API", () => {
 
     const del = await request(app).delete("/api/admin/services/missing-service");
     assert.equal(del.status, 401);
+  });
+
+  it("creates a regular service without an offer", async () => {
+    const login = await request(app)
+      .post("/api/admin/login")
+      .send({ username: "admin", password: "Qz@02846?" });
+    const created = await request(app)
+      .post("/api/admin/services")
+      .set("Authorization", `Bearer ${login.body.token}`)
+      .field("nameEn", "Plain Service")
+      .field("descriptionEn", "EN")
+      .field("descriptionAr", "AR")
+      .field("priceMonth", "3")
+      .field("priceYear", "20");
+    assert.equal(created.status, 201);
+    assert.equal(created.body.service.offerType, "none");
+    assert.equal(created.body.service.offerExpiresAt, null);
+    const listed = await request(app).get("/api/services");
+    assert.ok(listed.body.services.some((s) => s.id === created.body.service.id));
+  });
+
+  it("creates an offer service and hides it from the public list after expiry", async () => {
+    const login = await request(app)
+      .post("/api/admin/login")
+      .send({ username: "admin", password: "Qz@02846?" });
+    const token = login.body.token;
+    const created = await request(app)
+      .post("/api/admin/services")
+      .set("Authorization", `Bearer ${token}`)
+      .field("nameEn", "Flash Offer")
+      .field("descriptionEn", "EN")
+      .field("descriptionAr", "AR")
+      .field("priceMonth", "1")
+      .field("priceYear", "8")
+      .field("offerType", "special")
+      .field("offerExpiresAt", new Date(Date.now() + 120_000).toISOString());
+    assert.equal(created.status, 201);
+    assert.equal(created.body.service.offerType, "special");
+    assert.ok(created.body.service.offerExpiresAt);
+
+    const live = await request(app).get("/api/services");
+    assert.ok(live.body.services.some((s) => s.id === created.body.service.id));
+
+    const expired = await request(app)
+      .put(`/api/admin/services/${created.body.service.id}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({ offerType: "special", offerExpiresAt: new Date(Date.now() - 1000).toISOString() });
+    assert.equal(expired.status, 200);
+
+    const after = await request(app).get("/api/services");
+    assert.equal(after.body.services.some((s) => s.id === created.body.service.id), false);
+
+    const adminList = await request(app)
+      .get("/api/admin/services")
+      .set("Authorization", `Bearer ${token}`);
+    assert.ok(adminList.body.services.some((s) => s.id === created.body.service.id));
   });
 });

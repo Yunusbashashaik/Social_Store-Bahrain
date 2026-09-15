@@ -32,6 +32,8 @@ const emptyServiceDraft = {
   descriptionEn: "",
   descriptionAr: "",
   prices: { month: "", year: "" },
+  offerType: "none",
+  offerExpiresAt: "",
 };
 
 const EDIT_SECTIONS = [
@@ -75,6 +77,21 @@ function formatWhatsAppInput(value) {
   return digits ? `+${digits}` : "+";
 }
 
+function toDatetimeLocal(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function fromDatetimeLocal(value) {
+  if (!value) return null;
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toISOString();
+}
+
 function toDraft(service) {
   return {
     nameEn: service.nameEn || "",
@@ -85,6 +102,8 @@ function toDraft(service) {
       month: service.prices?.month ?? "",
       year: service.prices?.year ?? "",
     },
+    offerType: service.offerType || "none",
+    offerExpiresAt: toDatetimeLocal(service.offerExpiresAt),
   };
 }
 
@@ -364,6 +383,11 @@ export default function AdminPanel({ open, onClose, t }) {
             month: Number(draft.prices.month),
             year: Number(draft.prices.year),
           },
+          offerType: draft.offerType || "none",
+          offerExpiresAt:
+            draft.offerType && draft.offerType !== "none"
+              ? fromDatetimeLocal(draft.offerExpiresAt)
+              : null,
         },
         imageFile,
       );
@@ -402,6 +426,11 @@ export default function AdminPanel({ open, onClose, t }) {
             month: Number(draft.prices.month),
             year: Number(draft.prices.year),
           },
+          offerType: draft.offerType || "none",
+          offerExpiresAt:
+            draft.offerType && draft.offerType !== "none"
+              ? fromDatetimeLocal(draft.offerExpiresAt)
+              : null,
         },
         imageFile,
       );
@@ -685,7 +714,13 @@ export default function AdminPanel({ open, onClose, t }) {
                         {service.icon} {service.nameEn}
                       </span>
                       <small>
-                        {service.outOfStock
+                        {service.offerType && service.offerType !== "none"
+                          ? Date.parse(service.offerExpiresAt) <= Date.now()
+                            ? t.offerExpiredAdmin
+                            : service.offerType === "eid"
+                              ? t.offerEid
+                              : t.offerSpecial
+                          : service.outOfStock
                           ? t.outOfStock
                           : `${service.prices.month} / ${service.prices.year} BHD`}
                       </small>
@@ -1095,7 +1130,40 @@ function ServiceForm({
           />
         </label>
       </div>
+      <label>
+        {t.adminOfferType}
+        <select
+          value={draft.offerType || "none"}
+          onChange={(e) =>
+            setDraft((d) => ({
+              ...d,
+              offerType: e.target.value,
+              offerExpiresAt: e.target.value === "none" ? "" : d.offerExpiresAt,
+            }))
+          }
+          disabled={disabled}
+        >
+          <option value="none">{t.adminOfferNone}</option>
+          <option value="eid">{t.offerEid}</option>
+          <option value="special">{t.offerSpecial}</option>
+        </select>
+      </label>
+      {draft.offerType && draft.offerType !== "none" ? (
+        <label>
+          {t.adminOfferExpires}
+          <input
+            type="datetime-local"
+            value={draft.offerExpiresAt || ""}
+            onChange={(e) =>
+              setDraft((d) => ({ ...d, offerExpiresAt: e.target.value }))
+            }
+            required
+            disabled={disabled}
+          />
+        </label>
+      ) : null}
       <p className="admin-hint">{t.adminOutOfStockHint}</p>
+      <p className="admin-hint">{t.adminOfferHint}</p>
       {error ? <p className="error-text">{error}</p> : null}
       <div className="admin-form-actions">
         <button type="submit" className="btn btn-primary" disabled={busy || disabled}>

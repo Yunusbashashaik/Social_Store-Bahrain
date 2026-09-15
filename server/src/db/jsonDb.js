@@ -37,9 +37,25 @@ export class JsonDatabase {
   save() {
     fs.mkdirSync(path.dirname(this.filePath), { recursive: true });
     const payload = `${JSON.stringify(this.data, null, 2)}\n`;
-    const tmp = `${this.filePath}.tmp`;
-    fs.writeFileSync(tmp, payload);
+    const tmp = `${this.filePath}.${process.pid}.tmp`;
+    const fd = fs.openSync(tmp, "w");
+    try {
+      fs.writeSync(fd, payload);
+      fs.fsyncSync(fd);
+    } finally {
+      fs.closeSync(fd);
+    }
     fs.renameSync(tmp, this.filePath);
+    try {
+      const dirFd = fs.openSync(path.dirname(this.filePath), "r");
+      try {
+        fs.fsyncSync(dirFd);
+      } finally {
+        fs.closeSync(dirFd);
+      }
+    } catch {
+      /* some hosts cannot fsync directories */
+    }
   }
 
   pragma() {
@@ -124,6 +140,8 @@ export class JsonDatabase {
         price_year: p.priceYear,
         image_url: p.imageUrl,
         out_of_stock: p.outOfStock,
+        offer_type: p.offerType || "none",
+        offer_expires_at: p.offerExpiresAt || null,
         sort_order: p.sortOrder,
         created_at: nowIso(),
         updated_at: nowIso(),
@@ -151,11 +169,21 @@ export class JsonDatabase {
         price_month: p.priceMonth,
         price_year: p.priceYear,
         out_of_stock: p.outOfStock,
+        offer_type: p.offerType ?? current.offer_type ?? "none",
+        offer_expires_at:
+          p.offerExpiresAt === undefined ? current.offer_expires_at || null : p.offerExpiresAt,
         sort_order: p.sortOrder ?? current.sort_order,
         updated_at: nowIso(),
       };
       this.save();
       return { changes: 1 };
+    }
+
+    if (sql === "delete from services") {
+      const before = this.data.services.length;
+      this.data.services = [];
+      this.save();
+      return { changes: before };
     }
 
     if (sql.startsWith("delete from services")) {
