@@ -2,7 +2,8 @@ import cors from "cors";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { getDbEngine, initDatabase, DATA_DIR, LEGACY_DATA_DIR, UPLOADS_DIR } from "./db/connection.js";
+import { getHealthPayload } from "./health.js";
+import { getDataDir, initDatabase, LEGACY_DATA_DIR, UPLOADS_DIR } from "./db/connection.js";
 import { seedDatabase } from "./db/seed.js";
 import { adminRouter } from "./routes/admin.js";
 import { complaintRouter } from "./routes/complaints.js";
@@ -15,6 +16,7 @@ const HOST = process.env.HOST || "0.0.0.0";
 
 initDatabase();
 seedDatabase();
+console.log(`Admin data directory: ${getDataDir()}`);
 
 const app = express();
 app.set("trust proxy", 1);
@@ -23,13 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/health", (_req, res) => {
-  res.json({
-    ok: true,
-    service: "global-store-api",
-    db: getDbEngine(),
-    dataDir: DATA_DIR,
-    time: new Date().toISOString(),
-  });
+  res.json(getHealthPayload());
 });
 
 app.use("/api/uploads", express.static(UPLOADS_DIR));

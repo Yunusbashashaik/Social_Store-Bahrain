@@ -1,5 +1,7 @@
 import ServiceIcon from "./ServiceIcon.jsx";
+import OfferBadge from "./OfferBadge.jsx";
 import { isOutOfStock } from "../data/catalog.js";
+import { isActiveOffer } from "@shared/offers.js";
 
 /** Compact catalog card — full description is in View Plans. */
 export default function ServiceCard({ service, lang, t, onViewPlans, revealDelay }) {
@@ -9,7 +11,8 @@ export default function ServiceCard({ service, lang, t, onViewPlans, revealDelay
       ? service.typeAr || "مشترك / خاص"
       : service.typeEn || "Shared / Private";
   const currency = lang === "ar" ? "د.ب" : "BHD";
-  const oos = isOutOfStock(service);
+  const offer = isActiveOffer(service);
+  const oos = !offer && isOutOfStock(service);
   const startingPrice = oos
     ? 0
     : Math.min(
@@ -19,12 +22,14 @@ export default function ServiceCard({ service, lang, t, onViewPlans, revealDelay
 
   return (
     <article
-      className={`card service-card${oos ? " service-card--oos" : ""}`}
+      className={`card service-card${oos ? " service-card--oos" : ""}${offer ? " service-card--offer" : ""}`}
       id={service.id}
       data-reveal
       style={revealDelay ? { "--reveal-delay": revealDelay } : undefined}
     >
-      {oos ? (
+      {offer ? (
+        <OfferBadge service={service} t={t} lang={lang} />
+      ) : oos ? (
         <span className="service-oos-badge">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path

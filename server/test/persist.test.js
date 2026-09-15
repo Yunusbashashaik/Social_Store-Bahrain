@@ -5,15 +5,23 @@ import os from "os";
 import path from "path";
 import {
   closeDatabase,
+  getDataDir,
   getDbEngine,
   getServiceUploadsDir,
   initDatabase,
+  isInsideAppTree,
   migrateLegacyDataDir,
 } from "../src/db/connection.js";
-import { seedDatabase } from "../src/db/seed.js";
-import { insertService, listServices, syncHardcodedServices, updateService } from "../src/models/Service.js";
+import { getLastSeedResult, seedDatabase } from "../src/db/seed.js";
+import { getHealthPayload } from "../src/health.js";
+import {
+  insertService,
+  listPublicServices,
+  listServices,
+  updateService,
+} from "../src/models/Service.js";
 import { DEFAULT_SERVICES } from "../../shared/defaultServices.js";
-import { getAllSettings, updateSettings } from "../src/models/Settings.js";
+import { getAllSettings, getSetting, updateSettings } from "../src/models/Settings.js";
 
 describe("admin catalog persistence", () => {
   const dirs = [];
@@ -87,7 +95,7 @@ describe("admin catalog persistence", () => {
     assert.ok(fs.existsSync(dest));
   });
 
-  it("restores the full hardcoded catalog on seed", () => {
+  it("seeds the default catalog only when the store is empty", () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-empty-hard-"));
     dirs.push(dir);
     initDatabase(path.join(dir, "unused.db"), {
@@ -102,32 +110,44 @@ describe("admin catalog persistence", () => {
       descriptionAr: "ar",
       prices: { month: 1, year: 8 },
     });
-    seedDatabase();
-    assert.equal(listServices().length, DEFAULT_SERVICES.length);
-    assert.equal(listServices().some((s) => s.id === "live-row"), false);
+    const first = seedDatabase();
+    assert.equal(first.catalogSeededThisBoot, false);
+    assert.equal(listServices().length, 1);
+    assert.equal(listServices()[0].id, "live-row");
+    assert.equal(getSetting("catalogSeeded"), true);
+  });
+
+  it("keeps renamed services after close, reopen, and seed", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-rename-"));
+    dirs.push(dir);
+    const jsonPath = path.join(dir, "globalstore.json");
+    initDatabase(path.join(dir, "unused.db"), { engine: "json", jsonPath });
+    const seeded = seedDatabase();
+    assert.equal(seeded.catalogSeededThisBoot, true);
+
+    const original = listServices().find((s) => s.id === "youtube-premium");
+    assert.ok(original);
+    updateService("youtube-premium", { nameEn: "YouTube Bahrain Live" });
+
+    closeDatabase();
+    initDatabase(path.join(dir, "unused.db"), { engine: "json", jsonPath });
+    const again = seedDatabase();
+    assert.equal(again.catalogSeededThisBoot, false);
+    assert.equal(getLastSeedResult().catalogSeededThisBoot, false);
+
+    const renamed = listServices().find((s) => s.id === "youtube-premium");
+    assert.equal(renamed.nameEn, "YouTube Bahrain Live");
     assert.ok(listServices().some((s) => s.id === "netflix-prime-combo"));
   });
 
-  it("restores hardcoded services on every seed", () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-hard-"));
+  it("does not delete admin-added services on later seeds", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-extra-"));
     dirs.push(dir);
     initDatabase(path.join(dir, "unused.db"), {
       engine: "json",
       jsonPath: path.join(dir, "globalstore.json"),
     });
     seedDatabase();
-    const catalog = [
-      {
-        id: "hard-one",
-        nameEn: "Hard One",
-        nameAr: "واحد",
-        descriptionEn: "EN one",
-        descriptionAr: "AR one",
-        prices: { month: 1, year: 8 },
-        imageFile: "HardOne.JPG",
-      },
-    ];
-    syncHardcodedServices(catalog);
     insertService({
       id: "extra-admin",
       nameEn: "Extra",
@@ -136,11 +156,68 @@ describe("admin catalog persistence", () => {
       descriptionAr: "ar",
       prices: { month: 2, year: 9 },
     });
-    syncHardcodedServices(catalog);
+    seedDatabase();
     const listed = listServices();
-    assert.equal(listed.length, 1);
-    assert.equal(listed[0].id, "hard-one");
-    assert.equal(listed[0].imageUrl, "/images/HardOne.JPG");
-    assert.equal(listed[0].prices.month, 1);
+    assert.ok(listed.some((s) => s.id === "extra-admin"));
+    assert.ok(listed.length > DEFAULT_SERVICES.length);
+  });
+
+  it("reports durable health fields after seed-once", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-health-"));
+    dirs.push(dir);
+    initDatabase(path.join(dir, "unused.db"), {
+      engine: "json",
+      jsonPath: path.join(dir, "globalstore.json"),
+    });
+    seedDatabase();
+    const health = getHealthPayload();
+    assert.equal(health.ok, true);
+    assert.equal(health.catalogSeeded, true);
+    assert.equal(health.catalogSeededThisBoot, true);
+    assert.equal(health.dataDir, getDataDir());
+    assert.ok(health.storePath);
+    assert.ok(health.snapshotSavedAt);
+    assert.equal(typeof health.dataDirInsideApp, "boolean");
+    assert.equal(isInsideAppTree(dir, dir), true);
+
+    seedDatabase();
+    assert.equal(getHealthPayload().catalogSeededThisBoot, false);
+  });
+
+  it("hides expired offers from the public catalog only", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-offer-"));
+    dirs.push(dir);
+    initDatabase(path.join(dir, "unused.db"), {
+      engine: "json",
+      jsonPath: path.join(dir, "globalstore.json"),
+    });
+    seedDatabase();
+    insertService({
+      id: "eid-offer-row",
+      nameEn: "Eid Deal",
+      nameAr: "عيد",
+      descriptionEn: "en",
+      descriptionAr: "ar",
+      prices: { month: 1, year: 8 },
+      offerType: "eid",
+      offerExpiresAt: new Date(Date.now() - 1000).toISOString(),
+    });
+    insertService({
+      id: "special-offer-row",
+      nameEn: "Special Deal",
+      nameAr: "خاص",
+      descriptionEn: "en",
+      descriptionAr: "ar",
+      prices: { month: 2, year: 9 },
+      offerType: "special",
+      offerExpiresAt: new Date(Date.now() + 60_000).toISOString(),
+    });
+
+    const adminList = listServices();
+    const publicList = listPublicServices();
+    assert.ok(adminList.some((s) => s.id === "eid-offer-row"));
+    assert.equal(publicList.some((s) => s.id === "eid-offer-row"), false);
+    assert.ok(publicList.some((s) => s.id === "special-offer-row"));
+    assert.ok(publicList.some((s) => s.id === "netflix-prime-combo"));
   });
 });

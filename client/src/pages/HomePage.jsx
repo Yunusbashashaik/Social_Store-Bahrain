@@ -3,11 +3,13 @@ import ServicesSection from "../components/ServicesSection.jsx";
 import { UiIcon } from "../components/UiIcon.jsx";
 import ViewPlansModal from "../components/ViewPlansModal.jsx";
 import { SERVICES, fetchServices, filterServices } from "../data/catalog.js";
+import { filterPublicServices } from "@shared/offers.js";
 import { readLiveServices } from "../lib/liveStore.js";
 import { wallpaperUrl } from "../data/serviceImages.js";
 
 export default function HomePage({ lang, t }) {
   const [services, setServices] = useState(() => readLiveServices() || SERVICES);
+  const [now, setNow] = useState(() => Date.now());
   const [loadError, setLoadError] = useState("");
   const [plansService, setPlansService] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -53,6 +55,11 @@ export default function HomePage({ lang, t }) {
     };
   }, [t.servicesLoadFallback]);
 
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
   const headline = t.heroHeadlineParts || {
     before: t.heroHeadline,
     highlight: "",
@@ -60,9 +67,15 @@ export default function HomePage({ lang, t }) {
   };
 
   const visibleServices = useMemo(
-    () => filterServices(services, searchQuery),
-    [services, searchQuery],
+    () => filterServices(filterPublicServices(services, now), searchQuery),
+    [services, searchQuery, now],
   );
+
+  useEffect(() => {
+    if (plansService && !visibleServices.some((row) => row.id === plansService.id)) {
+      setPlansService(null);
+    }
+  }, [plansService, visibleServices]);
 
   const scrollToServices = () => {
     document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });

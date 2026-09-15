@@ -7,11 +7,25 @@ import { JsonDatabase } from "./jsonDb.js";
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/** Git checkout root (folder that contains `server/` and `app.js`). */
+export const APP_ROOT = path.join(__dirname, "..", "..", "..");
 const LEGACY_DATA_DIR = path.join(__dirname, "..", "..", "data");
+export const LEGACY_APP_DATA_DIR = LEGACY_DATA_DIR;
+export const DEFAULT_DURABLE_DIRNAME = "social-store-bahrain-data";
+export const ROOT_HOST_DATA_DIR = `/root/${DEFAULT_DURABLE_DIRNAME}`;
+export const LOCAL_HOST_DATA_DIR = `/local/${DEFAULT_DURABLE_DIRNAME}`;
 
 export let DATA_DIR = LEGACY_DATA_DIR;
 export let UPLOADS_DIR = path.join(DATA_DIR, "uploads");
 export let SERVICE_UPLOADS_DIR = path.join(UPLOADS_DIR, "services");
+
+const STORE_NAMES = [
+  "globalstore.db",
+  "globalstore.json",
+  "admin-state.json",
+  "globalstore.db-wal",
+];
 
 const SCHEMA_SQL = `
     CREATE TABLE IF NOT EXISTS services (
@@ -28,6 +42,8 @@ const SCHEMA_SQL = `
       price_year REAL NOT NULL DEFAULT 0,
       image_url TEXT,
       out_of_stock INTEGER NOT NULL DEFAULT 0,
+      offer_type TEXT NOT NULL DEFAULT 'none',
+      offer_expires_at TEXT,
       sort_order INTEGER NOT NULL DEFAULT 0,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       updated_at TEXT NOT NULL DEFAULT (datetime('now'))
@@ -54,6 +70,7 @@ const SCHEMA_SQL = `
 let db;
 let activeDbPath;
 let dbEngine = "none";
+let lastMigration = { migrated: false, reason: "not-run" };
 
 function setDataDir(dir) {
   DATA_DIR = dir;
@@ -103,8 +120,83 @@ function mergeMissingFiles(from, to) {
   }
 }
 
+export function getDataDir() {
+  return DATA_DIR;
+}
+
 export function getUploadsDir() {
   return UPLOADS_DIR;
+}
+
+export function getLastMigration() {
+  return lastMigration;
+}
+
+export function isInsideAppTree(dir, appRoot = APP_ROOT) {
+  const resolved = path.resolve(dir);
+  const root = path.resolve(appRoot);
+  return resolved === root || resolved.startsWith(`${root}${path.sep}`);
+}
+
+export function defaultDurableDataDir(
+  appRoot = APP_ROOT,
+  homeDir = os.homedir(),
+) {
+  const parent = path.resolve(appRoot, "..");
+  const fsRoot = path.parse(path.resolve(appRoot)).root;
+  if (parent !== fsRoot && parent !== path.sep) {
+    return path.join(parent, DEFAULT_DURABLE_DIRNAME);
+  }
+  const homeCandidate = path.join(path.resolve(homeDir), DEFAULT_DURABLE_DIRNAME);
+  if (!isInsideAppTree(homeCandidate, appRoot)) {
+    return homeCandidate;
+  }
+  return LOCAL_HOST_DATA_DIR;
+}
+
+export function durableDataDirCandidates(appRoot = APP_ROOT, homeDir = os.homedir()) {
+  const parent = path.resolve(appRoot, "..");
+  const fsRoot = path.parse(path.resolve(appRoot)).root;
+  const list = [
+    LOCAL_HOST_DATA_DIR,
+    ROOT_HOST_DATA_DIR,
+    path.join(path.resolve(homeDir), DEFAULT_DURABLE_DIRNAME),
+    "/var/lib/social-store-bahrain-data",
+    "/opt/social-store-bahrain-data",
+    "/data/social-store-bahrain-data",
+    "/mnt/social-store-bahrain-data",
+  ];
+  if (parent !== fsRoot && parent !== path.sep) {
+    list.unshift(path.join(parent, DEFAULT_DURABLE_DIRNAME));
+  }
+  const unique = [];
+  const seen = new Set();
+  for (const item of list) {
+    const resolved = path.resolve(item);
+    if (seen.has(resolved)) continue;
+    if (isInsideAppTree(resolved, appRoot)) continue;
+    seen.add(resolved);
+    unique.push(resolved);
+  }
+  return unique;
+}
+
+function canWriteDir(dir) {
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+    fs.accessSync(dir, fs.constants.W_OK);
+    const probe = path.join(dir, `.write-probe-${process.pid}`);
+    fs.writeFileSync(probe, "ok");
+    fs.unlinkSync(probe);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function storeArtifactsPresent(dir) {
+  if (!dir || !fs.existsSync(dir)) return false;
+  return STORE_NAMES.some((name) => fs.existsSync(path.join(dir, name)));
 }
 
 export function getServiceUploadsDir() {
@@ -112,15 +204,26 @@ export function getServiceUploadsDir() {
 }
 
 /** Keep live catalog outside the git/app folder so deploys cannot wipe admin edits. */
-export function resolveProductionDataDir() {
+export function resolveProductionDataDir(options = {}) {
+  if (options.dataDir) return path.resolve(options.dataDir);
   if (process.env.DATA_DIR) return path.resolve(process.env.DATA_DIR);
+  if (options.dbPath) return path.dirname(path.resolve(options.dbPath));
+  if (options.jsonPath) return path.dirname(path.resolve(options.jsonPath));
   if (process.env.DATABASE_PATH) {
     return path.dirname(path.resolve(process.env.DATABASE_PATH));
   }
-  const home = os.homedir();
-  if (home && home !== "/") {
-    return path.join(home, "social-store-bahrain-data");
+  if (process.env.JSON_DATABASE_PATH) {
+    return path.dirname(path.resolve(process.env.JSON_DATABASE_PATH));
   }
+  const candidates = durableDataDirCandidates();
+  for (const dir of candidates) {
+    if (storeArtifactsPresent(dir) && canWriteDir(dir)) return dir;
+  }
+  for (const dir of candidates) {
+    if (canWriteDir(dir)) return dir;
+  }
+  const preferred = defaultDurableDataDir();
+  if (canWriteDir(preferred)) return preferred;
   return LEGACY_DATA_DIR;
 }
 
@@ -143,8 +246,14 @@ export function migrateLegacyDataDir(fromDir, toDir) {
     }
   }
   copyDirIfMissing(path.join(fromDir, "uploads"), path.join(toDir, "uploads"));
+  copyIfMissing(path.join(fromDir, "admin-state.json"), path.join(toDir, "admin-state.json"));
   removeJsonBackupFiles(fromDir);
   removeJsonBackupFiles(toDir);
+  if (copied) {
+    lastMigration = { migrated: true, reason: "copied-legacy", from: fromDir, to: toDir };
+  } else if (lastMigration.reason === "not-run") {
+    lastMigration = { migrated: false, reason: copied ? "copied-legacy" : "no-copy" };
+  }
   return copied;
 }
 
@@ -163,6 +272,19 @@ export function getDb() {
   return db;
 }
 
+function migrateSqlite(sqlite) {
+  const cols = sqlite
+    .prepare("PRAGMA table_info(services)")
+    .all()
+    .map((col) => col.name);
+  if (!cols.includes("offer_type")) {
+    sqlite.exec("ALTER TABLE services ADD COLUMN offer_type TEXT NOT NULL DEFAULT 'none'");
+  }
+  if (!cols.includes("offer_expires_at")) {
+    sqlite.exec("ALTER TABLE services ADD COLUMN offer_expires_at TEXT");
+  }
+}
+
 function openSqlite(dbPath) {
   const Database = require("better-sqlite3");
   const sqlite = new Database(dbPath);
@@ -170,18 +292,41 @@ function openSqlite(dbPath) {
   sqlite.pragma("synchronous = FULL");
   sqlite.pragma("foreign_keys = ON");
   sqlite.exec(SCHEMA_SQL);
+  migrateSqlite(sqlite);
   return sqlite;
 }
 
+export function getActiveStorePath() {
+  return activeDbPath || getDbPath();
+}
+
+export function flushActiveStore() {
+  if (!db) return;
+  if (dbEngine === "sqlite") {
+    try {
+      db.pragma("wal_checkpoint(TRUNCATE)");
+    } catch {
+      /* ignore */
+    }
+  } else if (typeof db.save === "function") {
+    db.save();
+  }
+}
+
 export function initDatabase(dbPath, options = {}) {
-  if (dbPath || options.jsonPath) {
-    setDataDir(path.dirname(path.resolve(options.jsonPath || dbPath)));
+  const explicitStore = Boolean(dbPath || options.jsonPath || options.dataDir);
+  if (explicitStore) {
+    setDataDir(
+      path.dirname(path.resolve(options.jsonPath || dbPath || options.dataDir)),
+    );
+    if (options.dataDir) setDataDir(path.resolve(options.dataDir));
+    lastMigration = { migrated: false, reason: "explicit-store" };
   } else {
-    setDataDir(resolveProductionDataDir());
+    setDataDir(resolveProductionDataDir(options));
     migrateLegacyDataDir(LEGACY_DATA_DIR, DATA_DIR);
-    dbPath = getDbPath();
   }
 
+  if (!dbPath) dbPath = getDbPath();
   fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.mkdirSync(SERVICE_UPLOADS_DIR, { recursive: true });
   fs.mkdirSync(path.dirname(dbPath), { recursive: true });
@@ -225,6 +370,7 @@ export function initDatabase(dbPath, options = {}) {
 export function closeDatabase() {
   if (db) {
     try {
+      flushActiveStore();
       db.close();
     } catch {
       /* ignore */

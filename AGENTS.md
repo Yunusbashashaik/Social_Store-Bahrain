@@ -23,7 +23,7 @@ Vite proxies `/api` to port **3001** during development. For production-style se
 
 ### Dynamic database
 
-Catalog, site settings (complaint email, WhatsApp numbers, About Us, social links), and complaints persist in **`~/social-store-bahrain-data/`** (override with `DATA_DIR` / `DATABASE_PATH`). Hardcoded services in `shared/defaultServices.js` are restored on every Node start when that list is not empty. Uploaded images live under that folder’s `uploads/services/` and are served from `/api/uploads/...`. Bundled service JPEGs live in `client/public/images/`. Public pages load live data via `GET /api/services` and `GET /api/settings`. If the API is down, the browser uses the last live catalog, then the hardcoded source list.
+Catalog, site settings (complaint email, WhatsApp numbers, About Us, social links), and complaints persist in **`~/social-store-bahrain-data/`** (override with `DATA_DIR` / `DATABASE_PATH`). Hardcoded services in `shared/defaultServices.js` are inserted **once** when the durable store is empty. Later Node restarts keep admin names, prices, photos, and extra services. Uploaded images live under that folder’s `uploads/services/` and are served from `/api/uploads/...`. Bundled service JPEGs live in `client/public/images/`. Public pages load live data via `GET /api/services` and `GET /api/settings`. If the API is down, the browser uses the last live catalog, then the hardcoded source list. Expired limited-time offers are omitted from the public catalog but remain visible in Admin.
 
 ### Complaint email
 
@@ -40,3 +40,4 @@ Click the header Admin icon to open a **modal** (no separate `/admin` page). Aft
 - WhatsApp buttons open `wa.me` in a new tab (external; no local WhatsApp service). Numbers come from the database settings.
 - Arabic mode toggles `body.rtl` and persists language in `localStorage` key `globalstores_lang`.
 - Services with price `0` / `outOfStock` show an Out of Stock badge and disable Add to Cart.
+- Optional Eid/Special offers show a countdown badge in place of Out of Stock while active and disappear from the store when they expire.

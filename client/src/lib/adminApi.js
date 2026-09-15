@@ -1,4 +1,5 @@
 import { SERVICES } from "../data/catalog.js";
+import { filterPublicServices } from "@shared/offers.js";
 import {
   readLiveServices,
   readLiveSettings,
@@ -165,6 +166,10 @@ export async function adminCreateService(token, payload, imageFile) {
   formData.append("descriptionAr", payload.descriptionAr || "");
   formData.append("priceMonth", String(payload.prices?.month ?? ""));
   formData.append("priceYear", String(payload.prices?.year ?? ""));
+  formData.append("offerType", payload.offerType || "none");
+  if (payload.offerExpiresAt) {
+    formData.append("offerExpiresAt", payload.offerExpiresAt);
+  }
   if (payload.outOfStock !== undefined) {
     formData.append("outOfStock", String(Boolean(payload.outOfStock)));
   }
@@ -197,6 +202,12 @@ export async function adminSaveService(token, id, payload, imageFile) {
     }
     if (payload.outOfStock !== undefined) {
       formData.append("outOfStock", String(Boolean(payload.outOfStock)));
+    }
+    if (payload.offerType !== undefined) {
+      formData.append("offerType", payload.offerType || "none");
+    }
+    if (payload.offerExpiresAt !== undefined) {
+      formData.append("offerExpiresAt", payload.offerExpiresAt || "");
     }
     formData.append("image", imageFile);
     const data = await requestJson(`/api/admin/services/${id}`, {
@@ -259,9 +270,10 @@ export async function fetchPublicServices() {
   if (await hasBackendApi()) {
     try {
       const data = await requestJson("/api/services");
-      if (Array.isArray(data.services) && (data.services.length || !SERVICES.length)) {
-        writeLiveServices(data.services);
-        return data.services;
+      if (Array.isArray(data.services)) {
+        const publicList = filterPublicServices(data.services);
+        writeLiveServices(publicList);
+        return publicList;
       }
     } catch {
       /* use last saved live catalog */

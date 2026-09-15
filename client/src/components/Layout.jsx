@@ -9,6 +9,7 @@ import {
   nextSupportNumber,
   setSupportNumbers,
 } from "../data/catalog.js";
+import { filterPublicServices } from "@shared/offers.js";
 import { useSettings } from "../context/SettingsContext.jsx";
 import { DEFAULT_SETTINGS } from "../data/defaultSettings.js";
 import AdminPanel from "./AdminPanel.jsx";
@@ -117,10 +118,11 @@ export default function Layout({ lang, setLang, t }) {
   }, [cartOpen]);
 
   const featured = useMemo(() => {
-    const byId = new Map(services.map((s) => [s.id, s]));
+    const live = filterPublicServices(services);
+    const byId = new Map(live.map((s) => [s.id, s]));
     const picked = FEATURED_SERVICE_IDS.map((id) => byId.get(id)).filter(Boolean);
     if (picked.length >= 3) return picked.slice(0, 3);
-    return services.slice(0, 3);
+    return live.slice(0, 3);
   }, [services]);
 
   const openFab = useCallback(() => {
