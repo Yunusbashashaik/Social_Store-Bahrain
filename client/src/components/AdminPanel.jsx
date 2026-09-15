@@ -1094,6 +1094,38 @@ function ServiceForm({
           disabled={disabled}
         />
       </label>
+      <label>
+        {t.adminOfferType}
+        <select
+          value={draft.offerType || "none"}
+          onChange={(e) =>
+            setDraft((d) => ({
+              ...d,
+              offerType: e.target.value,
+              offerExpiresAt: e.target.value === "none" ? "" : d.offerExpiresAt,
+            }))
+          }
+          disabled={disabled}
+        >
+          <option value="none">{t.adminOfferNone}</option>
+          <option value="eid">{t.offerEid}</option>
+          <option value="special">{t.offerSpecial}</option>
+        </select>
+      </label>
+      {draft.offerType && draft.offerType !== "none" ? (
+        <label>
+          {t.adminOfferExpires}
+          <input
+            type="datetime-local"
+            value={draft.offerExpiresAt || ""}
+            onChange={(e) =>
+              setDraft((d) => ({ ...d, offerExpiresAt: e.target.value }))
+            }
+            required
+            disabled={disabled}
+          />
+        </label>
+      ) : null}
       <div className="admin-price-row">
         <label>
           {t.adminPriceMonth}
@@ -1130,38 +1162,6 @@ function ServiceForm({
           />
         </label>
       </div>
-      <label>
-        {t.adminOfferType}
-        <select
-          value={draft.offerType || "none"}
-          onChange={(e) =>
-            setDraft((d) => ({
-              ...d,
-              offerType: e.target.value,
-              offerExpiresAt: e.target.value === "none" ? "" : d.offerExpiresAt,
-            }))
-          }
-          disabled={disabled}
-        >
-          <option value="none">{t.adminOfferNone}</option>
-          <option value="eid">{t.offerEid}</option>
-          <option value="special">{t.offerSpecial}</option>
-        </select>
-      </label>
-      {draft.offerType && draft.offerType !== "none" ? (
-        <label>
-          {t.adminOfferExpires}
-          <input
-            type="datetime-local"
-            value={draft.offerExpiresAt || ""}
-            onChange={(e) =>
-              setDraft((d) => ({ ...d, offerExpiresAt: e.target.value }))
-            }
-            required
-            disabled={disabled}
-          />
-        </label>
-      ) : null}
       <p className="admin-hint">{t.adminOutOfStockHint}</p>
       <p className="admin-hint">{t.adminOfferHint}</p>
       {error ? <p className="error-text">{error}</p> : null}
