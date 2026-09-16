@@ -3,6 +3,7 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 import { fileURLToPath } from "url";
+import { isCustomAdminState, snapshotSavedAtMs } from "./catalogCompare.js";
 import { JsonDatabase } from "./jsonDb.js";
 
 const require = createRequire(import.meta.url);
@@ -15,6 +16,7 @@ export const LEGACY_APP_DATA_DIR = LEGACY_DATA_DIR;
 export const DEFAULT_DURABLE_DIRNAME = "social-store-bahrain-data";
 export const ROOT_HOST_DATA_DIR = `/root/${DEFAULT_DURABLE_DIRNAME}`;
 export const LOCAL_HOST_DATA_DIR = `/local/${DEFAULT_DURABLE_DIRNAME}`;
+export const ADMIN_SNAPSHOT_NAME = "admin-state.json";
 
 export let DATA_DIR = LEGACY_DATA_DIR;
 export let UPLOADS_DIR = path.join(DATA_DIR, "uploads");
@@ -71,6 +73,45 @@ let db;
 let activeDbPath;
 let dbEngine = "none";
 let lastMigration = { migrated: false, reason: "not-run" };
+let hostMirrorsEnabled = false;
+
+export function getLocalHostDataDir() {
+  return path.resolve(process.env.LOCAL_HOST_DATA_DIR || LOCAL_HOST_DATA_DIR);
+}
+
+export function getRootHostDataDir() {
+  return path.resolve(process.env.ROOT_HOST_DATA_DIR || ROOT_HOST_DATA_DIR);
+}
+
+export function getHomeHostDataDir(homeDir = process.env.HOME || os.homedir()) {
+  return path.join(path.resolve(homeDir), DEFAULT_DURABLE_DIRNAME);
+}
+
+export function getHostMirrorDirs(homeDir = process.env.HOME || os.homedir()) {
+  const dirs = [
+    getLocalHostDataDir(),
+    getRootHostDataDir(),
+    getHomeHostDataDir(homeDir),
+  ];
+  if (process.env.DATA_DIR) dirs.push(path.resolve(process.env.DATA_DIR));
+  const unique = [];
+  const seen = new Set();
+  for (const dir of dirs) {
+    const resolved = path.resolve(dir);
+    if (seen.has(resolved) || isInsideAppTree(resolved)) continue;
+    seen.add(resolved);
+    unique.push(resolved);
+  }
+  return unique;
+}
+
+export function getHostMirrorsEnabled() {
+  return hostMirrorsEnabled;
+}
+
+export function setHostMirrorsEnabled(enabled) {
+  hostMirrorsEnabled = Boolean(enabled);
+}
 
 function setDataDir(dir) {
   DATA_DIR = dir;
@@ -140,7 +181,7 @@ export function isInsideAppTree(dir, appRoot = APP_ROOT) {
 
 export function defaultDurableDataDir(
   appRoot = APP_ROOT,
-  homeDir = os.homedir(),
+  homeDir = process.env.HOME || os.homedir(),
 ) {
   const parent = path.resolve(appRoot, "..");
   const fsRoot = path.parse(path.resolve(appRoot)).root;
@@ -151,16 +192,16 @@ export function defaultDurableDataDir(
   if (!isInsideAppTree(homeCandidate, appRoot)) {
     return homeCandidate;
   }
-  return LOCAL_HOST_DATA_DIR;
+  return getLocalHostDataDir();
 }
 
-export function durableDataDirCandidates(appRoot = APP_ROOT, homeDir = os.homedir()) {
+export function durableDataDirCandidates(appRoot = APP_ROOT, homeDir = process.env.HOME || os.homedir()) {
   const parent = path.resolve(appRoot, "..");
   const fsRoot = path.parse(path.resolve(appRoot)).root;
   const list = [
-    LOCAL_HOST_DATA_DIR,
-    ROOT_HOST_DATA_DIR,
-    path.join(path.resolve(homeDir), DEFAULT_DURABLE_DIRNAME),
+    getLocalHostDataDir(),
+    getRootHostDataDir(),
+    getHomeHostDataDir(homeDir),
     "/var/lib/social-store-bahrain-data",
     "/opt/social-store-bahrain-data",
     "/data/social-store-bahrain-data",
@@ -199,6 +240,38 @@ function storeArtifactsPresent(dir) {
   return STORE_NAMES.some((name) => fs.existsSync(path.join(dir, name)));
 }
 
+function readDirSnapshotMeta(dir) {
+  try {
+    const parsed = JSON.parse(
+      fs.readFileSync(path.join(dir, ADMIN_SNAPSHOT_NAME), "utf8"),
+    );
+    return {
+      custom: isCustomAdminState(parsed),
+      savedAt: snapshotSavedAtMs(parsed),
+      count: Array.isArray(parsed.services) ? parsed.services.length : 0,
+    };
+  } catch {
+    return { custom: false, savedAt: 0, count: 0 };
+  }
+}
+
+function pickBestExistingWritableDir(candidates) {
+  const ranked = [];
+  for (const dir of candidates) {
+    if (!storeArtifactsPresent(dir)) continue;
+    if (!canWriteDir(dir)) continue;
+    ranked.push({ dir, meta: readDirSnapshotMeta(dir) });
+  }
+  if (!ranked.length) return null;
+  ranked.sort((a, b) => {
+    const customDelta = Number(b.meta.custom) - Number(a.meta.custom);
+    if (customDelta) return customDelta;
+    if (b.meta.savedAt !== a.meta.savedAt) return b.meta.savedAt - a.meta.savedAt;
+    return b.meta.count - a.meta.count;
+  });
+  return ranked[0].dir;
+}
+
 export function getServiceUploadsDir() {
   return SERVICE_UPLOADS_DIR;
 }
@@ -206,19 +279,26 @@ export function getServiceUploadsDir() {
 /** Keep live catalog outside the git/app folder so deploys cannot wipe admin edits. */
 export function resolveProductionDataDir(options = {}) {
   if (options.dataDir) return path.resolve(options.dataDir);
-  if (process.env.DATA_DIR) return path.resolve(process.env.DATA_DIR);
   if (options.dbPath) return path.dirname(path.resolve(options.dbPath));
   if (options.jsonPath) return path.dirname(path.resolve(options.jsonPath));
-  if (process.env.DATABASE_PATH) {
-    return path.dirname(path.resolve(process.env.DATABASE_PATH));
-  }
-  if (process.env.JSON_DATABASE_PATH) {
-    return path.dirname(path.resolve(process.env.JSON_DATABASE_PATH));
-  }
+
+  const forcedEnv = process.env.DATA_DIR
+    ? path.resolve(process.env.DATA_DIR)
+    : process.env.DATABASE_PATH
+      ? path.dirname(path.resolve(process.env.DATABASE_PATH))
+      : process.env.JSON_DATABASE_PATH
+        ? path.dirname(path.resolve(process.env.JSON_DATABASE_PATH))
+        : null;
+
   const candidates = durableDataDirCandidates();
-  for (const dir of candidates) {
-    if (storeArtifactsPresent(dir) && canWriteDir(dir)) return dir;
+  if (forcedEnv) {
+    const resolvedForced = path.resolve(forcedEnv);
+    if (!candidates.includes(resolvedForced)) candidates.unshift(resolvedForced);
   }
+
+  const bestExisting = pickBestExistingWritableDir(candidates);
+  if (bestExisting) return bestExisting;
+  if (forcedEnv && canWriteDir(forcedEnv)) return forcedEnv;
   for (const dir of candidates) {
     if (canWriteDir(dir)) return dir;
   }
@@ -313,8 +393,20 @@ export function flushActiveStore() {
   }
 }
 
+/**
+ * Production boot (app.js → index.js):
+ * 1. initDatabase() with no explicit path
+ * 2. resolveProductionDataDir prefers an existing custom catalog on
+ *    /local, /root, $HOME (and DATA_DIR) over a wiped empty primary
+ * 3. migrateLegacyDataDir copies missing files only (never overwrites)
+ * 4. seed.js bindPersist (module load) then seedDatabase:
+ *    hydratePersistedAdminState from every durable admin-state.json / store
+ *    THEN factory-seed only on true first boot
+ * 5. persistAdminState mirrors admin-state.json to /local, /root, $HOME
+ */
 export function initDatabase(dbPath, options = {}) {
   const explicitStore = Boolean(dbPath || options.jsonPath || options.dataDir);
+  setHostMirrorsEnabled(options.hostMirrors ?? !explicitStore);
   if (explicitStore) {
     setDataDir(
       path.dirname(path.resolve(options.jsonPath || dbPath || options.dataDir)),
