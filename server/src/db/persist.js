@@ -1,3 +1,4 @@
+import { createRequire } from "module";
 import fs from "fs";
 import path from "path";
 import {
@@ -13,6 +14,8 @@ import {
   catalogMatchesDefaults,
   catalogSignature,
   isCustomAdminState,
+  normalizeSnapshotServices,
+  normalizeSnapshotSettings,
   pickBetterSnapshot,
   settingsMatchDefaults,
   settingsSignature,
@@ -27,6 +30,8 @@ export {
   settingsMatchDefaults,
   snapshotMarksCatalogInitialized,
 };
+
+const require = createRequire(import.meta.url);
 
 let source = null;
 let persistDisabled = 0;
@@ -78,6 +83,16 @@ export function getSnapshotPaths() {
   return [...paths];
 }
 
+export function getBackupStoreDirs() {
+  const dirs = new Set();
+  for (const filePath of getSnapshotPaths()) dirs.add(path.dirname(filePath));
+  if (getHostMirrorsEnabled()) {
+    for (const dir of getHostMirrorDirs()) dirs.add(dir);
+  }
+  dirs.add(path.resolve(getDataDir()));
+  return [...dirs];
+}
+
 function atomicWrite(filePath, data) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   const tmp = `${filePath}.${process.pid}.tmp`;
@@ -105,11 +120,131 @@ function tryReadSnapshot(filePath) {
   try {
     const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
     if (!parsed || typeof parsed !== "object") return null;
+    parsed.services = normalizeSnapshotServices(parsed.services);
+    if (parsed.settings && typeof parsed.settings === "object") {
+      parsed.settings = normalizeSnapshotSettings(parsed.settings);
+    }
     parsed.__path = filePath;
     return parsed;
   } catch {
     return null;
   }
+}
+
+function snapshotFromJsonStore(filePath) {
+  try {
+    const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    if (!parsed || typeof parsed !== "object") return null;
+    const services = normalizeSnapshotServices(parsed.services);
+    const settings = normalizeSnapshotSettings(parsed.settings);
+    if (!services.length && !Object.keys(settings).length) return null;
+    return {
+      version: 1,
+      savedAt: parsed.savedAt || fs.statSync(filePath).mtime.toISOString(),
+      services,
+      settings,
+      __path: filePath,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function snapshotFromSqliteStore(filePath) {
+  try {
+    if (!fs.existsSync(filePath)) return null;
+    const Database = require("better-sqlite3");
+    const sqlite = new Database(filePath, { readonly: true, fileMustExist: true });
+    const rows = sqlite.prepare("SELECT * FROM services").all();
+    const settingRows = sqlite.prepare("SELECT key, value FROM settings").all();
+    sqlite.close();
+    const settings = {};
+    for (const row of settingRows) {
+      settings[row.key] = row.value;
+    }
+    const services = normalizeSnapshotServices(rows);
+    if (!services.length && !Object.keys(settings).length) return null;
+    return {
+      version: 1,
+      savedAt: fs.statSync(filePath).mtime.toISOString(),
+      services,
+      settings: normalizeSnapshotSettings(settings),
+      __path: filePath,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function collectBackupSnapshots() {
+  const found = [];
+  const seen = new Set();
+  for (const filePath of getSnapshotPaths()) {
+    const parsed = tryReadSnapshot(filePath);
+    if (!parsed) continue;
+    seen.add(path.resolve(filePath));
+    found.push(parsed);
+  }
+  for (const dir of getBackupStoreDirs()) {
+    const jsonPath = path.join(dir, "globalstore.json");
+    const dbPath = path.join(dir, "globalstore.db");
+    if (!seen.has(path.resolve(jsonPath))) {
+      const fromJson = snapshotFromJsonStore(jsonPath);
+      if (fromJson) {
+        seen.add(path.resolve(jsonPath));
+        found.push(fromJson);
+      }
+    }
+    if (!seen.has(path.resolve(dbPath))) {
+      const fromDb = snapshotFromSqliteStore(dbPath);
+      if (fromDb) {
+        seen.add(path.resolve(dbPath));
+        found.push(fromDb);
+      }
+    }
+  }
+  return found;
+}
+
+function dirHasStoreArtifact(dir) {
+  if (!dir || !fs.existsSync(dir)) return false;
+  return ["admin-state.json", "globalstore.json", "globalstore.db"].some((name) =>
+    fs.existsSync(path.join(dir, name)),
+  );
+}
+
+function pathWritable(dir) {
+  try {
+    if (!fs.existsSync(dir)) return false;
+    fs.accessSync(dir, fs.constants.W_OK);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function inspectDurablePaths() {
+  const primary = path.resolve(getDataDir());
+  const dirs = new Set([primary, ...getBackupStoreDirs()]);
+  return [...dirs].map((dir) => {
+    const snapshotPath = path.join(dir, ADMIN_SNAPSHOT_NAME);
+    const snapshot = tryReadSnapshot(snapshotPath) ||
+      snapshotFromJsonStore(path.join(dir, "globalstore.json")) ||
+      snapshotFromSqliteStore(path.join(dir, "globalstore.db"));
+    return {
+      dir,
+      isPrimary: dir === primary,
+      exists: fs.existsSync(dir),
+      writable: pathWritable(dir),
+      hasSnapshot: Boolean(tryReadSnapshot(snapshotPath)),
+      hasStoreArtifact: dirHasStoreArtifact(dir),
+      snapshotPath,
+      snapshotSavedAt: snapshot?.savedAt || null,
+      snapshotServices: Array.isArray(snapshot?.services) ? snapshot.services.length : 0,
+      snapshotCustom: isCustomAdminState(snapshot),
+      sourcePath: snapshot?.__path || null,
+    };
+  });
 }
 
 function persistableSettings(settings = {}) {
@@ -222,16 +357,14 @@ export function persistAdminState() {
 
 export function readAdminSnapshot() {
   let best = null;
-  for (const filePath of getSnapshotPaths()) {
-    const parsed = tryReadSnapshot(filePath);
-    if (!parsed) continue;
+  for (const parsed of collectBackupSnapshots()) {
     best = pickBetterSnapshot(best, parsed);
   }
   return best;
 }
 
 export function hasAnyAdminSnapshot() {
-  return getSnapshotPaths().some((filePath) => Boolean(tryReadSnapshot(filePath)));
+  return collectBackupSnapshots().some((snapshot) => snapshotMarksCatalogInitialized(snapshot));
 }
 
 export function hydratePersistedAdminState() {
@@ -242,7 +375,9 @@ export function hydratePersistedAdminState() {
   const currentSettings = source.getAllSettings();
   const snapSettings =
     snapshot.settings && typeof snapshot.settings === "object" ? snapshot.settings : null;
-  const snapServices = Array.isArray(snapshot.services) ? snapshot.services : [];
+    const snapServices = normalizeSnapshotServices(
+      Array.isArray(snapshot.services) ? snapshot.services : [],
+    );
 
   let restoredServices = false;
   let restoredSettings = false;
@@ -291,6 +426,9 @@ export function hydratePersistedAdminState() {
 
 export function getPersistStatus() {
   const snapshot = readAdminSnapshot();
+  const durablePathStatus = inspectDurablePaths();
+  const primary = durablePathStatus.find((item) => item.isPrimary);
+  const otherCustom = durablePathStatus.some((item) => !item.isPrimary && item.snapshotCustom);
   const existingSnapshotPaths = getSnapshotPaths().filter((filePath) => fs.existsSync(filePath));
   return {
     snapshotSavedAt: snapshot?.savedAt || null,
@@ -304,5 +442,8 @@ export function getPersistStatus() {
       : null,
     preferredSnapshotPath: snapshot?.__path || null,
     lastPersist: lastPersistResult,
+    durablePathStatus,
+    primaryHasSnapshot: Boolean(primary?.hasSnapshot),
+    possibleOvernightWipe: Boolean(primary && !primary.hasSnapshot && otherCustom),
   };
 }

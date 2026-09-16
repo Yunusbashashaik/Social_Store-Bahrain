@@ -83,11 +83,11 @@ export function getRootHostDataDir() {
   return path.resolve(process.env.ROOT_HOST_DATA_DIR || ROOT_HOST_DATA_DIR);
 }
 
-export function getHomeHostDataDir(homeDir = os.homedir()) {
+export function getHomeHostDataDir(homeDir = process.env.HOME || os.homedir()) {
   return path.join(path.resolve(homeDir), DEFAULT_DURABLE_DIRNAME);
 }
 
-export function getHostMirrorDirs(homeDir = os.homedir()) {
+export function getHostMirrorDirs(homeDir = process.env.HOME || os.homedir()) {
   const dirs = [
     getLocalHostDataDir(),
     getRootHostDataDir(),
@@ -181,7 +181,7 @@ export function isInsideAppTree(dir, appRoot = APP_ROOT) {
 
 export function defaultDurableDataDir(
   appRoot = APP_ROOT,
-  homeDir = os.homedir(),
+  homeDir = process.env.HOME || os.homedir(),
 ) {
   const parent = path.resolve(appRoot, "..");
   const fsRoot = path.parse(path.resolve(appRoot)).root;
@@ -195,7 +195,7 @@ export function defaultDurableDataDir(
   return getLocalHostDataDir();
 }
 
-export function durableDataDirCandidates(appRoot = APP_ROOT, homeDir = os.homedir()) {
+export function durableDataDirCandidates(appRoot = APP_ROOT, homeDir = process.env.HOME || os.homedir()) {
   const parent = path.resolve(appRoot, "..");
   const fsRoot = path.parse(path.resolve(appRoot)).root;
   const list = [
@@ -393,6 +393,17 @@ export function flushActiveStore() {
   }
 }
 
+/**
+ * Production boot (app.js → index.js):
+ * 1. initDatabase() with no explicit path
+ * 2. resolveProductionDataDir prefers an existing custom catalog on
+ *    /local, /root, $HOME (and DATA_DIR) over a wiped empty primary
+ * 3. migrateLegacyDataDir copies missing files only (never overwrites)
+ * 4. seed.js bindPersist (module load) then seedDatabase:
+ *    hydratePersistedAdminState from every durable admin-state.json / store
+ *    THEN factory-seed only on true first boot
+ * 5. persistAdminState mirrors admin-state.json to /local, /root, $HOME
+ */
 export function initDatabase(dbPath, options = {}) {
   const explicitStore = Boolean(dbPath || options.jsonPath || options.dataDir);
   setHostMirrorsEnabled(options.hostMirrors ?? !explicitStore);

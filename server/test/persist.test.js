@@ -1,5 +1,7 @@
+import "./isolateDurablePaths.js";
+import { isolatedHomeDir, isolatedLocalDir, isolatedRootDir } from "./isolateDurablePaths.js";
 import assert from "node:assert/strict";
-import { after, describe, it } from "node:test";
+import { after, beforeEach, describe, it } from "node:test";
 import fs from "fs";
 import os from "os";
 import path from "path";
@@ -34,8 +36,22 @@ import {
   writeAdminSnapshot,
 } from "../src/db/persist.js";
 
-describe("admin catalog persistence", () => {
+describe("admin catalog persistence", { concurrency: 1 }, () => {
   const dirs = [];
+
+  function wipeIsolatedMirrors() {
+    for (const dir of [
+      isolatedLocalDir,
+      isolatedRootDir,
+      path.join(isolatedHomeDir, "social-store-bahrain-data"),
+    ]) {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  }
+
+  beforeEach(() => {
+    wipeIsolatedMirrors();
+  });
 
   after(() => {
     closeDatabase();
@@ -193,6 +209,8 @@ describe("admin catalog persistence", () => {
     assert.ok(Array.isArray(health.snapshotWritePaths));
     assert.equal(typeof health.snapshotCustom, "boolean");
     assert.equal(typeof health.catalogMatchesDefaults, "boolean");
+    assert.equal(typeof health.possibleOvernightWipe, "boolean");
+    assert.ok(Array.isArray(health.durablePathStatus));
     assert.equal(isInsideAppTree(dir, dir), true);
 
     seedDatabase();
@@ -237,7 +255,7 @@ describe("admin catalog persistence", () => {
   });
 });
 
-describe("multi-path durable catalog across host mounts", () => {
+describe("multi-path durable catalog across host mounts", { concurrency: 1 }, () => {
   const dirs = [];
   const envKeys = ["HOME", "LOCAL_HOST_DATA_DIR", "ROOT_HOST_DATA_DIR", "DATA_DIR"];
   const previousEnv = {};

@@ -95,6 +95,70 @@ export function pickBetterSnapshot(current, candidate) {
   return current;
 }
 
+export function rowToAdminService(row) {
+  if (!row || typeof row !== "object") return null;
+  if (row.nameEn !== undefined || row.prices) {
+    return {
+      ...row,
+      nameEn: String(row.nameEn || row.name_en || ""),
+      nameAr: String(row.nameAr || row.name_ar || ""),
+      descriptionEn: String(row.descriptionEn || row.description_en || ""),
+      descriptionAr: String(row.descriptionAr || row.description_ar || ""),
+      prices: {
+        month: Number(row.prices?.month ?? row.price_month ?? 0),
+        year: Number(row.prices?.year ?? row.price_year ?? 0),
+      },
+      outOfStock: Boolean(row.outOfStock ?? row.out_of_stock),
+      offerType: row.offerType || row.offer_type || "none",
+      offerExpiresAt: row.offerExpiresAt || row.offer_expires_at || null,
+      imageUrl: row.imageUrl ?? row.image_url ?? null,
+      sortOrder: row.sortOrder ?? row.sort_order,
+    };
+  }
+  return {
+    id: row.id,
+    icon: row.icon || "",
+    accent: row.accent || "#38bdf8",
+    typeEn: row.type_en || row.typeEn || "Shared / Private",
+    typeAr: row.type_ar || row.typeAr || "مشترك / خاص",
+    nameEn: String(row.name_en || ""),
+    nameAr: String(row.name_ar || ""),
+    descriptionEn: String(row.description_en || ""),
+    descriptionAr: String(row.description_ar || ""),
+    prices: {
+      month: Number(row.price_month ?? 0),
+      year: Number(row.price_year ?? 0),
+    },
+    imageUrl: row.image_url || null,
+    outOfStock: Boolean(row.out_of_stock),
+    offerType: row.offer_type || "none",
+    offerExpiresAt: row.offer_expires_at || null,
+    sortOrder: row.sort_order,
+  };
+}
+
+export function normalizeSnapshotServices(services) {
+  return (Array.isArray(services) ? services : []).map(rowToAdminService).filter(Boolean);
+}
+
+export function normalizeSnapshotSettings(settings) {
+  if (!settings || typeof settings !== "object" || Array.isArray(settings)) return {};
+  const out = {};
+  for (const [key, value] of Object.entries(settings)) {
+    if (value === undefined) continue;
+    if (typeof value === "string") {
+      try {
+        out[key] = JSON.parse(value);
+      } catch {
+        out[key] = value;
+      }
+    } else {
+      out[key] = value;
+    }
+  }
+  return out;
+}
+
 export function stateLooksDefaultOrEmpty(services, settings) {
   const list = Array.isArray(services) ? services : [];
   if (list.length === 0) return true;

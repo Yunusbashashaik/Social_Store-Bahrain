@@ -1,3 +1,4 @@
+import path from "path";
 import {
   APP_ROOT,
   getActiveStorePath,
@@ -49,6 +50,14 @@ export function getHealthPayload() {
     existingSnapshotPaths: persist.existingSnapshotPaths,
     preferredSnapshotPath: persist.preferredSnapshotPath,
     lastPersist: persist.lastPersist,
+    durablePathStatus: persist.durablePathStatus,
+    primaryHasSnapshot: persist.primaryHasSnapshot,
+    possibleOvernightWipe: Boolean(
+      persist.possibleOvernightWipe ||
+        (seed.hydrated?.restored &&
+          seed.hydrated?.snapshotPath &&
+          path.resolve(path.dirname(seed.hydrated.snapshotPath)) !== path.resolve(dataDir)),
+    ),
     time: new Date().toISOString(),
   };
 }
