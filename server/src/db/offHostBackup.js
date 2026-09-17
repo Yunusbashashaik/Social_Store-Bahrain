@@ -405,7 +405,8 @@ export function waitForOffHostBackup() {
   return pushChain;
 }
 
+/** Restore off-host only onto an empty live catalog. Never overwrite a non-empty one. */
 export function shouldHydrateFromOffHost(liveServices) {
   const list = Array.isArray(liveServices) ? liveServices : [];
-  return list.length === 0 || catalogMatchesDefaults(list);
+  return list.length === 0;
 }

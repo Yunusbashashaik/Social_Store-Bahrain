@@ -1,7 +1,7 @@
 {
   "version": 1,
   "generation": 5,
-  "savedAt": "2026-09-17T12:16:45.469Z",
+  "savedAt": "2026-09-17T23:32:14.190Z",
   "services": [
     {
       "id": "netflix-prime-combo",
@@ -29,8 +29,8 @@
       "descriptionEn": "🎬 Prime Video Shared Account\n✅ Shared Account Access\n✅ Watch Movies, Series & Amazon Originals\n✅ One Device / One Screen Access\n✅ HD Streaming Available (content dependent)\n✅ Login Warranty Available",
       "descriptionAr": "🎬 حساب برايم فيديو مشترك\n✅ وصول إلى الحساب المشترك\n✅ مشاهدة الأفلام والمسلسلات وأعمال أمازون الأصلية\n✅ جهاز واحد / شاشة واحدة\n✅ بث بجودة HD حسب المحتوى\n✅ ضمان تسجيل الدخول متوفر",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 0.6,
+        "year": 4
       },
       "imageUrl": "/images/Service02.JPG",
       "sortOrder": 1,
@@ -46,8 +46,8 @@
       "descriptionEn": "🎬 Prime Video Private Screen\n✅ Private Screen Access\n✅ Watch Movies, Series & Amazon Originals\n✅ One User / One Screen Access\n✅ HD Streaming Available (content dependent)\n✅ Login Warranty Available",
       "descriptionAr": "🎬 شاشة خاصة برايم فيديو\n✅ وصول إلى شاشة خاصة\n✅ مشاهدة الأفلام والمسلسلات وأعمال أمازون الأصلية\n✅ مستخدم واحد / شاشة واحدة\n✅ بث HD حسب المحتوى\n✅ ضمان تسجيل الدخول متوفر",
       "prices": {
-        "month": 2,
-        "year": 8
+        "month": 1,
+        "year": 6
       },
       "imageUrl": "/images/Service03.JPG",
       "sortOrder": 2,
@@ -63,8 +63,8 @@
       "descriptionEn": "🎬 Prime Video Full Account\n✅ Full Access Account\n✅ Watch Movies, Series & Amazon Originals\n✅ HD / 4K Streaming Support (content dependent)\n✅ Multiple Device Support (as per account plan)\n✅ Login Warranty Available",
       "descriptionAr": "🎬 حساب برايم فيديو كامل\n✅ حساب كامل الصلاحيات\n✅ مشاهدة الأفلام والمسلسلات وأعمال أمازون الأصلية\n✅ دعم بث HD / 4K حسب المحتوى\n✅ دعم أجهزة متعددة حسب الخطة\n✅ ضمان تسجيل الدخول متوفر",
       "prices": {
-        "month": 4,
-        "year": 45
+        "month": 2.5,
+        "year": 15
       },
       "imageUrl": "/images/Service04.JPG",
       "sortOrder": 3,
@@ -80,8 +80,8 @@
       "descriptionEn": "🎬 Netflix Full Account\n✅ Full Account Access\n✅ Multiple Screens Available (Plan Dependent)\n✅ Watch Movies, Series & Originals\n✅ HD / Full HD / 4K Quality (Plan Dependent)\n✅ All Netflix Features Available\n✅ Secure Login Access\n✅ Long-Term Warranty (Terms Apply)",
       "descriptionAr": "🎬 حساب نتفليكس كامل\n✅ وصول كامل إلى الحساب\n✅ شاشات متعددة حسب الخطة\n✅ مشاهدة الأفلام والمسلسلات والمحتوى الأصلي\n✅ جودة HD / Full HD / 4K حسب الخطة\n✅ جميع ميزات نتفليكس متوفرة\n✅ تسجيل دخول آمن\n✅ ضمان طويل الأمد (حسب الشروط)",
       "prices": {
-        "month": 6,
-        "year": 70
+        "month": 6.5,
+        "year": 58
       },
       "imageUrl": "/images/Service05.JPG",
       "sortOrder": 4,
@@ -97,8 +97,8 @@
       "descriptionEn": "🎬 Netflix Private Screen\n✅ Private Account Access\n✅ Only One User / One Screen\n✅ Full HD / 4K Available (Plan Dependent)\n✅ Personal Viewing Experience\n✅ No Sharing With Others\n✅ Stable & Secure Login\n✅ Long-Term Access Warranty (Terms Apply)",
       "descriptionAr": "🎬 شاشة نتفليكس خاصة\n✅ وصول إلى حساب خاص\n✅ مستخدم واحد / شاشة واحدة فقط\n✅ جودة Full HD / 4K حسب الخطة\n✅ تجربة مشاهدة شخصية\n✅ بدون مشاركة مع الآخرين\n✅ تسجيل دخول مستقر وآمن\n✅ ضمان وصول طويل الأمد (حسب الشروط)",
       "prices": {
-        "month": 1.5,
-        "year": 10
+        "month": 2,
+        "year": 16
       },
       "imageUrl": "/images/Service06.JPG",
       "sortOrder": 5,
@@ -200,7 +200,7 @@
       "descriptionAr": "▶️ حساب يوتيوب بريميوم شخصي\n✅ مشاهدة يوتيوب بدون إعلانات\n✅ يتضمن YouTube Music Premium\n✅ تشغيل في الخلفية (مع إغلاق الشاشة / تطبيقات أخرى)\n✅ تحميل الفيديوهات للمشاهدة بدون إنترنت\n✅ يعمل على الهاتف والتابلت والكمبيوتر\n✅ حساب شخصي فقط (مستخدم واحد)\n✅ ضمان تسجيل الدخول متوفر",
       "prices": {
         "month": 1,
-        "year": 8
+        "year": 10
       },
       "imageUrl": "/images/Service12.JPG",
       "sortOrder": 11,
@@ -216,8 +216,8 @@
       "descriptionEn": "🤖 ChatGPT Plus Shared Account\n✅ Access to ChatGPT AI Features\n✅ Advanced AI Models & Tools\n✅ Writing, Coding & Research Assistance\n📱 Working on 1 Device Only\n🔒 Shared Account Access\n⚡ Instant Login Available",
       "descriptionAr": "🤖 حساب ChatGPT Plus مشترك\n✅ الوصول إلى ميزات ChatGPT للذكاء الاصطناعي\n✅ نماذج وأدوات ذكاء اصطناعي متقدمة\n✅ المساعدة في الكتابة والبرمجة والبحث\n📱 يعمل على جهاز واحد فقط\n🔒 وصول إلى حساب مشترك\n⚡ تسجيل دخول فوري متوفر",
       "prices": {
-        "month": 2,
-        "year": 10
+        "month": 2.5,
+        "year": 22
       },
       "imageUrl": "/images/Service13.JPG",
       "sortOrder": 12,
@@ -233,8 +233,8 @@
       "descriptionEn": "🤖 Grok AI Premium Account\n✅ Access to Grok AI Features\n✅ Advanced AI Chatbot & Assistance\n✅ Image Generation & AI Tools\n✅ Fast Response & Premium Features\n📱 Working on 1 Device Only\n🔒 Personal Login Warranty\n⚡ Instant Access Available",
       "descriptionAr": "🤖 حساب Grok AI بريميوم\n✅ الوصول إلى ميزات Grok AI\n✅ مساعد ودردشة ذكاء اصطناعي متقدمة\n✅ إنشاء الصور وأدوات الذكاء الاصطناعي\n✅ استجابة سريعة وميزات بريميوم\n📱 يعمل على جهاز واحد فقط\n🔒 ضمان تسجيل دخول شخصي\n⚡ وصول فوري متوفر",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 2,
+        "year": 19
       },
       "imageUrl": "/images/Service14.JPG",
       "sortOrder": 13,
@@ -268,7 +268,7 @@
       "descriptionAr": "🎨 Canva Pro متوفر\n✅ الوصول إلى القوالب المميزة\n✅ عناصر وصور Pro\n✅ أداة إزالة الخلفية\n✅ ميزة تغيير الحجم السحري\n✅ الوصول إلى Brand Kit\n✅ أدوات تصميم بالذكاء الاصطناعي\n✅ تصدير بجودة عالية\n📱 تسجيل دخول جهاز واحد\n🔒 وصول آمن وموثوق",
       "prices": {
         "month": 1,
-        "year": 8
+        "year": 5
       },
       "imageUrl": "/images/Service16.JPG",
       "sortOrder": 15,
@@ -369,8 +369,8 @@
       "descriptionEn": "🛡️ NordVPN Available\n🌐 Secure & Private Internet Access\n⚡ Fast VPN Servers Worldwide\n🔒 Strong Encryption & Online Protection\n🚫 Hide IP Address & Browse Privately\n🎬 Smooth Streaming & Global Access\n🔐 Subscription Details:\n✅ 1 Device Access\n✅ Fast & Secure Login\n✅ Premium VPN Access\n🚀 NordVPN — Stay Safe & Connected Anywhere.",
       "descriptionAr": "🛡️ نورد VPN متوفر\n🌐 وصول آمن وخاص للإنترنت\n⚡ خوادم VPN سريعة حول العالم\n🔒 تشفير قوي وحماية عبر الإنترنت\n🚫 إخفاء عنوان IP والتصفح بشكل خاص\n🎬 بث سلس ووصول عالمي\n🔐 تفاصيل الاشتراك:\n✅ وصول لجهاز واحد\n✅ تسجيل دخول سريع وآمن\n✅ وصول VPN بريميوم\n🚀 NordVPN — ابقَ آمناً ومتصلًا في أي مكان.",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 1.5,
+        "year": 14
       },
       "imageUrl": "/images/Service22.JPG",
       "sortOrder": 21,
@@ -386,8 +386,8 @@
       "descriptionEn": "🎞️ CapCut Pro Available\n🎬 Advanced Video Editing Tools\n✨ Premium Effects & Filters\n🎵 Pro Music & Templates\n🤖 AI Editing Features\n🖼️ Background Removal & Auto Captions\n📱 Export High Quality Videos\n🔐 Subscription Details:\n✅ Pro Access\n✅ Fast & Secure Login\n✅ Premium Features Unlocked\n🎨 CapCut Pro — Create Professional Videos Easily",
       "descriptionAr": "🎞️ كاب كات برو متوفر\n🎬 أدوات متقدمة لتحرير الفيديو\n✨ تأثيرات وفلاتر مميزة\n🎵 موسيقى وقوالب احترافية\n🤖 ميزات تحرير بالذكاء الاصطناعي\n🖼️ إزالة الخلفية والترجمة التلقائية\n📱 تصدير فيديوهات بجودة عالية\n🔐 تفاصيل الاشتراك:\n✅ وصول Pro\n✅ تسجيل دخول سريع وآمن\n✅ فتح الميزات المميزة\n🎨 CapCut Pro — أنشئ فيديوهات احترافية بسهولة",
       "prices": {
-        "month": 1.5,
-        "year": 8
+        "month": 2.5,
+        "year": 22
       },
       "imageUrl": "/images/Service23.JPG",
       "sortOrder": 22,
@@ -454,8 +454,8 @@
       "descriptionEn": "🦈 Surfshark VPN Available\n🔒 Secure & Private Internet Access\n🌍 Access Content From Anywhere In The World\n⚡ Fast VPN Servers With Unlimited Devices Support\n🛡️ Protect Your Online Privacy And Data\n📱 Easy Setup & Reliable Connection",
       "descriptionAr": "🦈 Surfshark VPN متوفر\n🔒 وصول آمن وخاص للإنترنت\n🌍 الوصول إلى المحتوى من أي مكان في العالم\n⚡ خوادم VPN سريعة مع دعم أجهزة غير محدود\n🛡️ حماية خصوصيتك وبياناتك عبر الإنترنت\n📱 إعداد سهل واتصال موثوق",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 1.5,
+        "year": 15
       },
       "imageUrl": "/images/Service27.JPG",
       "sortOrder": 26,
@@ -488,8 +488,8 @@
       "descriptionEn": "🔒 Proton VPN Premium\n✅ High-Speed Secure VPN Access\n✅ Privacy & Online Protection\n✅ One Device Login Only\n✅ Fast & Reliable Connection",
       "descriptionAr": "🔒 Proton VPN بريميوم\n✅ وصول VPN آمن عالي السرعة\n✅ حماية الخصوصية والأمان عبر الإنترنت\n✅ تسجيل دخول لجهاز واحد فقط\n✅ اتصال سريع وموثوق",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 2,
+        "year": 19
       },
       "imageUrl": "/images/Service29.JPG",
       "sortOrder": 28,
@@ -505,8 +505,8 @@
       "descriptionEn": "🍎 Apple TV+ Available\n🎬 Premium Movies & Original Series\n⭐ Apple Originals & Exclusive Content\n📺 Watch Anytime, Anywhere\n🔥 High Quality Streaming Experience\n✅ Secure Login Warranty",
       "descriptionAr": "🍎 Apple TV+ متوفر\n🎬 أفلام مميزة ومسلسلات أصلية\n⭐ محتوى Apple الأصلي والحصري\n📺 شاهد في أي وقت وأي مكان\n🔥 تجربة بث بجودة عالية\n✅ ضمان تسجيل دخول آمن",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 1.5,
+        "year": 12
       },
       "imageUrl": "/images/Service30.JPG",
       "sortOrder": 29,
@@ -522,8 +522,8 @@
       "descriptionEn": "🎬 HBO Max Available\n⭐ Premium Streaming Service\n🎥 Movies, Web Series & HBO Originals\n🔥 Latest Hollywood Content\n📺 Watch Anytime, Anywhere\n✅ Fast & Reliable Access\n🔐 Secure Login Warranty",
       "descriptionAr": "🎬 HBO Max متوفر\n⭐ خدمة بث بريميوم مميزة\n🎥 أفلام ومسلسلات ومحتوى HBO الأصلي\n🔥 أحدث محتوى هوليوود\n📺 شاهد في أي وقت وأي مكان\n✅ وصول سريع وموثوق\n🔐 ضمان تسجيل دخول آمن",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 1.5,
+        "year": 15
       },
       "imageUrl": "/images/Service31.JPG",
       "sortOrder": 30,
@@ -624,8 +624,8 @@
       "descriptionEn": "🎬 Chaupal Available\n✅ Premium Subscription\n✅ Punjabi, Haryanvi & Regional Content\n✅ HD Quality Streaming\n✅ Fast Activation\n✅ Unlimited Entertainment",
       "descriptionAr": "🎬 تشوبال متوفر\n✅ اشتراك بريميوم\n✅ محتوى بنجابي وهاريانفي ومحتوى إقليمي\n✅ بث بجودة HD\n✅ تفعيل سريع\n✅ ترفيه غير محدود",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 1.5,
+        "year": 12
       },
       "imageUrl": "/images/Service37.JPG",
       "sortOrder": 36,
@@ -659,7 +659,7 @@
       "descriptionAr": "📺 اشتراك IPTV متوفر\n✅ آلاف القنوات التلفزيونية المباشرة\n✅ أفلام ومسلسلات متوفرة\n✅ بث بجودة HD و 4K\n✅ يعمل على التلفزيون الذكي والهاتف والمزيد\n✅ تفعيل ودعم سريع\n📩 تواصل معنا الآن للاشتراك",
       "prices": {
         "month": 1,
-        "year": 8
+        "year": 7
       },
       "imageUrl": "/images/Service39.JPG",
       "sortOrder": 38,
@@ -709,8 +709,8 @@
       "descriptionEn": "📱 WhatsApp Number Available\n🔐 Only Login Warranty Provided\n⚡ Get Active WhatsApp Numbers With Fast Delivery\n✅ Reliable Service With Login Support Only\n🚀 Easy Activation And Smooth Usage Experience\n⚠️ Note: Login Warranty Only. No Replacement After Successful Login.",
       "descriptionAr": "📱 أرقام واتساب متوفرة\n🔐 ضمان تسجيل الدخول فقط متوفر\n⚡ احصل على أرقام واتساب مفعلة مع تسليم سريع\n✅ خدمة موثوقة مع دعم تسجيل الدخول فقط\n🚀 تفعيل سهل وتجربة استخدام سلسة\n⚠️ ملاحظة: ضمان تسجيل الدخول فقط. لا يوجد استبدال بعد نجاح تسجيل الدخول.",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 2,
+        "year": 2
       },
       "imageUrl": "/images/Service42.JPG",
       "sortOrder": 41,
