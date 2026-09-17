@@ -1,16 +1,16 @@
 {
   "version": 1,
   "generation": 5,
-  "savedAt": "2026-09-17T12:16:45.469Z",
+  "savedAt": "2026-09-17T23:31:34.895Z",
   "services": [
     {
       "id": "netflix-prime-combo",
       "accent": "#e50914",
       "imageFile": "Service01.JPG",
-      "nameEn": "🎬 Netflix + Prime Video Combo (One Device)",
-      "nameAr": "🎬 باقة نتفليكس + برايم فيديو",
-      "descriptionEn": "🎬 Netflix + Prime Video Combo\n✅ Netflix + Prime Video Access\n✅ Watch Movies, Series & Originals\n✅ Shared / Private Screen Options Available\n✅ HD / 4K Streaming (content dependent)\n✅ One Device Access\n✅ Login Warranty Available",
-      "descriptionAr": "🎬 باقة نتفليكس + برايم فيديو\n✅ الوصول إلى نتفليكس + برايم فيديو\n✅ مشاهدة الأفلام والمسلسلات والمحتوى الأصلي\n✅ خيارات شاشة مشتركة / خاصة متوفرة\n✅ بث بجودة HD / 4K حسب المحتوى\n✅ جهاز واحد\n✅ ضمان تسجيل الدخول متوفر",
+      "nameEn": "\ud83c\udfac Netflix + Prime Video Combo (One Device)",
+      "nameAr": "\ud83c\udfac \u0628\u0627\u0642\u0629 \u0646\u062a\u0641\u0644\u064a\u0643\u0633 + \u0628\u0631\u0627\u064a\u0645 \u0641\u064a\u062f\u064a\u0648",
+      "descriptionEn": "\ud83c\udfac Netflix + Prime Video Combo\n\u2705 Netflix + Prime Video Access\n\u2705 Watch Movies, Series & Originals\n\u2705 Shared / Private Screen Options Available\n\u2705 HD / 4K Streaming (content dependent)\n\u2705 One Device Access\n\u2705 Login Warranty Available",
+      "descriptionAr": "\ud83c\udfac \u0628\u0627\u0642\u0629 \u0646\u062a\u0641\u0644\u064a\u0643\u0633 + \u0628\u0631\u0627\u064a\u0645 \u0641\u064a\u062f\u064a\u0648\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0646\u062a\u0641\u0644\u064a\u0643\u0633 + \u0628\u0631\u0627\u064a\u0645 \u0641\u064a\u062f\u064a\u0648\n\u2705 \u0645\u0634\u0627\u0647\u062f\u0629 \u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0648\u0627\u0644\u0645\u062d\u062a\u0648\u0649 \u0627\u0644\u0623\u0635\u0644\u064a\n\u2705 \u062e\u064a\u0627\u0631\u0627\u062a \u0634\u0627\u0634\u0629 \u0645\u0634\u062a\u0631\u0643\u0629 / \u062e\u0627\u0635\u0629 \u0645\u062a\u0648\u0641\u0631\u0629\n\u2705 \u0628\u062b \u0628\u062c\u0648\u062f\u0629 HD / 4K \u062d\u0633\u0628 \u0627\u0644\u0645\u062d\u062a\u0648\u0649\n\u2705 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f\n\u2705 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631",
       "prices": {
         "month": 1,
         "year": 8
@@ -24,13 +24,13 @@
       "id": "prime-video-shared",
       "accent": "#00a8e1",
       "imageFile": "Service02.JPG",
-      "nameEn": "🎬 Prime Video Shared Account",
-      "nameAr": "🎬 حساب برايم فيديو مشترك",
-      "descriptionEn": "🎬 Prime Video Shared Account\n✅ Shared Account Access\n✅ Watch Movies, Series & Amazon Originals\n✅ One Device / One Screen Access\n✅ HD Streaming Available (content dependent)\n✅ Login Warranty Available",
-      "descriptionAr": "🎬 حساب برايم فيديو مشترك\n✅ وصول إلى الحساب المشترك\n✅ مشاهدة الأفلام والمسلسلات وأعمال أمازون الأصلية\n✅ جهاز واحد / شاشة واحدة\n✅ بث بجودة HD حسب المحتوى\n✅ ضمان تسجيل الدخول متوفر",
+      "nameEn": "\ud83c\udfac Prime Video Shared Account",
+      "nameAr": "\ud83c\udfac \u062d\u0633\u0627\u0628 \u0628\u0631\u0627\u064a\u0645 \u0641\u064a\u062f\u064a\u0648 \u0645\u0634\u062a\u0631\u0643",
+      "descriptionEn": "\ud83c\udfac Prime Video Shared Account\n\u2705 Shared Account Access\n\u2705 Watch Movies, Series & Amazon Originals\n\u2705 One Device / One Screen Access\n\u2705 HD Streaming Available (content dependent)\n\u2705 Login Warranty Available",
+      "descriptionAr": "\ud83c\udfac \u062d\u0633\u0627\u0628 \u0628\u0631\u0627\u064a\u0645 \u0641\u064a\u062f\u064a\u0648 \u0645\u0634\u062a\u0631\u0643\n\u2705 \u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0627\u0644\u062d\u0633\u0627\u0628 \u0627\u0644\u0645\u0634\u062a\u0631\u0643\n\u2705 \u0645\u0634\u0627\u0647\u062f\u0629 \u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0648\u0623\u0639\u0645\u0627\u0644 \u0623\u0645\u0627\u0632\u0648\u0646 \u0627\u0644\u0623\u0635\u0644\u064a\u0629\n\u2705 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f / \u0634\u0627\u0634\u0629 \u0648\u0627\u062d\u062f\u0629\n\u2705 \u0628\u062b \u0628\u062c\u0648\u062f\u0629 HD \u062d\u0633\u0628 \u0627\u0644\u0645\u062d\u062a\u0648\u0649\n\u2705 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 0.6,
+        "year": 4
       },
       "imageUrl": "/images/Service02.JPG",
       "sortOrder": 1,
@@ -41,13 +41,13 @@
       "id": "prime-video-private",
       "accent": "#00a8e1",
       "imageFile": "Service03.JPG",
-      "nameEn": "🎬 Prime Video Private Screen",
-      "nameAr": "🎬 شاشة خاصة برايم فيديو",
-      "descriptionEn": "🎬 Prime Video Private Screen\n✅ Private Screen Access\n✅ Watch Movies, Series & Amazon Originals\n✅ One User / One Screen Access\n✅ HD Streaming Available (content dependent)\n✅ Login Warranty Available",
-      "descriptionAr": "🎬 شاشة خاصة برايم فيديو\n✅ وصول إلى شاشة خاصة\n✅ مشاهدة الأفلام والمسلسلات وأعمال أمازون الأصلية\n✅ مستخدم واحد / شاشة واحدة\n✅ بث HD حسب المحتوى\n✅ ضمان تسجيل الدخول متوفر",
+      "nameEn": "\ud83c\udfac Prime Video Private Screen",
+      "nameAr": "\ud83c\udfac \u0634\u0627\u0634\u0629 \u062e\u0627\u0635\u0629 \u0628\u0631\u0627\u064a\u0645 \u0641\u064a\u062f\u064a\u0648",
+      "descriptionEn": "\ud83c\udfac Prime Video Private Screen\n\u2705 Private Screen Access\n\u2705 Watch Movies, Series & Amazon Originals\n\u2705 One User / One Screen Access\n\u2705 HD Streaming Available (content dependent)\n\u2705 Login Warranty Available",
+      "descriptionAr": "\ud83c\udfac \u0634\u0627\u0634\u0629 \u062e\u0627\u0635\u0629 \u0628\u0631\u0627\u064a\u0645 \u0641\u064a\u062f\u064a\u0648\n\u2705 \u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0634\u0627\u0634\u0629 \u062e\u0627\u0635\u0629\n\u2705 \u0645\u0634\u0627\u0647\u062f\u0629 \u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0648\u0623\u0639\u0645\u0627\u0644 \u0623\u0645\u0627\u0632\u0648\u0646 \u0627\u0644\u0623\u0635\u0644\u064a\u0629\n\u2705 \u0645\u0633\u062a\u062e\u062f\u0645 \u0648\u0627\u062d\u062f / \u0634\u0627\u0634\u0629 \u0648\u0627\u062d\u062f\u0629\n\u2705 \u0628\u062b HD \u062d\u0633\u0628 \u0627\u0644\u0645\u062d\u062a\u0648\u0649\n\u2705 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631",
       "prices": {
-        "month": 2,
-        "year": 8
+        "month": 1,
+        "year": 6
       },
       "imageUrl": "/images/Service03.JPG",
       "sortOrder": 2,
@@ -58,13 +58,13 @@
       "id": "prime-video-full",
       "accent": "#00a8e1",
       "imageFile": "Service04.JPG",
-      "nameEn": "🎬 Prime Video Full Account",
-      "nameAr": "🎬 حساب برايم فيديو كامل",
-      "descriptionEn": "🎬 Prime Video Full Account\n✅ Full Access Account\n✅ Watch Movies, Series & Amazon Originals\n✅ HD / 4K Streaming Support (content dependent)\n✅ Multiple Device Support (as per account plan)\n✅ Login Warranty Available",
-      "descriptionAr": "🎬 حساب برايم فيديو كامل\n✅ حساب كامل الصلاحيات\n✅ مشاهدة الأفلام والمسلسلات وأعمال أمازون الأصلية\n✅ دعم بث HD / 4K حسب المحتوى\n✅ دعم أجهزة متعددة حسب الخطة\n✅ ضمان تسجيل الدخول متوفر",
+      "nameEn": "\ud83c\udfac Prime Video Full Account",
+      "nameAr": "\ud83c\udfac \u062d\u0633\u0627\u0628 \u0628\u0631\u0627\u064a\u0645 \u0641\u064a\u062f\u064a\u0648 \u0643\u0627\u0645\u0644",
+      "descriptionEn": "\ud83c\udfac Prime Video Full Account\n\u2705 Full Access Account\n\u2705 Watch Movies, Series & Amazon Originals\n\u2705 HD / 4K Streaming Support (content dependent)\n\u2705 Multiple Device Support (as per account plan)\n\u2705 Login Warranty Available",
+      "descriptionAr": "\ud83c\udfac \u062d\u0633\u0627\u0628 \u0628\u0631\u0627\u064a\u0645 \u0641\u064a\u062f\u064a\u0648 \u0643\u0627\u0645\u0644\n\u2705 \u062d\u0633\u0627\u0628 \u0643\u0627\u0645\u0644 \u0627\u0644\u0635\u0644\u0627\u062d\u064a\u0627\u062a\n\u2705 \u0645\u0634\u0627\u0647\u062f\u0629 \u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0648\u0623\u0639\u0645\u0627\u0644 \u0623\u0645\u0627\u0632\u0648\u0646 \u0627\u0644\u0623\u0635\u0644\u064a\u0629\n\u2705 \u062f\u0639\u0645 \u0628\u062b HD / 4K \u062d\u0633\u0628 \u0627\u0644\u0645\u062d\u062a\u0648\u0649\n\u2705 \u062f\u0639\u0645 \u0623\u062c\u0647\u0632\u0629 \u0645\u062a\u0639\u062f\u062f\u0629 \u062d\u0633\u0628 \u0627\u0644\u062e\u0637\u0629\n\u2705 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631",
       "prices": {
-        "month": 4,
-        "year": 45
+        "month": 2.5,
+        "year": 15
       },
       "imageUrl": "/images/Service04.JPG",
       "sortOrder": 3,
@@ -75,13 +75,13 @@
       "id": "netflix-full",
       "accent": "#e50914",
       "imageFile": "Service05.JPG",
-      "nameEn": "🎬 Netflix Full Account",
-      "nameAr": "🎬 حساب نتفليكس كامل",
-      "descriptionEn": "🎬 Netflix Full Account\n✅ Full Account Access\n✅ Multiple Screens Available (Plan Dependent)\n✅ Watch Movies, Series & Originals\n✅ HD / Full HD / 4K Quality (Plan Dependent)\n✅ All Netflix Features Available\n✅ Secure Login Access\n✅ Long-Term Warranty (Terms Apply)",
-      "descriptionAr": "🎬 حساب نتفليكس كامل\n✅ وصول كامل إلى الحساب\n✅ شاشات متعددة حسب الخطة\n✅ مشاهدة الأفلام والمسلسلات والمحتوى الأصلي\n✅ جودة HD / Full HD / 4K حسب الخطة\n✅ جميع ميزات نتفليكس متوفرة\n✅ تسجيل دخول آمن\n✅ ضمان طويل الأمد (حسب الشروط)",
+      "nameEn": "\ud83c\udfac Netflix Full Account",
+      "nameAr": "\ud83c\udfac \u062d\u0633\u0627\u0628 \u0646\u062a\u0641\u0644\u064a\u0643\u0633 \u0643\u0627\u0645\u0644",
+      "descriptionEn": "\ud83c\udfac Netflix Full Account\n\u2705 Full Account Access\n\u2705 Multiple Screens Available (Plan Dependent)\n\u2705 Watch Movies, Series & Originals\n\u2705 HD / Full HD / 4K Quality (Plan Dependent)\n\u2705 All Netflix Features Available\n\u2705 Secure Login Access\n\u2705 Long-Term Warranty (Terms Apply)",
+      "descriptionAr": "\ud83c\udfac \u062d\u0633\u0627\u0628 \u0646\u062a\u0641\u0644\u064a\u0643\u0633 \u0643\u0627\u0645\u0644\n\u2705 \u0648\u0635\u0648\u0644 \u0643\u0627\u0645\u0644 \u0625\u0644\u0649 \u0627\u0644\u062d\u0633\u0627\u0628\n\u2705 \u0634\u0627\u0634\u0627\u062a \u0645\u062a\u0639\u062f\u062f\u0629 \u062d\u0633\u0628 \u0627\u0644\u062e\u0637\u0629\n\u2705 \u0645\u0634\u0627\u0647\u062f\u0629 \u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0648\u0627\u0644\u0645\u062d\u062a\u0648\u0649 \u0627\u0644\u0623\u0635\u0644\u064a\n\u2705 \u062c\u0648\u062f\u0629 HD / Full HD / 4K \u062d\u0633\u0628 \u0627\u0644\u062e\u0637\u0629\n\u2705 \u062c\u0645\u064a\u0639 \u0645\u064a\u0632\u0627\u062a \u0646\u062a\u0641\u0644\u064a\u0643\u0633 \u0645\u062a\u0648\u0641\u0631\u0629\n\u2705 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0622\u0645\u0646\n\u2705 \u0636\u0645\u0627\u0646 \u0637\u0648\u064a\u0644 \u0627\u0644\u0623\u0645\u062f (\u062d\u0633\u0628 \u0627\u0644\u0634\u0631\u0648\u0637)",
       "prices": {
-        "month": 6,
-        "year": 70
+        "month": 6.5,
+        "year": 58
       },
       "imageUrl": "/images/Service05.JPG",
       "sortOrder": 4,
@@ -92,13 +92,13 @@
       "id": "netflix-private",
       "accent": "#e50914",
       "imageFile": "Service06.JPG",
-      "nameEn": "🎬 Netflix Private Screen",
-      "nameAr": "🎬 شاشة نتفليكس خاصة",
-      "descriptionEn": "🎬 Netflix Private Screen\n✅ Private Account Access\n✅ Only One User / One Screen\n✅ Full HD / 4K Available (Plan Dependent)\n✅ Personal Viewing Experience\n✅ No Sharing With Others\n✅ Stable & Secure Login\n✅ Long-Term Access Warranty (Terms Apply)",
-      "descriptionAr": "🎬 شاشة نتفليكس خاصة\n✅ وصول إلى حساب خاص\n✅ مستخدم واحد / شاشة واحدة فقط\n✅ جودة Full HD / 4K حسب الخطة\n✅ تجربة مشاهدة شخصية\n✅ بدون مشاركة مع الآخرين\n✅ تسجيل دخول مستقر وآمن\n✅ ضمان وصول طويل الأمد (حسب الشروط)",
+      "nameEn": "\ud83c\udfac Netflix Private Screen",
+      "nameAr": "\ud83c\udfac \u0634\u0627\u0634\u0629 \u0646\u062a\u0641\u0644\u064a\u0643\u0633 \u062e\u0627\u0635\u0629",
+      "descriptionEn": "\ud83c\udfac Netflix Private Screen\n\u2705 Private Account Access\n\u2705 Only One User / One Screen\n\u2705 Full HD / 4K Available (Plan Dependent)\n\u2705 Personal Viewing Experience\n\u2705 No Sharing With Others\n\u2705 Stable & Secure Login\n\u2705 Long-Term Access Warranty (Terms Apply)",
+      "descriptionAr": "\ud83c\udfac \u0634\u0627\u0634\u0629 \u0646\u062a\u0641\u0644\u064a\u0643\u0633 \u062e\u0627\u0635\u0629\n\u2705 \u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u062d\u0633\u0627\u0628 \u062e\u0627\u0635\n\u2705 \u0645\u0633\u062a\u062e\u062f\u0645 \u0648\u0627\u062d\u062f / \u0634\u0627\u0634\u0629 \u0648\u0627\u062d\u062f\u0629 \u0641\u0642\u0637\n\u2705 \u062c\u0648\u062f\u0629 Full HD / 4K \u062d\u0633\u0628 \u0627\u0644\u062e\u0637\u0629\n\u2705 \u062a\u062c\u0631\u0628\u0629 \u0645\u0634\u0627\u0647\u062f\u0629 \u0634\u062e\u0635\u064a\u0629\n\u2705 \u0628\u062f\u0648\u0646 \u0645\u0634\u0627\u0631\u0643\u0629 \u0645\u0639 \u0627\u0644\u0622\u062e\u0631\u064a\u0646\n\u2705 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0645\u0633\u062a\u0642\u0631 \u0648\u0622\u0645\u0646\n\u2705 \u0636\u0645\u0627\u0646 \u0648\u0635\u0648\u0644 \u0637\u0648\u064a\u0644 \u0627\u0644\u0623\u0645\u062f (\u062d\u0633\u0628 \u0627\u0644\u0634\u0631\u0648\u0637)",
       "prices": {
-        "month": 1.5,
-        "year": 10
+        "month": 2,
+        "year": 16
       },
       "imageUrl": "/images/Service06.JPG",
       "sortOrder": 5,
@@ -109,10 +109,10 @@
       "id": "apple-music-shared",
       "accent": "#fc3c44",
       "imageFile": "Service07.JPG",
-      "nameEn": "🎵 Apple Music Premium Shared Account",
-      "nameAr": "🎵 حساب أبل ميوزك بريميوم مشترك",
-      "descriptionEn": "🎵 Apple Music Premium Shared Account\n📱 Working on 1 Device Only\n✅ 100 Million+ Songs Access\n✅ Ad-Free Music Streaming\n✅ High Quality Audio\n✅ Offline Download Available\n✅ Premium Music Library Access\n✅ Login Warranty Provided\n⚠️ Only One Device Login Allowed\n⚠️ Do Not Change Account Settings / Password",
-      "descriptionAr": "🎵 حساب أبل ميوزك بريميوم مشترك\n📱 يعمل على جهاز واحد فقط\n✅ الوصول إلى أكثر من 100 مليون أغنية\n✅ الاستماع للموسيقى بدون إعلانات\n✅ صوت بجودة عالية\n✅ تحميل الأغاني والاستماع بدون إنترنت\n✅ الوصول إلى مكتبة موسيقى بريميوم\n✅ ضمان تسجيل الدخول متوفر\n⚠️ يسمح بتسجيل دخول جهاز واحد فقط\n⚠️ لا تقم بتغيير إعدادات الحساب / كلمة المرور",
+      "nameEn": "\ud83c\udfb5 Apple Music Premium Shared Account",
+      "nameAr": "\ud83c\udfb5 \u062d\u0633\u0627\u0628 \u0623\u0628\u0644 \u0645\u064a\u0648\u0632\u0643 \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u0634\u062a\u0631\u0643",
+      "descriptionEn": "\ud83c\udfb5 Apple Music Premium Shared Account\n\ud83d\udcf1 Working on 1 Device Only\n\u2705 100 Million+ Songs Access\n\u2705 Ad-Free Music Streaming\n\u2705 High Quality Audio\n\u2705 Offline Download Available\n\u2705 Premium Music Library Access\n\u2705 Login Warranty Provided\n\u26a0\ufe0f Only One Device Login Allowed\n\u26a0\ufe0f Do Not Change Account Settings / Password",
+      "descriptionAr": "\ud83c\udfb5 \u062d\u0633\u0627\u0628 \u0623\u0628\u0644 \u0645\u064a\u0648\u0632\u0643 \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u0634\u062a\u0631\u0643\n\ud83d\udcf1 \u064a\u0639\u0645\u0644 \u0639\u0644\u0649 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0623\u0643\u062b\u0631 \u0645\u0646 100 \u0645\u0644\u064a\u0648\u0646 \u0623\u063a\u0646\u064a\u0629\n\u2705 \u0627\u0644\u0627\u0633\u062a\u0645\u0627\u0639 \u0644\u0644\u0645\u0648\u0633\u064a\u0642\u0649 \u0628\u062f\u0648\u0646 \u0625\u0639\u0644\u0627\u0646\u0627\u062a\n\u2705 \u0635\u0648\u062a \u0628\u062c\u0648\u062f\u0629 \u0639\u0627\u0644\u064a\u0629\n\u2705 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0623\u063a\u0627\u0646\u064a \u0648\u0627\u0644\u0627\u0633\u062a\u0645\u0627\u0639 \u0628\u062f\u0648\u0646 \u0625\u0646\u062a\u0631\u0646\u062a\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0645\u0643\u062a\u0628\u0629 \u0645\u0648\u0633\u064a\u0642\u0649 \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\u2705 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631\n\u26a0\ufe0f \u064a\u0633\u0645\u062d \u0628\u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\u26a0\ufe0f \u0644\u0627 \u062a\u0642\u0645 \u0628\u062a\u063a\u064a\u064a\u0631 \u0625\u0639\u062f\u0627\u062f\u0627\u062a \u0627\u0644\u062d\u0633\u0627\u0628 / \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
       "prices": {
         "month": 0,
         "year": 0
@@ -126,10 +126,10 @@
       "id": "mubi-shared",
       "accent": "#0055ff",
       "imageFile": "Service08.JPG",
-      "nameEn": "🎬 MUBI Premium Shared Account",
-      "nameAr": "🎬 حساب موبي بريميوم مشترك",
-      "descriptionEn": "🎬 MUBI Premium Shared Account\n📱 Working on 1 Device Only\n✅ Curated Collection of Award-Winning Movies\n✅ New Handpicked Film Every Day\n✅ Exclusive Independent & Classic Films\n✅ HD Streaming Quality\n✅ Premium Access Included\n✅ Login Warranty Provided\n⚠️ Only One Device Login Allowed\n⚠️ Do Not Change Email / Password / Account Settings",
-      "descriptionAr": "🎬 حساب موبي بريميوم مشترك\n📱 يعمل على جهاز واحد فقط\n✅ مجموعة مختارة من الأفلام الحائزة على جوائز\n✅ فيلم جديد مختار بعناية كل يوم\n✅ أفلام مستقلة وكلاسيكية حصرية\n✅ جودة بث HD\n✅ وصول بريميوم متوفر\n✅ ضمان تسجيل الدخول متوفر\n⚠️ يسمح بتسجيل دخول جهاز واحد فقط\n⚠️ لا تقم بتغيير البريد الإلكتروني / كلمة المرور / إعدادات الحساب",
+      "nameEn": "\ud83c\udfac MUBI Premium Shared Account",
+      "nameAr": "\ud83c\udfac \u062d\u0633\u0627\u0628 \u0645\u0648\u0628\u064a \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u0634\u062a\u0631\u0643",
+      "descriptionEn": "\ud83c\udfac MUBI Premium Shared Account\n\ud83d\udcf1 Working on 1 Device Only\n\u2705 Curated Collection of Award-Winning Movies\n\u2705 New Handpicked Film Every Day\n\u2705 Exclusive Independent & Classic Films\n\u2705 HD Streaming Quality\n\u2705 Premium Access Included\n\u2705 Login Warranty Provided\n\u26a0\ufe0f Only One Device Login Allowed\n\u26a0\ufe0f Do Not Change Email / Password / Account Settings",
+      "descriptionAr": "\ud83c\udfac \u062d\u0633\u0627\u0628 \u0645\u0648\u0628\u064a \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u0634\u062a\u0631\u0643\n\ud83d\udcf1 \u064a\u0639\u0645\u0644 \u0639\u0644\u0649 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\u2705 \u0645\u062c\u0645\u0648\u0639\u0629 \u0645\u062e\u062a\u0627\u0631\u0629 \u0645\u0646 \u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0627\u0644\u062d\u0627\u0626\u0632\u0629 \u0639\u0644\u0649 \u062c\u0648\u0627\u0626\u0632\n\u2705 \u0641\u064a\u0644\u0645 \u062c\u062f\u064a\u062f \u0645\u062e\u062a\u0627\u0631 \u0628\u0639\u0646\u0627\u064a\u0629 \u0643\u0644 \u064a\u0648\u0645\n\u2705 \u0623\u0641\u0644\u0627\u0645 \u0645\u0633\u062a\u0642\u0644\u0629 \u0648\u0643\u0644\u0627\u0633\u064a\u0643\u064a\u0629 \u062d\u0635\u0631\u064a\u0629\n\u2705 \u062c\u0648\u062f\u0629 \u0628\u062b HD\n\u2705 \u0648\u0635\u0648\u0644 \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u062a\u0648\u0641\u0631\n\u2705 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631\n\u26a0\ufe0f \u064a\u0633\u0645\u062d \u0628\u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\u26a0\ufe0f \u0644\u0627 \u062a\u0642\u0645 \u0628\u062a\u063a\u064a\u064a\u0631 \u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a / \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 / \u0625\u0639\u062f\u0627\u062f\u0627\u062a \u0627\u0644\u062d\u0633\u0627\u0628",
       "prices": {
         "month": 0,
         "year": 0
@@ -143,10 +143,10 @@
       "id": "osn-plus-shared",
       "accent": "#c026d3",
       "imageFile": "Service09.JPG",
-      "nameEn": "🎬 OSN+ Premium Shared Account",
-      "nameAr": "🎬 حساب OSN+ بريميوم مشترك",
-      "descriptionEn": "🎬 OSN+ Premium Shared Account\n📱 Working on 1 Device Only\n✅ Premium Movies & Series Access\n✅ HBO, OSN Originals & Exclusive Content\n✅ HD Streaming Quality\n✅ Ad-Free Experience\n✅ Login Warranty Provided\n⚠️ Only One Device Login Allowed\n⚠️ Do Not Change Email / Password / Account Settings",
-      "descriptionAr": "🎬 حساب OSN+ بريميوم مشترك\n📱 يعمل على جهاز واحد فقط\n✅ الوصول إلى الأفلام والمسلسلات المميزة\n✅ محتوى HBO و OSN الأصلي والحصري\n✅ جودة بث HD\n✅ تجربة مشاهدة بدون إعلانات\n✅ ضمان تسجيل الدخول متوفر\n⚠️ يسمح بتسجيل دخول جهاز واحد فقط\n⚠️ لا تقم بتغيير البريد الإلكتروني / كلمة المرور / إعدادات الحساب",
+      "nameEn": "\ud83c\udfac OSN+ Premium Shared Account",
+      "nameAr": "\ud83c\udfac \u062d\u0633\u0627\u0628 OSN+ \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u0634\u062a\u0631\u0643",
+      "descriptionEn": "\ud83c\udfac OSN+ Premium Shared Account\n\ud83d\udcf1 Working on 1 Device Only\n\u2705 Premium Movies & Series Access\n\u2705 HBO, OSN Originals & Exclusive Content\n\u2705 HD Streaming Quality\n\u2705 Ad-Free Experience\n\u2705 Login Warranty Provided\n\u26a0\ufe0f Only One Device Login Allowed\n\u26a0\ufe0f Do Not Change Email / Password / Account Settings",
+      "descriptionAr": "\ud83c\udfac \u062d\u0633\u0627\u0628 OSN+ \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u0634\u062a\u0631\u0643\n\ud83d\udcf1 \u064a\u0639\u0645\u0644 \u0639\u0644\u0649 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0627\u0644\u0645\u0645\u064a\u0632\u0629\n\u2705 \u0645\u062d\u062a\u0648\u0649 HBO \u0648 OSN \u0627\u0644\u0623\u0635\u0644\u064a \u0648\u0627\u0644\u062d\u0635\u0631\u064a\n\u2705 \u062c\u0648\u062f\u0629 \u0628\u062b HD\n\u2705 \u062a\u062c\u0631\u0628\u0629 \u0645\u0634\u0627\u0647\u062f\u0629 \u0628\u062f\u0648\u0646 \u0625\u0639\u0644\u0627\u0646\u0627\u062a\n\u2705 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631\n\u26a0\ufe0f \u064a\u0633\u0645\u062d \u0628\u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\u26a0\ufe0f \u0644\u0627 \u062a\u0642\u0645 \u0628\u062a\u063a\u064a\u064a\u0631 \u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a / \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 / \u0625\u0639\u062f\u0627\u062f\u0627\u062a \u0627\u0644\u062d\u0633\u0627\u0628",
       "prices": {
         "month": 0,
         "year": 0
@@ -160,10 +160,10 @@
       "id": "crunchyroll-shared",
       "accent": "#f47521",
       "imageFile": "Service10.JPG",
-      "nameEn": "🍥 Crunchyroll Premium Shared Account",
-      "nameAr": "🍥 حساب كرنشي رول بريميوم مشترك",
-      "descriptionEn": "🍥 Crunchyroll Premium Shared Account\n📱 Working on 1 Device Only\n✅ Premium Anime Access\n✅ No Ads Streaming\n✅ HD Quality Available\n✅ Login Warranty Provided\n⚠️ Only One Device Login Allowed\n⚠️ Do Not Change Account Settings / Password",
-      "descriptionAr": "🍥 حساب كرنشي رول بريميوم مشترك\n📱 يعمل على جهاز واحد فقط\n✅ الوصول إلى محتوى الأنمي المميز\n✅ مشاهدة بدون إعلانات\n✅ جودة HD متوفرة\n✅ ضمان تسجيل الدخول متوفر\n⚠️ يسمح بتسجيل دخول جهاز واحد فقط\n⚠️ لا تقم بتغيير إعدادات الحساب / كلمة المرور",
+      "nameEn": "\ud83c\udf65 Crunchyroll Premium Shared Account",
+      "nameAr": "\ud83c\udf65 \u062d\u0633\u0627\u0628 \u0643\u0631\u0646\u0634\u064a \u0631\u0648\u0644 \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u0634\u062a\u0631\u0643",
+      "descriptionEn": "\ud83c\udf65 Crunchyroll Premium Shared Account\n\ud83d\udcf1 Working on 1 Device Only\n\u2705 Premium Anime Access\n\u2705 No Ads Streaming\n\u2705 HD Quality Available\n\u2705 Login Warranty Provided\n\u26a0\ufe0f Only One Device Login Allowed\n\u26a0\ufe0f Do Not Change Account Settings / Password",
+      "descriptionAr": "\ud83c\udf65 \u062d\u0633\u0627\u0628 \u0643\u0631\u0646\u0634\u064a \u0631\u0648\u0644 \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u0634\u062a\u0631\u0643\n\ud83d\udcf1 \u064a\u0639\u0645\u0644 \u0639\u0644\u0649 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0645\u062d\u062a\u0648\u0649 \u0627\u0644\u0623\u0646\u0645\u064a \u0627\u0644\u0645\u0645\u064a\u0632\n\u2705 \u0645\u0634\u0627\u0647\u062f\u0629 \u0628\u062f\u0648\u0646 \u0625\u0639\u0644\u0627\u0646\u0627\u062a\n\u2705 \u062c\u0648\u062f\u0629 HD \u0645\u062a\u0648\u0641\u0631\u0629\n\u2705 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631\n\u26a0\ufe0f \u064a\u0633\u0645\u062d \u0628\u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\u26a0\ufe0f \u0644\u0627 \u062a\u0642\u0645 \u0628\u062a\u063a\u064a\u064a\u0631 \u0625\u0639\u062f\u0627\u062f\u0627\u062a \u0627\u0644\u062d\u0633\u0627\u0628 / \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
       "prices": {
         "month": 1,
         "year": 8
@@ -177,10 +177,10 @@
       "id": "grammarly-premium",
       "accent": "#15c39a",
       "imageFile": "Service11.JPG",
-      "nameEn": "✍️ Grammarly Premium Account",
-      "nameAr": "✍️ حساب Grammarly بريميوم",
-      "descriptionEn": "✍️ Grammarly Premium Account\n✅ Advanced Grammar & Spelling Correction\n✅ AI Writing Suggestions\n✅ Tone & Clarity Improvements\n✅ Plagiarism Checker\n✅ Vocabulary Enhancement\n✅ Writing Style Suggestions\n✅ Works on Browser, Mobile & Desktop\n📌 Plan Type: Premium Account\n📱 Access: Personal Login\n🔐 Login Warranty Available\n⭐ Best For: Students, Writers, Bloggers & Professionals",
-      "descriptionAr": "✍️ حساب Grammarly بريميوم\n✅ تصحيح متقدم للقواعد والإملاء\n✅ اقتراحات الكتابة بالذكاء الاصطناعي\n✅ تحسين النبرة والوضوح\n✅ مدقق الانتحال\n✅ تحسين المفردات\n✅ اقتراحات أسلوب الكتابة\n✅ يعمل على المتصفح والهاتف والكمبيوتر\n📌 نوع الخطة: حساب بريميوم\n📱 الوصول: تسجيل دخول شخصي\n🔐 ضمان تسجيل الدخول متوفر\n⭐ الأفضل للطلاب والكتاب والمدونين والمحترفين",
+      "nameEn": "\u270d\ufe0f Grammarly Premium Account",
+      "nameAr": "\u270d\ufe0f \u062d\u0633\u0627\u0628 Grammarly \u0628\u0631\u064a\u0645\u064a\u0648\u0645",
+      "descriptionEn": "\u270d\ufe0f Grammarly Premium Account\n\u2705 Advanced Grammar & Spelling Correction\n\u2705 AI Writing Suggestions\n\u2705 Tone & Clarity Improvements\n\u2705 Plagiarism Checker\n\u2705 Vocabulary Enhancement\n\u2705 Writing Style Suggestions\n\u2705 Works on Browser, Mobile & Desktop\n\ud83d\udccc Plan Type: Premium Account\n\ud83d\udcf1 Access: Personal Login\n\ud83d\udd10 Login Warranty Available\n\u2b50 Best For: Students, Writers, Bloggers & Professionals",
+      "descriptionAr": "\u270d\ufe0f \u062d\u0633\u0627\u0628 Grammarly \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\u2705 \u062a\u0635\u062d\u064a\u062d \u0645\u062a\u0642\u062f\u0645 \u0644\u0644\u0642\u0648\u0627\u0639\u062f \u0648\u0627\u0644\u0625\u0645\u0644\u0627\u0621\n\u2705 \u0627\u0642\u062a\u0631\u0627\u062d\u0627\u062a \u0627\u0644\u0643\u062a\u0627\u0628\u0629 \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a\n\u2705 \u062a\u062d\u0633\u064a\u0646 \u0627\u0644\u0646\u0628\u0631\u0629 \u0648\u0627\u0644\u0648\u0636\u0648\u062d\n\u2705 \u0645\u062f\u0642\u0642 \u0627\u0644\u0627\u0646\u062a\u062d\u0627\u0644\n\u2705 \u062a\u062d\u0633\u064a\u0646 \u0627\u0644\u0645\u0641\u0631\u062f\u0627\u062a\n\u2705 \u0627\u0642\u062a\u0631\u0627\u062d\u0627\u062a \u0623\u0633\u0644\u0648\u0628 \u0627\u0644\u0643\u062a\u0627\u0628\u0629\n\u2705 \u064a\u0639\u0645\u0644 \u0639\u0644\u0649 \u0627\u0644\u0645\u062a\u0635\u0641\u062d \u0648\u0627\u0644\u0647\u0627\u062a\u0641 \u0648\u0627\u0644\u0643\u0645\u0628\u064a\u0648\u062a\u0631\n\ud83d\udccc \u0646\u0648\u0639 \u0627\u0644\u062e\u0637\u0629: \u062d\u0633\u0627\u0628 \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\ud83d\udcf1 \u0627\u0644\u0648\u0635\u0648\u0644: \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0634\u062e\u0635\u064a\n\ud83d\udd10 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631\n\u2b50 \u0627\u0644\u0623\u0641\u0636\u0644 \u0644\u0644\u0637\u0644\u0627\u0628 \u0648\u0627\u0644\u0643\u062a\u0627\u0628 \u0648\u0627\u0644\u0645\u062f\u0648\u0646\u064a\u0646 \u0648\u0627\u0644\u0645\u062d\u062a\u0631\u0641\u064a\u0646",
       "prices": {
         "month": 1,
         "year": 8
@@ -194,13 +194,13 @@
       "id": "youtube-premium",
       "accent": "#ff0000",
       "imageFile": "Service12.JPG",
-      "nameEn": "▶️ YouTube Premium Personal Account",
-      "nameAr": "▶️ حساب يوتيوب بريميوم شخصي",
-      "descriptionEn": "▶️ YouTube Premium Personal Account\n✅ Ad-Free YouTube Watching\n✅ YouTube Music Premium Included\n✅ Background Play (screen off / other apps)\n✅ Offline Video Downloads\n✅ Works on Mobile, Tablet & PC\n✅ Personal Account Only (1 User)\n✅ Login Warranty Available",
-      "descriptionAr": "▶️ حساب يوتيوب بريميوم شخصي\n✅ مشاهدة يوتيوب بدون إعلانات\n✅ يتضمن YouTube Music Premium\n✅ تشغيل في الخلفية (مع إغلاق الشاشة / تطبيقات أخرى)\n✅ تحميل الفيديوهات للمشاهدة بدون إنترنت\n✅ يعمل على الهاتف والتابلت والكمبيوتر\n✅ حساب شخصي فقط (مستخدم واحد)\n✅ ضمان تسجيل الدخول متوفر",
+      "nameEn": "\u25b6\ufe0f YouTube Premium Personal Account",
+      "nameAr": "\u25b6\ufe0f \u062d\u0633\u0627\u0628 \u064a\u0648\u062a\u064a\u0648\u0628 \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0634\u062e\u0635\u064a",
+      "descriptionEn": "\u25b6\ufe0f YouTube Premium Personal Account\n\u2705 Ad-Free YouTube Watching\n\u2705 YouTube Music Premium Included\n\u2705 Background Play (screen off / other apps)\n\u2705 Offline Video Downloads\n\u2705 Works on Mobile, Tablet & PC\n\u2705 Personal Account Only (1 User)\n\u2705 Login Warranty Available",
+      "descriptionAr": "\u25b6\ufe0f \u062d\u0633\u0627\u0628 \u064a\u0648\u062a\u064a\u0648\u0628 \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0634\u062e\u0635\u064a\n\u2705 \u0645\u0634\u0627\u0647\u062f\u0629 \u064a\u0648\u062a\u064a\u0648\u0628 \u0628\u062f\u0648\u0646 \u0625\u0639\u0644\u0627\u0646\u0627\u062a\n\u2705 \u064a\u062a\u0636\u0645\u0646 YouTube Music Premium\n\u2705 \u062a\u0634\u063a\u064a\u0644 \u0641\u064a \u0627\u0644\u062e\u0644\u0641\u064a\u0629 (\u0645\u0639 \u0625\u063a\u0644\u0627\u0642 \u0627\u0644\u0634\u0627\u0634\u0629 / \u062a\u0637\u0628\u064a\u0642\u0627\u062a \u0623\u062e\u0631\u0649)\n\u2705 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0641\u064a\u062f\u064a\u0648\u0647\u0627\u062a \u0644\u0644\u0645\u0634\u0627\u0647\u062f\u0629 \u0628\u062f\u0648\u0646 \u0625\u0646\u062a\u0631\u0646\u062a\n\u2705 \u064a\u0639\u0645\u0644 \u0639\u0644\u0649 \u0627\u0644\u0647\u0627\u062a\u0641 \u0648\u0627\u0644\u062a\u0627\u0628\u0644\u062a \u0648\u0627\u0644\u0643\u0645\u0628\u064a\u0648\u062a\u0631\n\u2705 \u062d\u0633\u0627\u0628 \u0634\u062e\u0635\u064a \u0641\u0642\u0637 (\u0645\u0633\u062a\u062e\u062f\u0645 \u0648\u0627\u062d\u062f)\n\u2705 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631",
       "prices": {
         "month": 1,
-        "year": 8
+        "year": 10
       },
       "imageUrl": "/images/Service12.JPG",
       "sortOrder": 11,
@@ -211,13 +211,13 @@
       "id": "chatgpt-plus-shared",
       "accent": "#10a37f",
       "imageFile": "Service13.JPG",
-      "nameEn": "🤖 ChatGPT Plus Shared Account",
-      "nameAr": "🤖 حساب ChatGPT Plus مشترك",
-      "descriptionEn": "🤖 ChatGPT Plus Shared Account\n✅ Access to ChatGPT AI Features\n✅ Advanced AI Models & Tools\n✅ Writing, Coding & Research Assistance\n📱 Working on 1 Device Only\n🔒 Shared Account Access\n⚡ Instant Login Available",
-      "descriptionAr": "🤖 حساب ChatGPT Plus مشترك\n✅ الوصول إلى ميزات ChatGPT للذكاء الاصطناعي\n✅ نماذج وأدوات ذكاء اصطناعي متقدمة\n✅ المساعدة في الكتابة والبرمجة والبحث\n📱 يعمل على جهاز واحد فقط\n🔒 وصول إلى حساب مشترك\n⚡ تسجيل دخول فوري متوفر",
+      "nameEn": "\ud83e\udd16 ChatGPT Plus Shared Account",
+      "nameAr": "\ud83e\udd16 \u062d\u0633\u0627\u0628 ChatGPT Plus \u0645\u0634\u062a\u0631\u0643",
+      "descriptionEn": "\ud83e\udd16 ChatGPT Plus Shared Account\n\u2705 Access to ChatGPT AI Features\n\u2705 Advanced AI Models & Tools\n\u2705 Writing, Coding & Research Assistance\n\ud83d\udcf1 Working on 1 Device Only\n\ud83d\udd12 Shared Account Access\n\u26a1 Instant Login Available",
+      "descriptionAr": "\ud83e\udd16 \u062d\u0633\u0627\u0628 ChatGPT Plus \u0645\u0634\u062a\u0631\u0643\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0645\u064a\u0632\u0627\u062a ChatGPT \u0644\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a\n\u2705 \u0646\u0645\u0627\u0630\u062c \u0648\u0623\u062f\u0648\u0627\u062a \u0630\u0643\u0627\u0621 \u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0645\u062a\u0642\u062f\u0645\u0629\n\u2705 \u0627\u0644\u0645\u0633\u0627\u0639\u062f\u0629 \u0641\u064a \u0627\u0644\u0643\u062a\u0627\u0628\u0629 \u0648\u0627\u0644\u0628\u0631\u0645\u062c\u0629 \u0648\u0627\u0644\u0628\u062d\u062b\n\ud83d\udcf1 \u064a\u0639\u0645\u0644 \u0639\u0644\u0649 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\ud83d\udd12 \u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u062d\u0633\u0627\u0628 \u0645\u0634\u062a\u0631\u0643\n\u26a1 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0641\u0648\u0631\u064a \u0645\u062a\u0648\u0641\u0631",
       "prices": {
-        "month": 2,
-        "year": 10
+        "month": 2.5,
+        "year": 22
       },
       "imageUrl": "/images/Service13.JPG",
       "sortOrder": 12,
@@ -228,13 +228,13 @@
       "id": "grok-ai-premium",
       "accent": "#111111",
       "imageFile": "Service14.JPG",
-      "nameEn": "🤖 Grok AI Premium Account",
-      "nameAr": "🤖 حساب Grok AI بريميوم",
-      "descriptionEn": "🤖 Grok AI Premium Account\n✅ Access to Grok AI Features\n✅ Advanced AI Chatbot & Assistance\n✅ Image Generation & AI Tools\n✅ Fast Response & Premium Features\n📱 Working on 1 Device Only\n🔒 Personal Login Warranty\n⚡ Instant Access Available",
-      "descriptionAr": "🤖 حساب Grok AI بريميوم\n✅ الوصول إلى ميزات Grok AI\n✅ مساعد ودردشة ذكاء اصطناعي متقدمة\n✅ إنشاء الصور وأدوات الذكاء الاصطناعي\n✅ استجابة سريعة وميزات بريميوم\n📱 يعمل على جهاز واحد فقط\n🔒 ضمان تسجيل دخول شخصي\n⚡ وصول فوري متوفر",
+      "nameEn": "\ud83e\udd16 Grok AI Premium Account",
+      "nameAr": "\ud83e\udd16 \u062d\u0633\u0627\u0628 Grok AI \u0628\u0631\u064a\u0645\u064a\u0648\u0645",
+      "descriptionEn": "\ud83e\udd16 Grok AI Premium Account\n\u2705 Access to Grok AI Features\n\u2705 Advanced AI Chatbot & Assistance\n\u2705 Image Generation & AI Tools\n\u2705 Fast Response & Premium Features\n\ud83d\udcf1 Working on 1 Device Only\n\ud83d\udd12 Personal Login Warranty\n\u26a1 Instant Access Available",
+      "descriptionAr": "\ud83e\udd16 \u062d\u0633\u0627\u0628 Grok AI \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0645\u064a\u0632\u0627\u062a Grok AI\n\u2705 \u0645\u0633\u0627\u0639\u062f \u0648\u062f\u0631\u062f\u0634\u0629 \u0630\u0643\u0627\u0621 \u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0645\u062a\u0642\u062f\u0645\u0629\n\u2705 \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u0635\u0648\u0631 \u0648\u0623\u062f\u0648\u0627\u062a \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a\n\u2705 \u0627\u0633\u062a\u062c\u0627\u0628\u0629 \u0633\u0631\u064a\u0639\u0629 \u0648\u0645\u064a\u0632\u0627\u062a \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\ud83d\udcf1 \u064a\u0639\u0645\u0644 \u0639\u0644\u0649 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\ud83d\udd12 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0634\u062e\u0635\u064a\n\u26a1 \u0648\u0635\u0648\u0644 \u0641\u0648\u0631\u064a \u0645\u062a\u0648\u0641\u0631",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 2,
+        "year": 19
       },
       "imageUrl": "/images/Service14.JPG",
       "sortOrder": 13,
@@ -245,10 +245,10 @@
       "id": "gemini-ai",
       "accent": "#4285f4",
       "imageFile": "Service15.JPG",
-      "nameEn": "🤖 Gemini AI 18 Months Available",
-      "nameAr": "🤖 Gemini AI متوفر لمدة 18 شهر",
-      "descriptionEn": "🤖 Gemini AI 18 Months Available\n✅ Premium AI Features Access\n✅ Advanced AI Models\n✅ Higher Usage Limits\n✅ AI Writing & Image Generation Tools\n✅ Google Workspace AI Features\n✅ Long-Term Access (18 Months)\n📱 One Device Login\n🔒 Secure & Reliable Access",
-      "descriptionAr": "🤖 Gemini AI متوفر لمدة 18 شهر\n✅ الوصول إلى ميزات الذكاء الاصطناعي المميزة\n✅ نماذج ذكاء اصطناعي متقدمة\n✅ حدود استخدام أعلى\n✅ أدوات كتابة وإنشاء صور بالذكاء الاصطناعي\n✅ ميزات الذكاء الاصطناعي في Google Workspace\n✅ وصول طويل الأمد (18 شهر)\n📱 تسجيل دخول جهاز واحد\n🔒 وصول آمن وموثوق",
+      "nameEn": "\ud83e\udd16 Gemini AI 18 Months Available",
+      "nameAr": "\ud83e\udd16 Gemini AI \u0645\u062a\u0648\u0641\u0631 \u0644\u0645\u062f\u0629 18 \u0634\u0647\u0631",
+      "descriptionEn": "\ud83e\udd16 Gemini AI 18 Months Available\n\u2705 Premium AI Features Access\n\u2705 Advanced AI Models\n\u2705 Higher Usage Limits\n\u2705 AI Writing & Image Generation Tools\n\u2705 Google Workspace AI Features\n\u2705 Long-Term Access (18 Months)\n\ud83d\udcf1 One Device Login\n\ud83d\udd12 Secure & Reliable Access",
+      "descriptionAr": "\ud83e\udd16 Gemini AI \u0645\u062a\u0648\u0641\u0631 \u0644\u0645\u062f\u0629 18 \u0634\u0647\u0631\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0645\u064a\u0632\u0627\u062a \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0627\u0644\u0645\u0645\u064a\u0632\u0629\n\u2705 \u0646\u0645\u0627\u0630\u062c \u0630\u0643\u0627\u0621 \u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0645\u062a\u0642\u062f\u0645\u0629\n\u2705 \u062d\u062f\u0648\u062f \u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0623\u0639\u0644\u0649\n\u2705 \u0623\u062f\u0648\u0627\u062a \u0643\u062a\u0627\u0628\u0629 \u0648\u0625\u0646\u0634\u0627\u0621 \u0635\u0648\u0631 \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a\n\u2705 \u0645\u064a\u0632\u0627\u062a \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0641\u064a Google Workspace\n\u2705 \u0648\u0635\u0648\u0644 \u0637\u0648\u064a\u0644 \u0627\u0644\u0623\u0645\u062f (18 \u0634\u0647\u0631)\n\ud83d\udcf1 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f\n\ud83d\udd12 \u0648\u0635\u0648\u0644 \u0622\u0645\u0646 \u0648\u0645\u0648\u062b\u0648\u0642",
       "prices": {
         "month": 1,
         "year": 8
@@ -262,13 +262,13 @@
       "id": "canva-pro",
       "accent": "#00c4cc",
       "imageFile": "Service16.JPG",
-      "nameEn": "🎨 Canva Pro Available",
-      "nameAr": "🎨 Canva Pro متوفر",
-      "descriptionEn": "🎨 Canva Pro Available\n✅ Premium Templates Access\n✅ Pro Elements & Photos\n✅ Background Remover Tool\n✅ Magic Resize Feature\n✅ Brand Kit Access\n✅ AI Design Tools\n✅ High Quality Export\n📱 One Device Login\n🔒 Secure & Reliable Access",
-      "descriptionAr": "🎨 Canva Pro متوفر\n✅ الوصول إلى القوالب المميزة\n✅ عناصر وصور Pro\n✅ أداة إزالة الخلفية\n✅ ميزة تغيير الحجم السحري\n✅ الوصول إلى Brand Kit\n✅ أدوات تصميم بالذكاء الاصطناعي\n✅ تصدير بجودة عالية\n📱 تسجيل دخول جهاز واحد\n🔒 وصول آمن وموثوق",
+      "nameEn": "\ud83c\udfa8 Canva Pro Available",
+      "nameAr": "\ud83c\udfa8 Canva Pro \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83c\udfa8 Canva Pro Available\n\u2705 Premium Templates Access\n\u2705 Pro Elements & Photos\n\u2705 Background Remover Tool\n\u2705 Magic Resize Feature\n\u2705 Brand Kit Access\n\u2705 AI Design Tools\n\u2705 High Quality Export\n\ud83d\udcf1 One Device Login\n\ud83d\udd12 Secure & Reliable Access",
+      "descriptionAr": "\ud83c\udfa8 Canva Pro \u0645\u062a\u0648\u0641\u0631\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0627\u0644\u0642\u0648\u0627\u0644\u0628 \u0627\u0644\u0645\u0645\u064a\u0632\u0629\n\u2705 \u0639\u0646\u0627\u0635\u0631 \u0648\u0635\u0648\u0631 Pro\n\u2705 \u0623\u062f\u0627\u0629 \u0625\u0632\u0627\u0644\u0629 \u0627\u0644\u062e\u0644\u0641\u064a\u0629\n\u2705 \u0645\u064a\u0632\u0629 \u062a\u063a\u064a\u064a\u0631 \u0627\u0644\u062d\u062c\u0645 \u0627\u0644\u0633\u062d\u0631\u064a\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 Brand Kit\n\u2705 \u0623\u062f\u0648\u0627\u062a \u062a\u0635\u0645\u064a\u0645 \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a\n\u2705 \u062a\u0635\u062f\u064a\u0631 \u0628\u062c\u0648\u062f\u0629 \u0639\u0627\u0644\u064a\u0629\n\ud83d\udcf1 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f\n\ud83d\udd12 \u0648\u0635\u0648\u0644 \u0622\u0645\u0646 \u0648\u0645\u0648\u062b\u0648\u0642",
       "prices": {
         "month": 1,
-        "year": 8
+        "year": 5
       },
       "imageUrl": "/images/Service16.JPG",
       "sortOrder": 15,
@@ -279,10 +279,10 @@
       "id": "disney-plus",
       "accent": "#113ccf",
       "imageFile": "Service17.JPG",
-      "nameEn": "📺 Disney+ Premium Account",
-      "nameAr": "📺 حساب Disney+ بريميوم",
-      "descriptionEn": "📺 Disney+ Premium Account\n📱 Working on 1 Phone Only\n🌍 Works with Paid VPN\n🎬 Watch Movies, Series, Originals & Kids Content\n✨ Premium Streaming Experience\n🔐 Personal Login Access\n⚡ Smooth & Reliable Usage",
-      "descriptionAr": "📺 حساب Disney+ بريميوم\n📱 يعمل على هاتف واحد فقط\n🌍 يعمل مع VPN مدفوع\n🎬 مشاهدة الأفلام والمسلسلات والمحتوى الأصلي ومحتوى الأطفال\n✨ تجربة بث بريميوم\n🔐 وصول تسجيل دخول شخصي\n⚡ استخدام سلس وموثوق",
+      "nameEn": "\ud83d\udcfa Disney+ Premium Account",
+      "nameAr": "\ud83d\udcfa \u062d\u0633\u0627\u0628 Disney+ \u0628\u0631\u064a\u0645\u064a\u0648\u0645",
+      "descriptionEn": "\ud83d\udcfa Disney+ Premium Account\n\ud83d\udcf1 Working on 1 Phone Only\n\ud83c\udf0d Works with Paid VPN\n\ud83c\udfac Watch Movies, Series, Originals & Kids Content\n\u2728 Premium Streaming Experience\n\ud83d\udd10 Personal Login Access\n\u26a1 Smooth & Reliable Usage",
+      "descriptionAr": "\ud83d\udcfa \u062d\u0633\u0627\u0628 Disney+ \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\ud83d\udcf1 \u064a\u0639\u0645\u0644 \u0639\u0644\u0649 \u0647\u0627\u062a\u0641 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\ud83c\udf0d \u064a\u0639\u0645\u0644 \u0645\u0639 VPN \u0645\u062f\u0641\u0648\u0639\n\ud83c\udfac \u0645\u0634\u0627\u0647\u062f\u0629 \u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0648\u0627\u0644\u0645\u062d\u062a\u0648\u0649 \u0627\u0644\u0623\u0635\u0644\u064a \u0648\u0645\u062d\u062a\u0648\u0649 \u0627\u0644\u0623\u0637\u0641\u0627\u0644\n\u2728 \u062a\u062c\u0631\u0628\u0629 \u0628\u062b \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\ud83d\udd10 \u0648\u0635\u0648\u0644 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0634\u062e\u0635\u064a\n\u26a1 \u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0633\u0644\u0633 \u0648\u0645\u0648\u062b\u0648\u0642",
       "prices": {
         "month": 0,
         "year": 0
@@ -296,10 +296,10 @@
       "id": "zee5-premium",
       "accent": "#6d28d9",
       "imageFile": "Service18.JPG",
-      "nameEn": "📺 ZEE5 Premium Account",
-      "nameAr": "📺 حساب ZEE5 بريميوم",
-      "descriptionEn": "📺 ZEE5 Premium Account\n📱 Working on 1 Phone Only\n🌍 Works with Paid VPN\n🎬 Watch Movies, Web Series, TV Shows & Originals\n✨ Premium Streaming Access\n🔐 Personal Login | Smooth Experience",
-      "descriptionAr": "📺 حساب ZEE5 بريميوم\n📱 يعمل على هاتف واحد فقط\n🌍 يعمل مع VPN مدفوع\n🎬 مشاهدة الأفلام والمسلسلات والبرامج والمحتوى الأصلي\n✨ وصول بث بريميوم\n🔐 تسجيل دخول شخصي | تجربة سلسة",
+      "nameEn": "\ud83d\udcfa ZEE5 Premium Account",
+      "nameAr": "\ud83d\udcfa \u062d\u0633\u0627\u0628 ZEE5 \u0628\u0631\u064a\u0645\u064a\u0648\u0645",
+      "descriptionEn": "\ud83d\udcfa ZEE5 Premium Account\n\ud83d\udcf1 Working on 1 Phone Only\n\ud83c\udf0d Works with Paid VPN\n\ud83c\udfac Watch Movies, Web Series, TV Shows & Originals\n\u2728 Premium Streaming Access\n\ud83d\udd10 Personal Login | Smooth Experience",
+      "descriptionAr": "\ud83d\udcfa \u062d\u0633\u0627\u0628 ZEE5 \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\ud83d\udcf1 \u064a\u0639\u0645\u0644 \u0639\u0644\u0649 \u0647\u0627\u062a\u0641 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\ud83c\udf0d \u064a\u0639\u0645\u0644 \u0645\u0639 VPN \u0645\u062f\u0641\u0648\u0639\n\ud83c\udfac \u0645\u0634\u0627\u0647\u062f\u0629 \u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0648\u0627\u0644\u0628\u0631\u0627\u0645\u062c \u0648\u0627\u0644\u0645\u062d\u062a\u0648\u0649 \u0627\u0644\u0623\u0635\u0644\u064a\n\u2728 \u0648\u0635\u0648\u0644 \u0628\u062b \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\ud83d\udd10 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0634\u062e\u0635\u064a | \u062a\u062c\u0631\u0628\u0629 \u0633\u0644\u0633\u0629",
       "prices": {
         "month": 0,
         "year": 0
@@ -313,10 +313,10 @@
       "id": "hulu-premium",
       "accent": "#1ce783",
       "imageFile": "Service19.JPG",
-      "nameEn": "📺 Hulu Premium Subscription",
-      "nameAr": "📺 اشتراك Hulu بريميوم",
-      "descriptionEn": "📺 Hulu Premium Subscription\n🔹 One Device Access\n🔹 Watch Movies, Series & Hulu Originals\n🔹 HD Quality Streaming\n🔹 Fast & Secure Login\n🔹 Instant Activation\n🔹 Login Warranty Available",
-      "descriptionAr": "📺 اشتراك Hulu بريميوم\n🔹 وصول لجهاز واحد\n🔹 مشاهدة الأفلام والمسلسلات ومحتوى Hulu الأصلي\n🔹 بث بجودة HD\n🔹 تسجيل دخول سريع وآمن\n🔹 تفعيل فوري\n🔹 ضمان تسجيل الدخول متوفر",
+      "nameEn": "\ud83d\udcfa Hulu Premium Subscription",
+      "nameAr": "\ud83d\udcfa \u0627\u0634\u062a\u0631\u0627\u0643 Hulu \u0628\u0631\u064a\u0645\u064a\u0648\u0645",
+      "descriptionEn": "\ud83d\udcfa Hulu Premium Subscription\n\ud83d\udd39 One Device Access\n\ud83d\udd39 Watch Movies, Series & Hulu Originals\n\ud83d\udd39 HD Quality Streaming\n\ud83d\udd39 Fast & Secure Login\n\ud83d\udd39 Instant Activation\n\ud83d\udd39 Login Warranty Available",
+      "descriptionAr": "\ud83d\udcfa \u0627\u0634\u062a\u0631\u0627\u0643 Hulu \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\ud83d\udd39 \u0648\u0635\u0648\u0644 \u0644\u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f\n\ud83d\udd39 \u0645\u0634\u0627\u0647\u062f\u0629 \u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0648\u0645\u062d\u062a\u0648\u0649 Hulu \u0627\u0644\u0623\u0635\u0644\u064a\n\ud83d\udd39 \u0628\u062b \u0628\u062c\u0648\u062f\u0629 HD\n\ud83d\udd39 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0633\u0631\u064a\u0639 \u0648\u0622\u0645\u0646\n\ud83d\udd39 \u062a\u0641\u0639\u064a\u0644 \u0641\u0648\u0631\u064a\n\ud83d\udd39 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631",
       "prices": {
         "month": 0,
         "year": 0
@@ -330,10 +330,10 @@
       "id": "ullu-premium",
       "accent": "#f59e0b",
       "imageFile": "Service20.JPG",
-      "nameEn": "📺 Ullu Premium Subscription",
-      "nameAr": "📺 اشتراك Ullu بريميوم",
-      "descriptionEn": "📺 Ullu Premium Subscription\n🔹 One Device Access\n🔹 Enjoy Premium Web Series & Exclusive Content\n🔹 High Quality Streaming\n🔹 Fast & Secure Login\n🔹 Instant Activation\n🔹 Login Warranty Available",
-      "descriptionAr": "📺 اشتراك Ullu بريميوم\n🔹 وصول لجهاز واحد\n🔹 الاستمتاع بالمسلسلات والمحتوى الحصري المميز\n🔹 بث بجودة عالية\n🔹 تسجيل دخول سريع وآمن\n🔹 تفعيل فوري\n🔹 ضمان تسجيل الدخول متوفر",
+      "nameEn": "\ud83d\udcfa Ullu Premium Subscription",
+      "nameAr": "\ud83d\udcfa \u0627\u0634\u062a\u0631\u0627\u0643 Ullu \u0628\u0631\u064a\u0645\u064a\u0648\u0645",
+      "descriptionEn": "\ud83d\udcfa Ullu Premium Subscription\n\ud83d\udd39 One Device Access\n\ud83d\udd39 Enjoy Premium Web Series & Exclusive Content\n\ud83d\udd39 High Quality Streaming\n\ud83d\udd39 Fast & Secure Login\n\ud83d\udd39 Instant Activation\n\ud83d\udd39 Login Warranty Available",
+      "descriptionAr": "\ud83d\udcfa \u0627\u0634\u062a\u0631\u0627\u0643 Ullu \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\ud83d\udd39 \u0648\u0635\u0648\u0644 \u0644\u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f\n\ud83d\udd39 \u0627\u0644\u0627\u0633\u062a\u0645\u062a\u0627\u0639 \u0628\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0648\u0627\u0644\u0645\u062d\u062a\u0648\u0649 \u0627\u0644\u062d\u0635\u0631\u064a \u0627\u0644\u0645\u0645\u064a\u0632\n\ud83d\udd39 \u0628\u062b \u0628\u062c\u0648\u062f\u0629 \u0639\u0627\u0644\u064a\u0629\n\ud83d\udd39 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0633\u0631\u064a\u0639 \u0648\u0622\u0645\u0646\n\ud83d\udd39 \u062a\u0641\u0639\u064a\u0644 \u0641\u0648\u0631\u064a\n\ud83d\udd39 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631",
       "prices": {
         "month": 0,
         "year": 0
@@ -347,10 +347,10 @@
       "id": "spotify-premium",
       "imageFile": "Service21.JPG",
       "accent": "#1db954",
-      "nameEn": "🎵 Spotify Premium Available",
-      "nameAr": "🎵 سبوتيفاي بريميوم متوفر",
-      "descriptionEn": "🎵 Spotify Premium Available\n🎧 Ad-Free Music Listening\n🔥 Unlimited Songs & Skips\n📥 Download Music & Listen Offline\n🎶 High Quality Audio\n📱 Access to Premium Features\n🔐 Subscription Details:\n✅ 1 Device Access\n✅ Fast & Secure Login\n✅ Premium Music Experience",
-      "descriptionAr": "🎵 سبوتيفاي بريميوم متوفر\n🎧 استماع للموسيقى بدون إعلانات\n🔥 أغاني وتخطي غير محدود\n📥 تحميل الموسيقى والاستماع بدون إنترنت\n🎶 صوت بجودة عالية\n📱 الوصول إلى الميزات المميزة\n🔐 تفاصيل الاشتراك:\n✅ وصول لجهاز واحد\n✅ تسجيل دخول سريع وآمن\n✅ تجربة موسيقى بريميوم",
+      "nameEn": "\ud83c\udfb5 Spotify Premium Available",
+      "nameAr": "\ud83c\udfb5 \u0633\u0628\u0648\u062a\u064a\u0641\u0627\u064a \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83c\udfb5 Spotify Premium Available\n\ud83c\udfa7 Ad-Free Music Listening\n\ud83d\udd25 Unlimited Songs & Skips\n\ud83d\udce5 Download Music & Listen Offline\n\ud83c\udfb6 High Quality Audio\n\ud83d\udcf1 Access to Premium Features\n\ud83d\udd10 Subscription Details:\n\u2705 1 Device Access\n\u2705 Fast & Secure Login\n\u2705 Premium Music Experience",
+      "descriptionAr": "\ud83c\udfb5 \u0633\u0628\u0648\u062a\u064a\u0641\u0627\u064a \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u062a\u0648\u0641\u0631\n\ud83c\udfa7 \u0627\u0633\u062a\u0645\u0627\u0639 \u0644\u0644\u0645\u0648\u0633\u064a\u0642\u0649 \u0628\u062f\u0648\u0646 \u0625\u0639\u0644\u0627\u0646\u0627\u062a\n\ud83d\udd25 \u0623\u063a\u0627\u0646\u064a \u0648\u062a\u062e\u0637\u064a \u063a\u064a\u0631 \u0645\u062d\u062f\u0648\u062f\n\ud83d\udce5 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0645\u0648\u0633\u064a\u0642\u0649 \u0648\u0627\u0644\u0627\u0633\u062a\u0645\u0627\u0639 \u0628\u062f\u0648\u0646 \u0625\u0646\u062a\u0631\u0646\u062a\n\ud83c\udfb6 \u0635\u0648\u062a \u0628\u062c\u0648\u062f\u0629 \u0639\u0627\u0644\u064a\u0629\n\ud83d\udcf1 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0627\u0644\u0645\u064a\u0632\u0627\u062a \u0627\u0644\u0645\u0645\u064a\u0632\u0629\n\ud83d\udd10 \u062a\u0641\u0627\u0635\u064a\u0644 \u0627\u0644\u0627\u0634\u062a\u0631\u0627\u0643:\n\u2705 \u0648\u0635\u0648\u0644 \u0644\u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f\n\u2705 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0633\u0631\u064a\u0639 \u0648\u0622\u0645\u0646\n\u2705 \u062a\u062c\u0631\u0628\u0629 \u0645\u0648\u0633\u064a\u0642\u0649 \u0628\u0631\u064a\u0645\u064a\u0648\u0645",
       "prices": {
         "month": 1,
         "year": 8
@@ -364,13 +364,13 @@
       "id": "nordvpn",
       "imageFile": "Service22.JPG",
       "accent": "#4687ff",
-      "nameEn": "🛡️ NordVPN Available",
-      "nameAr": "🛡️ نورد VPN متوفر",
-      "descriptionEn": "🛡️ NordVPN Available\n🌐 Secure & Private Internet Access\n⚡ Fast VPN Servers Worldwide\n🔒 Strong Encryption & Online Protection\n🚫 Hide IP Address & Browse Privately\n🎬 Smooth Streaming & Global Access\n🔐 Subscription Details:\n✅ 1 Device Access\n✅ Fast & Secure Login\n✅ Premium VPN Access\n🚀 NordVPN — Stay Safe & Connected Anywhere.",
-      "descriptionAr": "🛡️ نورد VPN متوفر\n🌐 وصول آمن وخاص للإنترنت\n⚡ خوادم VPN سريعة حول العالم\n🔒 تشفير قوي وحماية عبر الإنترنت\n🚫 إخفاء عنوان IP والتصفح بشكل خاص\n🎬 بث سلس ووصول عالمي\n🔐 تفاصيل الاشتراك:\n✅ وصول لجهاز واحد\n✅ تسجيل دخول سريع وآمن\n✅ وصول VPN بريميوم\n🚀 NordVPN — ابقَ آمناً ومتصلًا في أي مكان.",
+      "nameEn": "\ud83d\udee1\ufe0f NordVPN Available",
+      "nameAr": "\ud83d\udee1\ufe0f \u0646\u0648\u0631\u062f VPN \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83d\udee1\ufe0f NordVPN Available\n\ud83c\udf10 Secure & Private Internet Access\n\u26a1 Fast VPN Servers Worldwide\n\ud83d\udd12 Strong Encryption & Online Protection\n\ud83d\udeab Hide IP Address & Browse Privately\n\ud83c\udfac Smooth Streaming & Global Access\n\ud83d\udd10 Subscription Details:\n\u2705 1 Device Access\n\u2705 Fast & Secure Login\n\u2705 Premium VPN Access\n\ud83d\ude80 NordVPN \u2014 Stay Safe & Connected Anywhere.",
+      "descriptionAr": "\ud83d\udee1\ufe0f \u0646\u0648\u0631\u062f VPN \u0645\u062a\u0648\u0641\u0631\n\ud83c\udf10 \u0648\u0635\u0648\u0644 \u0622\u0645\u0646 \u0648\u062e\u0627\u0635 \u0644\u0644\u0625\u0646\u062a\u0631\u0646\u062a\n\u26a1 \u062e\u0648\u0627\u062f\u0645 VPN \u0633\u0631\u064a\u0639\u0629 \u062d\u0648\u0644 \u0627\u0644\u0639\u0627\u0644\u0645\n\ud83d\udd12 \u062a\u0634\u0641\u064a\u0631 \u0642\u0648\u064a \u0648\u062d\u0645\u0627\u064a\u0629 \u0639\u0628\u0631 \u0627\u0644\u0625\u0646\u062a\u0631\u0646\u062a\n\ud83d\udeab \u0625\u062e\u0641\u0627\u0621 \u0639\u0646\u0648\u0627\u0646 IP \u0648\u0627\u0644\u062a\u0635\u0641\u062d \u0628\u0634\u0643\u0644 \u062e\u0627\u0635\n\ud83c\udfac \u0628\u062b \u0633\u0644\u0633 \u0648\u0648\u0635\u0648\u0644 \u0639\u0627\u0644\u0645\u064a\n\ud83d\udd10 \u062a\u0641\u0627\u0635\u064a\u0644 \u0627\u0644\u0627\u0634\u062a\u0631\u0627\u0643:\n\u2705 \u0648\u0635\u0648\u0644 \u0644\u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f\n\u2705 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0633\u0631\u064a\u0639 \u0648\u0622\u0645\u0646\n\u2705 \u0648\u0635\u0648\u0644 VPN \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\ud83d\ude80 NordVPN \u2014 \u0627\u0628\u0642\u064e \u0622\u0645\u0646\u0627\u064b \u0648\u0645\u062a\u0635\u0644\u064b\u0627 \u0641\u064a \u0623\u064a \u0645\u0643\u0627\u0646.",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 1.5,
+        "year": 14
       },
       "imageUrl": "/images/Service22.JPG",
       "sortOrder": 21,
@@ -381,13 +381,13 @@
       "id": "capcut-pro",
       "imageFile": "Service23.JPG",
       "accent": "#000000",
-      "nameEn": "🎞️ CapCut Pro Available",
-      "nameAr": "🎞️ كاب كات برو متوفر",
-      "descriptionEn": "🎞️ CapCut Pro Available\n🎬 Advanced Video Editing Tools\n✨ Premium Effects & Filters\n🎵 Pro Music & Templates\n🤖 AI Editing Features\n🖼️ Background Removal & Auto Captions\n📱 Export High Quality Videos\n🔐 Subscription Details:\n✅ Pro Access\n✅ Fast & Secure Login\n✅ Premium Features Unlocked\n🎨 CapCut Pro — Create Professional Videos Easily",
-      "descriptionAr": "🎞️ كاب كات برو متوفر\n🎬 أدوات متقدمة لتحرير الفيديو\n✨ تأثيرات وفلاتر مميزة\n🎵 موسيقى وقوالب احترافية\n🤖 ميزات تحرير بالذكاء الاصطناعي\n🖼️ إزالة الخلفية والترجمة التلقائية\n📱 تصدير فيديوهات بجودة عالية\n🔐 تفاصيل الاشتراك:\n✅ وصول Pro\n✅ تسجيل دخول سريع وآمن\n✅ فتح الميزات المميزة\n🎨 CapCut Pro — أنشئ فيديوهات احترافية بسهولة",
+      "nameEn": "\ud83c\udf9e\ufe0f CapCut Pro Available",
+      "nameAr": "\ud83c\udf9e\ufe0f \u0643\u0627\u0628 \u0643\u0627\u062a \u0628\u0631\u0648 \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83c\udf9e\ufe0f CapCut Pro Available\n\ud83c\udfac Advanced Video Editing Tools\n\u2728 Premium Effects & Filters\n\ud83c\udfb5 Pro Music & Templates\n\ud83e\udd16 AI Editing Features\n\ud83d\uddbc\ufe0f Background Removal & Auto Captions\n\ud83d\udcf1 Export High Quality Videos\n\ud83d\udd10 Subscription Details:\n\u2705 Pro Access\n\u2705 Fast & Secure Login\n\u2705 Premium Features Unlocked\n\ud83c\udfa8 CapCut Pro \u2014 Create Professional Videos Easily",
+      "descriptionAr": "\ud83c\udf9e\ufe0f \u0643\u0627\u0628 \u0643\u0627\u062a \u0628\u0631\u0648 \u0645\u062a\u0648\u0641\u0631\n\ud83c\udfac \u0623\u062f\u0648\u0627\u062a \u0645\u062a\u0642\u062f\u0645\u0629 \u0644\u062a\u062d\u0631\u064a\u0631 \u0627\u0644\u0641\u064a\u062f\u064a\u0648\n\u2728 \u062a\u0623\u062b\u064a\u0631\u0627\u062a \u0648\u0641\u0644\u0627\u062a\u0631 \u0645\u0645\u064a\u0632\u0629\n\ud83c\udfb5 \u0645\u0648\u0633\u064a\u0642\u0649 \u0648\u0642\u0648\u0627\u0644\u0628 \u0627\u062d\u062a\u0631\u0627\u0641\u064a\u0629\n\ud83e\udd16 \u0645\u064a\u0632\u0627\u062a \u062a\u062d\u0631\u064a\u0631 \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a\n\ud83d\uddbc\ufe0f \u0625\u0632\u0627\u0644\u0629 \u0627\u0644\u062e\u0644\u0641\u064a\u0629 \u0648\u0627\u0644\u062a\u0631\u062c\u0645\u0629 \u0627\u0644\u062a\u0644\u0642\u0627\u0626\u064a\u0629\n\ud83d\udcf1 \u062a\u0635\u062f\u064a\u0631 \u0641\u064a\u062f\u064a\u0648\u0647\u0627\u062a \u0628\u062c\u0648\u062f\u0629 \u0639\u0627\u0644\u064a\u0629\n\ud83d\udd10 \u062a\u0641\u0627\u0635\u064a\u0644 \u0627\u0644\u0627\u0634\u062a\u0631\u0627\u0643:\n\u2705 \u0648\u0635\u0648\u0644 Pro\n\u2705 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0633\u0631\u064a\u0639 \u0648\u0622\u0645\u0646\n\u2705 \u0641\u062a\u062d \u0627\u0644\u0645\u064a\u0632\u0627\u062a \u0627\u0644\u0645\u0645\u064a\u0632\u0629\n\ud83c\udfa8 CapCut Pro \u2014 \u0623\u0646\u0634\u0626 \u0641\u064a\u062f\u064a\u0648\u0647\u0627\u062a \u0627\u062d\u062a\u0631\u0627\u0641\u064a\u0629 \u0628\u0633\u0647\u0648\u0644\u0629",
       "prices": {
-        "month": 1.5,
-        "year": 8
+        "month": 2.5,
+        "year": 22
       },
       "imageUrl": "/images/Service23.JPG",
       "sortOrder": 22,
@@ -398,10 +398,10 @@
       "id": "peacock-premium",
       "imageFile": "Service24.JPG",
       "accent": "#000000",
-      "nameEn": "🦚 Peacock Premium Available",
-      "nameAr": "🦚 بيكوك بريميوم متوفر",
-      "descriptionEn": "🦚 Peacock Premium Available\n🎬 Movies & TV Shows\n🔥 Peacock Originals & Exclusive Series\n📺 NBC & Bravo Shows\n⚽ Live Sports (Premier League, WWE, NBA & More)\n🎥 Universal Movies Collection\n📱 Watch Anytime, Anywhere",
-      "descriptionAr": "🦚 بيكوك بريميوم متوفر\n🎬 أفلام وبرامج تلفزيونية\n🔥 مسلسلات Peacock الأصلية والحصرية\n📺 عروض NBC و Bravo\n⚽ رياضات مباشرة (الدوري الإنجليزي، WWE، NBA والمزيد)\n🎥 مجموعة أفلام Universal\n📱 شاهد في أي وقت وأي مكان",
+      "nameEn": "\ud83e\udd9a Peacock Premium Available",
+      "nameAr": "\ud83e\udd9a \u0628\u064a\u0643\u0648\u0643 \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83e\udd9a Peacock Premium Available\n\ud83c\udfac Movies & TV Shows\n\ud83d\udd25 Peacock Originals & Exclusive Series\n\ud83d\udcfa NBC & Bravo Shows\n\u26bd Live Sports (Premier League, WWE, NBA & More)\n\ud83c\udfa5 Universal Movies Collection\n\ud83d\udcf1 Watch Anytime, Anywhere",
+      "descriptionAr": "\ud83e\udd9a \u0628\u064a\u0643\u0648\u0643 \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u062a\u0648\u0641\u0631\n\ud83c\udfac \u0623\u0641\u0644\u0627\u0645 \u0648\u0628\u0631\u0627\u0645\u062c \u062a\u0644\u0641\u0632\u064a\u0648\u0646\u064a\u0629\n\ud83d\udd25 \u0645\u0633\u0644\u0633\u0644\u0627\u062a Peacock \u0627\u0644\u0623\u0635\u0644\u064a\u0629 \u0648\u0627\u0644\u062d\u0635\u0631\u064a\u0629\n\ud83d\udcfa \u0639\u0631\u0648\u0636 NBC \u0648 Bravo\n\u26bd \u0631\u064a\u0627\u0636\u0627\u062a \u0645\u0628\u0627\u0634\u0631\u0629 (\u0627\u0644\u062f\u0648\u0631\u064a \u0627\u0644\u0625\u0646\u062c\u0644\u064a\u0632\u064a\u060c WWE\u060c NBA \u0648\u0627\u0644\u0645\u0632\u064a\u062f)\n\ud83c\udfa5 \u0645\u062c\u0645\u0648\u0639\u0629 \u0623\u0641\u0644\u0627\u0645 Universal\n\ud83d\udcf1 \u0634\u0627\u0647\u062f \u0641\u064a \u0623\u064a \u0648\u0642\u062a \u0648\u0623\u064a \u0645\u0643\u0627\u0646",
       "prices": {
         "month": 0,
         "year": 0
@@ -415,10 +415,10 @@
       "id": "sony-liv",
       "imageFile": "Service25.JPG",
       "accent": "#e11d48",
-      "nameEn": "📺 Sony LIV Premium Available",
-      "nameAr": "📺 سوني ليف بريميوم متوفر",
-      "descriptionEn": "📺 Sony LIV Premium Available\n✅ Watch Live TV Channels\n✅ Movies & Web Series\n✅ Sony Originals\n✅ Live Sports (Cricket, WWE, Football & More)\n✅ HD & 4K Streaming Support\n✅ Multiple Language Content\n✅ Download & Watch Offline",
-      "descriptionAr": "📺 سوني ليف بريميوم متوفر\n✅ مشاهدة قنوات التلفزيون المباشرة\n✅ أفلام ومسلسلات ويب\n✅ محتوى Sony الأصلي\n✅ رياضات مباشرة (كريكيت، WWE، كرة القدم والمزيد)\n✅ دعم بث HD و 4K\n✅ محتوى بلغات متعددة\n✅ تحميل ومشاهدة بدون إنترنت",
+      "nameEn": "\ud83d\udcfa Sony LIV Premium Available",
+      "nameAr": "\ud83d\udcfa \u0633\u0648\u0646\u064a \u0644\u064a\u0641 \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83d\udcfa Sony LIV Premium Available\n\u2705 Watch Live TV Channels\n\u2705 Movies & Web Series\n\u2705 Sony Originals\n\u2705 Live Sports (Cricket, WWE, Football & More)\n\u2705 HD & 4K Streaming Support\n\u2705 Multiple Language Content\n\u2705 Download & Watch Offline",
+      "descriptionAr": "\ud83d\udcfa \u0633\u0648\u0646\u064a \u0644\u064a\u0641 \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u062a\u0648\u0641\u0631\n\u2705 \u0645\u0634\u0627\u0647\u062f\u0629 \u0642\u0646\u0648\u0627\u062a \u0627\u0644\u062a\u0644\u0641\u0632\u064a\u0648\u0646 \u0627\u0644\u0645\u0628\u0627\u0634\u0631\u0629\n\u2705 \u0623\u0641\u0644\u0627\u0645 \u0648\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0648\u064a\u0628\n\u2705 \u0645\u062d\u062a\u0648\u0649 Sony \u0627\u0644\u0623\u0635\u0644\u064a\n\u2705 \u0631\u064a\u0627\u0636\u0627\u062a \u0645\u0628\u0627\u0634\u0631\u0629 (\u0643\u0631\u064a\u0643\u064a\u062a\u060c WWE\u060c \u0643\u0631\u0629 \u0627\u0644\u0642\u062f\u0645 \u0648\u0627\u0644\u0645\u0632\u064a\u062f)\n\u2705 \u062f\u0639\u0645 \u0628\u062b HD \u0648 4K\n\u2705 \u0645\u062d\u062a\u0648\u0649 \u0628\u0644\u063a\u0627\u062a \u0645\u062a\u0639\u062f\u062f\u0629\n\u2705 \u062a\u062d\u0645\u064a\u0644 \u0648\u0645\u0634\u0627\u0647\u062f\u0629 \u0628\u062f\u0648\u0646 \u0625\u0646\u062a\u0631\u0646\u062a",
       "prices": {
         "month": 0,
         "year": 0
@@ -432,10 +432,10 @@
       "id": "starzplay",
       "imageFile": "Service26.JPG",
       "accent": "#111111",
-      "nameEn": "🎬 STARZPLAY Available",
-      "nameAr": "🎬 STARZPLAY متوفر",
-      "descriptionEn": "🎬 STARZPLAY Available\n🍿 Premium Movies & TV Series Streaming\n🔥 Exclusive Originals, Hollywood Movies & Arabic Content\n⚽ Live Sports & Entertainment Channels\n📺 Watch Anytime on Your Favorite Devices\n✨ High-Quality Streaming Experience",
-      "descriptionAr": "🎬 STARZPLAY متوفر\n🍿 بث أفلام ومسلسلات تلفزيونية بريميوم\n🔥 أعمال أصلية حصرية وأفلام هوليوود ومحتوى عربي\n⚽ قنوات رياضية وترفيهية مباشرة\n📺 شاهد في أي وقت على أجهزتك المفضلة\n✨ تجربة بث بجودة عالية",
+      "nameEn": "\ud83c\udfac STARZPLAY Available",
+      "nameAr": "\ud83c\udfac STARZPLAY \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83c\udfac STARZPLAY Available\n\ud83c\udf7f Premium Movies & TV Series Streaming\n\ud83d\udd25 Exclusive Originals, Hollywood Movies & Arabic Content\n\u26bd Live Sports & Entertainment Channels\n\ud83d\udcfa Watch Anytime on Your Favorite Devices\n\u2728 High-Quality Streaming Experience",
+      "descriptionAr": "\ud83c\udfac STARZPLAY \u0645\u062a\u0648\u0641\u0631\n\ud83c\udf7f \u0628\u062b \u0623\u0641\u0644\u0627\u0645 \u0648\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u062a\u0644\u0641\u0632\u064a\u0648\u0646\u064a\u0629 \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\ud83d\udd25 \u0623\u0639\u0645\u0627\u0644 \u0623\u0635\u0644\u064a\u0629 \u062d\u0635\u0631\u064a\u0629 \u0648\u0623\u0641\u0644\u0627\u0645 \u0647\u0648\u0644\u064a\u0648\u0648\u062f \u0648\u0645\u062d\u062a\u0648\u0649 \u0639\u0631\u0628\u064a\n\u26bd \u0642\u0646\u0648\u0627\u062a \u0631\u064a\u0627\u0636\u064a\u0629 \u0648\u062a\u0631\u0641\u064a\u0647\u064a\u0629 \u0645\u0628\u0627\u0634\u0631\u0629\n\ud83d\udcfa \u0634\u0627\u0647\u062f \u0641\u064a \u0623\u064a \u0648\u0642\u062a \u0639\u0644\u0649 \u0623\u062c\u0647\u0632\u062a\u0643 \u0627\u0644\u0645\u0641\u0636\u0644\u0629\n\u2728 \u062a\u062c\u0631\u0628\u0629 \u0628\u062b \u0628\u062c\u0648\u062f\u0629 \u0639\u0627\u0644\u064a\u0629",
       "prices": {
         "month": 0,
         "year": 0
@@ -449,13 +449,13 @@
       "id": "surfshark",
       "imageFile": "Service27.JPG",
       "accent": "#1ebacc",
-      "nameEn": "🦈 Surfshark VPN Available",
-      "nameAr": "🦈 Surfshark VPN متوفر",
-      "descriptionEn": "🦈 Surfshark VPN Available\n🔒 Secure & Private Internet Access\n🌍 Access Content From Anywhere In The World\n⚡ Fast VPN Servers With Unlimited Devices Support\n🛡️ Protect Your Online Privacy And Data\n📱 Easy Setup & Reliable Connection",
-      "descriptionAr": "🦈 Surfshark VPN متوفر\n🔒 وصول آمن وخاص للإنترنت\n🌍 الوصول إلى المحتوى من أي مكان في العالم\n⚡ خوادم VPN سريعة مع دعم أجهزة غير محدود\n🛡️ حماية خصوصيتك وبياناتك عبر الإنترنت\n📱 إعداد سهل واتصال موثوق",
+      "nameEn": "\ud83e\udd88 Surfshark VPN Available",
+      "nameAr": "\ud83e\udd88 Surfshark VPN \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83e\udd88 Surfshark VPN Available\n\ud83d\udd12 Secure & Private Internet Access\n\ud83c\udf0d Access Content From Anywhere In The World\n\u26a1 Fast VPN Servers With Unlimited Devices Support\n\ud83d\udee1\ufe0f Protect Your Online Privacy And Data\n\ud83d\udcf1 Easy Setup & Reliable Connection",
+      "descriptionAr": "\ud83e\udd88 Surfshark VPN \u0645\u062a\u0648\u0641\u0631\n\ud83d\udd12 \u0648\u0635\u0648\u0644 \u0622\u0645\u0646 \u0648\u062e\u0627\u0635 \u0644\u0644\u0625\u0646\u062a\u0631\u0646\u062a\n\ud83c\udf0d \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0627\u0644\u0645\u062d\u062a\u0648\u0649 \u0645\u0646 \u0623\u064a \u0645\u0643\u0627\u0646 \u0641\u064a \u0627\u0644\u0639\u0627\u0644\u0645\n\u26a1 \u062e\u0648\u0627\u062f\u0645 VPN \u0633\u0631\u064a\u0639\u0629 \u0645\u0639 \u062f\u0639\u0645 \u0623\u062c\u0647\u0632\u0629 \u063a\u064a\u0631 \u0645\u062d\u062f\u0648\u062f\n\ud83d\udee1\ufe0f \u062d\u0645\u0627\u064a\u0629 \u062e\u0635\u0648\u0635\u064a\u062a\u0643 \u0648\u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u0639\u0628\u0631 \u0627\u0644\u0625\u0646\u062a\u0631\u0646\u062a\n\ud83d\udcf1 \u0625\u0639\u062f\u0627\u062f \u0633\u0647\u0644 \u0648\u0627\u062a\u0635\u0627\u0644 \u0645\u0648\u062b\u0648\u0642",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 1.5,
+        "year": 15
       },
       "imageUrl": "/images/Service27.JPG",
       "sortOrder": 26,
@@ -466,10 +466,10 @@
       "id": "expressvpn",
       "imageFile": "Service28.JPG",
       "accent": "#da3940",
-      "nameEn": "🔒 ExpressVPN Premium",
-      "nameAr": "🔒 ExpressVPN بريميوم",
-      "descriptionEn": "🔒 ExpressVPN Premium\n✅ Fast & Secure VPN Access\n✅ Protect Your Online Privacy\n✅ Worldwide Server Access\n✅ One Device Login Only",
-      "descriptionAr": "🔒 ExpressVPN بريميوم\n✅ وصول VPN سريع وآمن\n✅ حماية خصوصيتك عبر الإنترنت\n✅ الوصول إلى خوادم حول العالم\n✅ تسجيل دخول لجهاز واحد فقط",
+      "nameEn": "\ud83d\udd12 ExpressVPN Premium",
+      "nameAr": "\ud83d\udd12 ExpressVPN \u0628\u0631\u064a\u0645\u064a\u0648\u0645",
+      "descriptionEn": "\ud83d\udd12 ExpressVPN Premium\n\u2705 Fast & Secure VPN Access\n\u2705 Protect Your Online Privacy\n\u2705 Worldwide Server Access\n\u2705 One Device Login Only",
+      "descriptionAr": "\ud83d\udd12 ExpressVPN \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\u2705 \u0648\u0635\u0648\u0644 VPN \u0633\u0631\u064a\u0639 \u0648\u0622\u0645\u0646\n\u2705 \u062d\u0645\u0627\u064a\u0629 \u062e\u0635\u0648\u0635\u064a\u062a\u0643 \u0639\u0628\u0631 \u0627\u0644\u0625\u0646\u062a\u0631\u0646\u062a\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u062e\u0648\u0627\u062f\u0645 \u062d\u0648\u0644 \u0627\u0644\u0639\u0627\u0644\u0645\n\u2705 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0644\u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637",
       "prices": {
         "month": 1.5,
         "year": 10
@@ -483,13 +483,13 @@
       "id": "proton-vpn",
       "imageFile": "Service29.JPG",
       "accent": "#6d4aff",
-      "nameEn": "🔒 Proton VPN Premium",
-      "nameAr": "🔒 Proton VPN بريميوم",
-      "descriptionEn": "🔒 Proton VPN Premium\n✅ High-Speed Secure VPN Access\n✅ Privacy & Online Protection\n✅ One Device Login Only\n✅ Fast & Reliable Connection",
-      "descriptionAr": "🔒 Proton VPN بريميوم\n✅ وصول VPN آمن عالي السرعة\n✅ حماية الخصوصية والأمان عبر الإنترنت\n✅ تسجيل دخول لجهاز واحد فقط\n✅ اتصال سريع وموثوق",
+      "nameEn": "\ud83d\udd12 Proton VPN Premium",
+      "nameAr": "\ud83d\udd12 Proton VPN \u0628\u0631\u064a\u0645\u064a\u0648\u0645",
+      "descriptionEn": "\ud83d\udd12 Proton VPN Premium\n\u2705 High-Speed Secure VPN Access\n\u2705 Privacy & Online Protection\n\u2705 One Device Login Only\n\u2705 Fast & Reliable Connection",
+      "descriptionAr": "\ud83d\udd12 Proton VPN \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\u2705 \u0648\u0635\u0648\u0644 VPN \u0622\u0645\u0646 \u0639\u0627\u0644\u064a \u0627\u0644\u0633\u0631\u0639\u0629\n\u2705 \u062d\u0645\u0627\u064a\u0629 \u0627\u0644\u062e\u0635\u0648\u0635\u064a\u0629 \u0648\u0627\u0644\u0623\u0645\u0627\u0646 \u0639\u0628\u0631 \u0627\u0644\u0625\u0646\u062a\u0631\u0646\u062a\n\u2705 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0644\u062c\u0647\u0627\u0632 \u0648\u0627\u062d\u062f \u0641\u0642\u0637\n\u2705 \u0627\u062a\u0635\u0627\u0644 \u0633\u0631\u064a\u0639 \u0648\u0645\u0648\u062b\u0648\u0642",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 2,
+        "year": 19
       },
       "imageUrl": "/images/Service29.JPG",
       "sortOrder": 28,
@@ -500,13 +500,13 @@
       "id": "apple-tv-plus",
       "imageFile": "Service30.JPG",
       "accent": "#000000",
-      "nameEn": "🍎 Apple TV+ Available",
-      "nameAr": "🍎 Apple TV+ متوفر",
-      "descriptionEn": "🍎 Apple TV+ Available\n🎬 Premium Movies & Original Series\n⭐ Apple Originals & Exclusive Content\n📺 Watch Anytime, Anywhere\n🔥 High Quality Streaming Experience\n✅ Secure Login Warranty",
-      "descriptionAr": "🍎 Apple TV+ متوفر\n🎬 أفلام مميزة ومسلسلات أصلية\n⭐ محتوى Apple الأصلي والحصري\n📺 شاهد في أي وقت وأي مكان\n🔥 تجربة بث بجودة عالية\n✅ ضمان تسجيل دخول آمن",
+      "nameEn": "\ud83c\udf4e Apple TV+ Available",
+      "nameAr": "\ud83c\udf4e Apple TV+ \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83c\udf4e Apple TV+ Available\n\ud83c\udfac Premium Movies & Original Series\n\u2b50 Apple Originals & Exclusive Content\n\ud83d\udcfa Watch Anytime, Anywhere\n\ud83d\udd25 High Quality Streaming Experience\n\u2705 Secure Login Warranty",
+      "descriptionAr": "\ud83c\udf4e Apple TV+ \u0645\u062a\u0648\u0641\u0631\n\ud83c\udfac \u0623\u0641\u0644\u0627\u0645 \u0645\u0645\u064a\u0632\u0629 \u0648\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0623\u0635\u0644\u064a\u0629\n\u2b50 \u0645\u062d\u062a\u0648\u0649 Apple \u0627\u0644\u0623\u0635\u0644\u064a \u0648\u0627\u0644\u062d\u0635\u0631\u064a\n\ud83d\udcfa \u0634\u0627\u0647\u062f \u0641\u064a \u0623\u064a \u0648\u0642\u062a \u0648\u0623\u064a \u0645\u0643\u0627\u0646\n\ud83d\udd25 \u062a\u062c\u0631\u0628\u0629 \u0628\u062b \u0628\u062c\u0648\u062f\u0629 \u0639\u0627\u0644\u064a\u0629\n\u2705 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0622\u0645\u0646",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 1.5,
+        "year": 12
       },
       "imageUrl": "/images/Service30.JPG",
       "sortOrder": 29,
@@ -517,13 +517,13 @@
       "id": "hbo-max",
       "imageFile": "Service31.JPG",
       "accent": "#b535f6",
-      "nameEn": "🎬 HBO Max Available",
-      "nameAr": "🎬 HBO Max متوفر",
-      "descriptionEn": "🎬 HBO Max Available\n⭐ Premium Streaming Service\n🎥 Movies, Web Series & HBO Originals\n🔥 Latest Hollywood Content\n📺 Watch Anytime, Anywhere\n✅ Fast & Reliable Access\n🔐 Secure Login Warranty",
-      "descriptionAr": "🎬 HBO Max متوفر\n⭐ خدمة بث بريميوم مميزة\n🎥 أفلام ومسلسلات ومحتوى HBO الأصلي\n🔥 أحدث محتوى هوليوود\n📺 شاهد في أي وقت وأي مكان\n✅ وصول سريع وموثوق\n🔐 ضمان تسجيل دخول آمن",
+      "nameEn": "\ud83c\udfac HBO Max Available",
+      "nameAr": "\ud83c\udfac HBO Max \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83c\udfac HBO Max Available\n\u2b50 Premium Streaming Service\n\ud83c\udfa5 Movies, Web Series & HBO Originals\n\ud83d\udd25 Latest Hollywood Content\n\ud83d\udcfa Watch Anytime, Anywhere\n\u2705 Fast & Reliable Access\n\ud83d\udd10 Secure Login Warranty",
+      "descriptionAr": "\ud83c\udfac HBO Max \u0645\u062a\u0648\u0641\u0631\n\u2b50 \u062e\u062f\u0645\u0629 \u0628\u062b \u0628\u0631\u064a\u0645\u064a\u0648\u0645 \u0645\u0645\u064a\u0632\u0629\n\ud83c\udfa5 \u0623\u0641\u0644\u0627\u0645 \u0648\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0648\u0645\u062d\u062a\u0648\u0649 HBO \u0627\u0644\u0623\u0635\u0644\u064a\n\ud83d\udd25 \u0623\u062d\u062f\u062b \u0645\u062d\u062a\u0648\u0649 \u0647\u0648\u0644\u064a\u0648\u0648\u062f\n\ud83d\udcfa \u0634\u0627\u0647\u062f \u0641\u064a \u0623\u064a \u0648\u0642\u062a \u0648\u0623\u064a \u0645\u0643\u0627\u0646\n\u2705 \u0648\u0635\u0648\u0644 \u0633\u0631\u064a\u0639 \u0648\u0645\u0648\u062b\u0648\u0642\n\ud83d\udd10 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u062f\u062e\u0648\u0644 \u0622\u0645\u0646",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 1.5,
+        "year": 15
       },
       "imageUrl": "/images/Service31.JPG",
       "sortOrder": 30,
@@ -534,10 +534,10 @@
       "id": "paramount-plus",
       "imageFile": "Service32.JPG",
       "accent": "#0064ff",
-      "nameEn": "🌟 Paramount+ Available",
-      "nameAr": "🌟 Paramount+ متوفر",
-      "descriptionEn": "🌟 Paramount+ Available\n📺 Premium Paramount+ Subscription\n✅ Movies & Series Access\n✅ HD Quality Streaming\n✅ Fast & Reliable Service\n🔐 Login Warranty Available",
-      "descriptionAr": "🌟 Paramount+ متوفر\n📺 اشتراك Paramount+ بريميوم\n✅ الوصول إلى الأفلام والمسلسلات\n✅ بث بجودة HD\n✅ خدمة سريعة وموثوقة\n🔐 ضمان تسجيل الدخول متوفر",
+      "nameEn": "\ud83c\udf1f Paramount+ Available",
+      "nameAr": "\ud83c\udf1f Paramount+ \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83c\udf1f Paramount+ Available\n\ud83d\udcfa Premium Paramount+ Subscription\n\u2705 Movies & Series Access\n\u2705 HD Quality Streaming\n\u2705 Fast & Reliable Service\n\ud83d\udd10 Login Warranty Available",
+      "descriptionAr": "\ud83c\udf1f Paramount+ \u0645\u062a\u0648\u0641\u0631\n\ud83d\udcfa \u0627\u0634\u062a\u0631\u0627\u0643 Paramount+ \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\u2705 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a\n\u2705 \u0628\u062b \u0628\u062c\u0648\u062f\u0629 HD\n\u2705 \u062e\u062f\u0645\u0629 \u0633\u0631\u064a\u0639\u0629 \u0648\u0645\u0648\u062b\u0648\u0642\u0629\n\ud83d\udd10 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631",
       "prices": {
         "month": 0,
         "year": 0
@@ -551,10 +551,10 @@
       "id": "shahid-vip",
       "imageFile": "Service33.JPG",
       "accent": "#e10600",
-      "nameEn": "🌟 Shahid VIP Available",
-      "nameAr": "🌟 شاهد VIP متوفر",
-      "descriptionEn": "🌟 Shahid VIP Available\n📺 Premium Shahid VIP Subscription\n✅ Full Access Available\n✅ HD Quality Streaming\n✅ Movies & Series Enjoy Karein\n✅ Fast & Reliable Service\n🔐 Login Warranty Available",
-      "descriptionAr": "🌟 شاهد VIP متوفر\n📺 اشتراك شاهد VIP بريميوم\n✅ وصول كامل متوفر\n✅ بث بجودة HD\n✅ استمتع بالأفلام والمسلسلات\n✅ خدمة سريعة وموثوقة\n🔐 ضمان تسجيل الدخول متوفر",
+      "nameEn": "\ud83c\udf1f Shahid VIP Available",
+      "nameAr": "\ud83c\udf1f \u0634\u0627\u0647\u062f VIP \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83c\udf1f Shahid VIP Available\n\ud83d\udcfa Premium Shahid VIP Subscription\n\u2705 Full Access Available\n\u2705 HD Quality Streaming\n\u2705 Movies & Series Enjoy Karein\n\u2705 Fast & Reliable Service\n\ud83d\udd10 Login Warranty Available",
+      "descriptionAr": "\ud83c\udf1f \u0634\u0627\u0647\u062f VIP \u0645\u062a\u0648\u0641\u0631\n\ud83d\udcfa \u0627\u0634\u062a\u0631\u0627\u0643 \u0634\u0627\u0647\u062f VIP \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\u2705 \u0648\u0635\u0648\u0644 \u0643\u0627\u0645\u0644 \u0645\u062a\u0648\u0641\u0631\n\u2705 \u0628\u062b \u0628\u062c\u0648\u062f\u0629 HD\n\u2705 \u0627\u0633\u062a\u0645\u062a\u0639 \u0628\u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0645\u0633\u0644\u0633\u0644\u0627\u062a\n\u2705 \u062e\u062f\u0645\u0629 \u0633\u0631\u064a\u0639\u0629 \u0648\u0645\u0648\u062b\u0648\u0642\u0629\n\ud83d\udd10 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u062a\u0648\u0641\u0631",
       "prices": {
         "month": 0,
         "year": 0
@@ -568,10 +568,10 @@
       "id": "genspark-ai",
       "imageFile": "Service34.JPG",
       "accent": "#7c3aed",
-      "nameEn": "✨ Genspark AI Available",
-      "nameAr": "✨ Genspark AI متوفر",
-      "descriptionEn": "✨ Genspark AI Available\n✅ Premium AI Access\n✅ AI Search & Research Tool\n✅ Create Smart Content Easily\n✅ Fast Activation\n✅ Reliable Service",
-      "descriptionAr": "✨ Genspark AI متوفر\n✅ وصول ذكاء اصطناعي بريميوم\n✅ أداة بحث ودراسة بالذكاء الاصطناعي\n✅ إنشاء محتوى ذكي بسهولة\n✅ تفعيل سريع\n✅ خدمة موثوقة",
+      "nameEn": "\u2728 Genspark AI Available",
+      "nameAr": "\u2728 Genspark AI \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\u2728 Genspark AI Available\n\u2705 Premium AI Access\n\u2705 AI Search & Research Tool\n\u2705 Create Smart Content Easily\n\u2705 Fast Activation\n\u2705 Reliable Service",
+      "descriptionAr": "\u2728 Genspark AI \u0645\u062a\u0648\u0641\u0631\n\u2705 \u0648\u0635\u0648\u0644 \u0630\u0643\u0627\u0621 \u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\u2705 \u0623\u062f\u0627\u0629 \u0628\u062d\u062b \u0648\u062f\u0631\u0627\u0633\u0629 \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a\n\u2705 \u0625\u0646\u0634\u0627\u0621 \u0645\u062d\u062a\u0648\u0649 \u0630\u0643\u064a \u0628\u0633\u0647\u0648\u0644\u0629\n\u2705 \u062a\u0641\u0639\u064a\u0644 \u0633\u0631\u064a\u0639\n\u2705 \u062e\u062f\u0645\u0629 \u0645\u0648\u062b\u0648\u0642\u0629",
       "prices": {
         "month": 20,
         "year": 240
@@ -585,10 +585,10 @@
       "id": "claude-ai",
       "imageFile": "Service35.JPG",
       "accent": "#d97706",
-      "nameEn": "🤖 Claude AI Available",
-      "nameAr": "🤖 Claude AI متوفر",
-      "descriptionEn": "🤖 Claude AI Available\n✅ Premium AI Assistant\n✅ Advanced Writing & Research\n✅ Coding & Productivity Support\n✅ Fast Activation\n✅ Reliable Access",
-      "descriptionAr": "🤖 Claude AI متوفر\n✅ مساعد ذكاء اصطناعي بريميوم\n✅ كتابة وبحث متقدم\n✅ دعم البرمجة وزيادة الإنتاجية\n✅ تفعيل سريع\n✅ وصول موثوق",
+      "nameEn": "\ud83e\udd16 Claude AI Available",
+      "nameAr": "\ud83e\udd16 Claude AI \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83e\udd16 Claude AI Available\n\u2705 Premium AI Assistant\n\u2705 Advanced Writing & Research\n\u2705 Coding & Productivity Support\n\u2705 Fast Activation\n\u2705 Reliable Access",
+      "descriptionAr": "\ud83e\udd16 Claude AI \u0645\u062a\u0648\u0641\u0631\n\u2705 \u0645\u0633\u0627\u0639\u062f \u0630\u0643\u0627\u0621 \u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\u2705 \u0643\u062a\u0627\u0628\u0629 \u0648\u0628\u062d\u062b \u0645\u062a\u0642\u062f\u0645\n\u2705 \u062f\u0639\u0645 \u0627\u0644\u0628\u0631\u0645\u062c\u0629 \u0648\u0632\u064a\u0627\u062f\u0629 \u0627\u0644\u0625\u0646\u062a\u0627\u062c\u064a\u0629\n\u2705 \u062a\u0641\u0639\u064a\u0644 \u0633\u0631\u064a\u0639\n\u2705 \u0648\u0635\u0648\u0644 \u0645\u0648\u062b\u0648\u0642",
       "prices": {
         "month": 8,
         "year": 90
@@ -602,10 +602,10 @@
       "id": "magic-light-ai",
       "imageFile": "Service36.JPG",
       "accent": "#ec4899",
-      "nameEn": "✨ Magic Light AI Available",
-      "nameAr": "✨ Magic Light AI متوفر",
-      "descriptionEn": "✨ Magic Light AI Available\n✅ AI Video Creation Tool\n✅ Create Stunning AI Videos\n✅ Premium Access\n✅ Fast & Reliable Service\n✅ Instant Activation",
-      "descriptionAr": "✨ Magic Light AI متوفر\n✅ أداة إنشاء فيديوهات بالذكاء الاصطناعي\n✅ إنشاء فيديوهات مذهلة بالذكاء الاصطناعي\n✅ وصول بريميوم\n✅ خدمة سريعة وموثوقة\n✅ تفعيل فوري",
+      "nameEn": "\u2728 Magic Light AI Available",
+      "nameAr": "\u2728 Magic Light AI \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\u2728 Magic Light AI Available\n\u2705 AI Video Creation Tool\n\u2705 Create Stunning AI Videos\n\u2705 Premium Access\n\u2705 Fast & Reliable Service\n\u2705 Instant Activation",
+      "descriptionAr": "\u2728 Magic Light AI \u0645\u062a\u0648\u0641\u0631\n\u2705 \u0623\u062f\u0627\u0629 \u0625\u0646\u0634\u0627\u0621 \u0641\u064a\u062f\u064a\u0648\u0647\u0627\u062a \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a\n\u2705 \u0625\u0646\u0634\u0627\u0621 \u0641\u064a\u062f\u064a\u0648\u0647\u0627\u062a \u0645\u0630\u0647\u0644\u0629 \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a\n\u2705 \u0648\u0635\u0648\u0644 \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\u2705 \u062e\u062f\u0645\u0629 \u0633\u0631\u064a\u0639\u0629 \u0648\u0645\u0648\u062b\u0648\u0642\u0629\n\u2705 \u062a\u0641\u0639\u064a\u0644 \u0641\u0648\u0631\u064a",
       "prices": {
         "month": 8,
         "year": 90
@@ -619,13 +619,13 @@
       "id": "chaupal",
       "imageFile": "Service37.JPG",
       "accent": "#16a34a",
-      "nameEn": "🎬 Chaupal Available",
-      "nameAr": "🎬 تشوبال متوفر",
-      "descriptionEn": "🎬 Chaupal Available\n✅ Premium Subscription\n✅ Punjabi, Haryanvi & Regional Content\n✅ HD Quality Streaming\n✅ Fast Activation\n✅ Unlimited Entertainment",
-      "descriptionAr": "🎬 تشوبال متوفر\n✅ اشتراك بريميوم\n✅ محتوى بنجابي وهاريانفي ومحتوى إقليمي\n✅ بث بجودة HD\n✅ تفعيل سريع\n✅ ترفيه غير محدود",
+      "nameEn": "\ud83c\udfac Chaupal Available",
+      "nameAr": "\ud83c\udfac \u062a\u0634\u0648\u0628\u0627\u0644 \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83c\udfac Chaupal Available\n\u2705 Premium Subscription\n\u2705 Punjabi, Haryanvi & Regional Content\n\u2705 HD Quality Streaming\n\u2705 Fast Activation\n\u2705 Unlimited Entertainment",
+      "descriptionAr": "\ud83c\udfac \u062a\u0634\u0648\u0628\u0627\u0644 \u0645\u062a\u0648\u0641\u0631\n\u2705 \u0627\u0634\u062a\u0631\u0627\u0643 \u0628\u0631\u064a\u0645\u064a\u0648\u0645\n\u2705 \u0645\u062d\u062a\u0648\u0649 \u0628\u0646\u062c\u0627\u0628\u064a \u0648\u0647\u0627\u0631\u064a\u0627\u0646\u0641\u064a \u0648\u0645\u062d\u062a\u0648\u0649 \u0625\u0642\u0644\u064a\u0645\u064a\n\u2705 \u0628\u062b \u0628\u062c\u0648\u062f\u0629 HD\n\u2705 \u062a\u0641\u0639\u064a\u0644 \u0633\u0631\u064a\u0639\n\u2705 \u062a\u0631\u0641\u064a\u0647 \u063a\u064a\u0631 \u0645\u062d\u062f\u0648\u062f",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 1.5,
+        "year": 12
       },
       "imageUrl": "/images/Service37.JPG",
       "sortOrder": 36,
@@ -636,10 +636,10 @@
       "id": "tod",
       "imageFile": "Service38.JPG",
       "accent": "#0ea5e9",
-      "nameEn": "⚽ TOD Subscription Available",
-      "nameAr": "⚽ اشتراك TOD متوفر",
-      "descriptionEn": "⚽ TOD Subscription Available\n✅ Watch Live Sports & Entertainment\n✅ Football, Movies & TV Shows\n✅ HD Streaming Quality\n✅ Fast Activation\n✅ Available on Multiple Devices\n📩 Order Now Today",
-      "descriptionAr": "⚽ اشتراك TOD متوفر\n✅ مشاهدة الرياضات المباشرة والترفيه\n✅ كرة القدم والأفلام والبرامج التلفزيونية\n✅ جودة بث HD\n✅ تفعيل سريع\n✅ متوفر على أجهزة متعددة\n📩 اطلب الآن اليوم",
+      "nameEn": "\u26bd TOD Subscription Available",
+      "nameAr": "\u26bd \u0627\u0634\u062a\u0631\u0627\u0643 TOD \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\u26bd TOD Subscription Available\n\u2705 Watch Live Sports & Entertainment\n\u2705 Football, Movies & TV Shows\n\u2705 HD Streaming Quality\n\u2705 Fast Activation\n\u2705 Available on Multiple Devices\n\ud83d\udce9 Order Now Today",
+      "descriptionAr": "\u26bd \u0627\u0634\u062a\u0631\u0627\u0643 TOD \u0645\u062a\u0648\u0641\u0631\n\u2705 \u0645\u0634\u0627\u0647\u062f\u0629 \u0627\u0644\u0631\u064a\u0627\u0636\u0627\u062a \u0627\u0644\u0645\u0628\u0627\u0634\u0631\u0629 \u0648\u0627\u0644\u062a\u0631\u0641\u064a\u0647\n\u2705 \u0643\u0631\u0629 \u0627\u0644\u0642\u062f\u0645 \u0648\u0627\u0644\u0623\u0641\u0644\u0627\u0645 \u0648\u0627\u0644\u0628\u0631\u0627\u0645\u062c \u0627\u0644\u062a\u0644\u0641\u0632\u064a\u0648\u0646\u064a\u0629\n\u2705 \u062c\u0648\u062f\u0629 \u0628\u062b HD\n\u2705 \u062a\u0641\u0639\u064a\u0644 \u0633\u0631\u064a\u0639\n\u2705 \u0645\u062a\u0648\u0641\u0631 \u0639\u0644\u0649 \u0623\u062c\u0647\u0632\u0629 \u0645\u062a\u0639\u062f\u062f\u0629\n\ud83d\udce9 \u0627\u0637\u0644\u0628 \u0627\u0644\u0622\u0646 \u0627\u0644\u064a\u0648\u0645",
       "prices": {
         "month": 0,
         "year": 0
@@ -653,13 +653,13 @@
       "id": "iptv",
       "imageFile": "Service39.JPG",
       "accent": "#f97316",
-      "nameEn": "📺 IPTV Subscription Available",
-      "nameAr": "📺 اشتراك IPTV متوفر",
-      "descriptionEn": "📺 IPTV Subscription Available\n✅ Thousands of Live TV Channels\n✅ Movies & Series Available\n✅ HD & 4K Quality Streaming\n✅ Works on Smart TV, Mobile & More\n✅ Fast Activation & Support\n📩 Contact Us Now for Subscription",
-      "descriptionAr": "📺 اشتراك IPTV متوفر\n✅ آلاف القنوات التلفزيونية المباشرة\n✅ أفلام ومسلسلات متوفرة\n✅ بث بجودة HD و 4K\n✅ يعمل على التلفزيون الذكي والهاتف والمزيد\n✅ تفعيل ودعم سريع\n📩 تواصل معنا الآن للاشتراك",
+      "nameEn": "\ud83d\udcfa IPTV Subscription Available",
+      "nameAr": "\ud83d\udcfa \u0627\u0634\u062a\u0631\u0627\u0643 IPTV \u0645\u062a\u0648\u0641\u0631",
+      "descriptionEn": "\ud83d\udcfa IPTV Subscription Available\n\u2705 Thousands of Live TV Channels\n\u2705 Movies & Series Available\n\u2705 HD & 4K Quality Streaming\n\u2705 Works on Smart TV, Mobile & More\n\u2705 Fast Activation & Support\n\ud83d\udce9 Contact Us Now for Subscription",
+      "descriptionAr": "\ud83d\udcfa \u0627\u0634\u062a\u0631\u0627\u0643 IPTV \u0645\u062a\u0648\u0641\u0631\n\u2705 \u0622\u0644\u0627\u0641 \u0627\u0644\u0642\u0646\u0648\u0627\u062a \u0627\u0644\u062a\u0644\u0641\u0632\u064a\u0648\u0646\u064a\u0629 \u0627\u0644\u0645\u0628\u0627\u0634\u0631\u0629\n\u2705 \u0623\u0641\u0644\u0627\u0645 \u0648\u0645\u0633\u0644\u0633\u0644\u0627\u062a \u0645\u062a\u0648\u0641\u0631\u0629\n\u2705 \u0628\u062b \u0628\u062c\u0648\u062f\u0629 HD \u0648 4K\n\u2705 \u064a\u0639\u0645\u0644 \u0639\u0644\u0649 \u0627\u0644\u062a\u0644\u0641\u0632\u064a\u0648\u0646 \u0627\u0644\u0630\u0643\u064a \u0648\u0627\u0644\u0647\u0627\u062a\u0641 \u0648\u0627\u0644\u0645\u0632\u064a\u062f\n\u2705 \u062a\u0641\u0639\u064a\u0644 \u0648\u062f\u0639\u0645 \u0633\u0631\u064a\u0639\n\ud83d\udce9 \u062a\u0648\u0627\u0635\u0644 \u0645\u0639\u0646\u0627 \u0627\u0644\u0622\u0646 \u0644\u0644\u0627\u0634\u062a\u0631\u0627\u0643",
       "prices": {
         "month": 1,
-        "year": 8
+        "year": 7
       },
       "imageUrl": "/images/Service39.JPG",
       "sortOrder": 38,
@@ -670,10 +670,10 @@
       "id": "tiktok-usa",
       "imageFile": "Service40.JPG",
       "accent": "#111111",
-      "nameEn": "🔥 TikTok USA Accounts Available",
-      "nameAr": "🔥 حسابات تيك توك أمريكية متوفرة",
-      "descriptionEn": "🔥 TikTok USA Accounts Available\n✅ Ready to Login\n✅ Secure Access\n✅ Fast Service\n📲 Order Now",
-      "descriptionAr": "🔥 حسابات تيك توك أمريكية متوفرة\n✅ جاهزة لتسجيل الدخول\n✅ وصول آمن\n✅ خدمة سريعة\n📲 اطلب الآن",
+      "nameEn": "\ud83d\udd25 TikTok USA Accounts Available",
+      "nameAr": "\ud83d\udd25 \u062d\u0633\u0627\u0628\u0627\u062a \u062a\u064a\u0643 \u062a\u0648\u0643 \u0623\u0645\u0631\u064a\u0643\u064a\u0629 \u0645\u062a\u0648\u0641\u0631\u0629",
+      "descriptionEn": "\ud83d\udd25 TikTok USA Accounts Available\n\u2705 Ready to Login\n\u2705 Secure Access\n\u2705 Fast Service\n\ud83d\udcf2 Order Now",
+      "descriptionAr": "\ud83d\udd25 \u062d\u0633\u0627\u0628\u0627\u062a \u062a\u064a\u0643 \u062a\u0648\u0643 \u0623\u0645\u0631\u064a\u0643\u064a\u0629 \u0645\u062a\u0648\u0641\u0631\u0629\n\u2705 \u062c\u0627\u0647\u0632\u0629 \u0644\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644\n\u2705 \u0648\u0635\u0648\u0644 \u0622\u0645\u0646\n\u2705 \u062e\u062f\u0645\u0629 \u0633\u0631\u064a\u0639\u0629\n\ud83d\udcf2 \u0627\u0637\u0644\u0628 \u0627\u0644\u0622\u0646",
       "prices": {
         "month": 1,
         "year": 8
@@ -687,10 +687,10 @@
       "id": "esim-travel",
       "imageFile": "Service41.JPG",
       "accent": "#0ea5e9",
-      "nameEn": "📶 eSIM With Travel Plans 🌍✈️",
-      "nameAr": "📶 شريحة eSIM مع خطط سفر 🌍✈️",
-      "descriptionEn": "📶 eSIM With Travel Plans 🌍✈️\n🌐 Stay Connected Anywhere, Anytime\n🚀 Get Affordable Travel eSIMs With Fast Activation\n📱 Instant Internet Access Without Physical SIM\n🌍 Coverage In Multiple Countries Worldwide\n⚡ Easy Setup And Reliable Connection\n✅ Perfect For Travelers, Business Trips & Vacations ✈️\n🔒 Secure And Hassle-Free Connectivity Everywhere",
-      "descriptionAr": "📶 شريحة eSIM مع خطط سفر 🌍✈️\n🌐 ابقَ متصلاً في أي مكان وأي وقت\n🚀 احصل على شرائح eSIM للسفر بأسعار مناسبة مع تفعيل سريع\n📱 إنترنت فوري بدون شريحة فعلية\n🌍 تغطية في العديد من الدول حول العالم\n⚡ إعداد سهل واتصال موثوق\n✅ مثالية للمسافرين ورحلات العمل والإجازات ✈️\n🔒 اتصال آمن وسهل بدون تعقيدات في كل مكان",
+      "nameEn": "\ud83d\udcf6 eSIM With Travel Plans \ud83c\udf0d\u2708\ufe0f",
+      "nameAr": "\ud83d\udcf6 \u0634\u0631\u064a\u062d\u0629 eSIM \u0645\u0639 \u062e\u0637\u0637 \u0633\u0641\u0631 \ud83c\udf0d\u2708\ufe0f",
+      "descriptionEn": "\ud83d\udcf6 eSIM With Travel Plans \ud83c\udf0d\u2708\ufe0f\n\ud83c\udf10 Stay Connected Anywhere, Anytime\n\ud83d\ude80 Get Affordable Travel eSIMs With Fast Activation\n\ud83d\udcf1 Instant Internet Access Without Physical SIM\n\ud83c\udf0d Coverage In Multiple Countries Worldwide\n\u26a1 Easy Setup And Reliable Connection\n\u2705 Perfect For Travelers, Business Trips & Vacations \u2708\ufe0f\n\ud83d\udd12 Secure And Hassle-Free Connectivity Everywhere",
+      "descriptionAr": "\ud83d\udcf6 \u0634\u0631\u064a\u062d\u0629 eSIM \u0645\u0639 \u062e\u0637\u0637 \u0633\u0641\u0631 \ud83c\udf0d\u2708\ufe0f\n\ud83c\udf10 \u0627\u0628\u0642\u064e \u0645\u062a\u0635\u0644\u0627\u064b \u0641\u064a \u0623\u064a \u0645\u0643\u0627\u0646 \u0648\u0623\u064a \u0648\u0642\u062a\n\ud83d\ude80 \u0627\u062d\u0635\u0644 \u0639\u0644\u0649 \u0634\u0631\u0627\u0626\u062d eSIM \u0644\u0644\u0633\u0641\u0631 \u0628\u0623\u0633\u0639\u0627\u0631 \u0645\u0646\u0627\u0633\u0628\u0629 \u0645\u0639 \u062a\u0641\u0639\u064a\u0644 \u0633\u0631\u064a\u0639\n\ud83d\udcf1 \u0625\u0646\u062a\u0631\u0646\u062a \u0641\u0648\u0631\u064a \u0628\u062f\u0648\u0646 \u0634\u0631\u064a\u062d\u0629 \u0641\u0639\u0644\u064a\u0629\n\ud83c\udf0d \u062a\u063a\u0637\u064a\u0629 \u0641\u064a \u0627\u0644\u0639\u062f\u064a\u062f \u0645\u0646 \u0627\u0644\u062f\u0648\u0644 \u062d\u0648\u0644 \u0627\u0644\u0639\u0627\u0644\u0645\n\u26a1 \u0625\u0639\u062f\u0627\u062f \u0633\u0647\u0644 \u0648\u0627\u062a\u0635\u0627\u0644 \u0645\u0648\u062b\u0648\u0642\n\u2705 \u0645\u062b\u0627\u0644\u064a\u0629 \u0644\u0644\u0645\u0633\u0627\u0641\u0631\u064a\u0646 \u0648\u0631\u062d\u0644\u0627\u062a \u0627\u0644\u0639\u0645\u0644 \u0648\u0627\u0644\u0625\u062c\u0627\u0632\u0627\u062a \u2708\ufe0f\n\ud83d\udd12 \u0627\u062a\u0635\u0627\u0644 \u0622\u0645\u0646 \u0648\u0633\u0647\u0644 \u0628\u062f\u0648\u0646 \u062a\u0639\u0642\u064a\u062f\u0627\u062a \u0641\u064a \u0643\u0644 \u0645\u0643\u0627\u0646",
       "prices": {
         "month": 1,
         "year": 8
@@ -704,13 +704,13 @@
       "id": "whatsapp-number",
       "imageFile": "Service42.JPG",
       "accent": "#25d366",
-      "nameEn": "📱 WhatsApp Number Available",
-      "nameAr": "📱 أرقام واتساب متوفرة",
-      "descriptionEn": "📱 WhatsApp Number Available\n🔐 Only Login Warranty Provided\n⚡ Get Active WhatsApp Numbers With Fast Delivery\n✅ Reliable Service With Login Support Only\n🚀 Easy Activation And Smooth Usage Experience\n⚠️ Note: Login Warranty Only. No Replacement After Successful Login.",
-      "descriptionAr": "📱 أرقام واتساب متوفرة\n🔐 ضمان تسجيل الدخول فقط متوفر\n⚡ احصل على أرقام واتساب مفعلة مع تسليم سريع\n✅ خدمة موثوقة مع دعم تسجيل الدخول فقط\n🚀 تفعيل سهل وتجربة استخدام سلسة\n⚠️ ملاحظة: ضمان تسجيل الدخول فقط. لا يوجد استبدال بعد نجاح تسجيل الدخول.",
+      "nameEn": "\ud83d\udcf1 WhatsApp Number Available",
+      "nameAr": "\ud83d\udcf1 \u0623\u0631\u0642\u0627\u0645 \u0648\u0627\u062a\u0633\u0627\u0628 \u0645\u062a\u0648\u0641\u0631\u0629",
+      "descriptionEn": "\ud83d\udcf1 WhatsApp Number Available\n\ud83d\udd10 Only Login Warranty Provided\n\u26a1 Get Active WhatsApp Numbers With Fast Delivery\n\u2705 Reliable Service With Login Support Only\n\ud83d\ude80 Easy Activation And Smooth Usage Experience\n\u26a0\ufe0f Note: Login Warranty Only. No Replacement After Successful Login.",
+      "descriptionAr": "\ud83d\udcf1 \u0623\u0631\u0642\u0627\u0645 \u0648\u0627\u062a\u0633\u0627\u0628 \u0645\u062a\u0648\u0641\u0631\u0629\n\ud83d\udd10 \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0641\u0642\u0637 \u0645\u062a\u0648\u0641\u0631\n\u26a1 \u0627\u062d\u0635\u0644 \u0639\u0644\u0649 \u0623\u0631\u0642\u0627\u0645 \u0648\u0627\u062a\u0633\u0627\u0628 \u0645\u0641\u0639\u0644\u0629 \u0645\u0639 \u062a\u0633\u0644\u064a\u0645 \u0633\u0631\u064a\u0639\n\u2705 \u062e\u062f\u0645\u0629 \u0645\u0648\u062b\u0648\u0642\u0629 \u0645\u0639 \u062f\u0639\u0645 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0641\u0642\u0637\n\ud83d\ude80 \u062a\u0641\u0639\u064a\u0644 \u0633\u0647\u0644 \u0648\u062a\u062c\u0631\u0628\u0629 \u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0633\u0644\u0633\u0629\n\u26a0\ufe0f \u0645\u0644\u0627\u062d\u0638\u0629: \u0636\u0645\u0627\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0641\u0642\u0637. \u0644\u0627 \u064a\u0648\u062c\u062f \u0627\u0633\u062a\u0628\u062f\u0627\u0644 \u0628\u0639\u062f \u0646\u062c\u0627\u062d \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644.",
       "prices": {
-        "month": 1,
-        "year": 8
+        "month": 2,
+        "year": 2
       },
       "imageUrl": "/images/Service42.JPG",
       "sortOrder": 41,
@@ -724,10 +724,10 @@
       "923394077636",
       "97366382981"
     ],
-    "aboutEn": "At Social Store, we bring world-class entertainment right to your screen without breaking the bank. We offer instant access to top premium OTT subscriptions in Bahrain at reasonable, budget-friendly prices—making streaming simple, affordable, and seamless.",
-    "aboutAr": "في Social Store، نقدم لك ترفيهاً عالمياً على شاشتك دون إرهاق ميزانيتك. نوفر وصولاً فورياً إلى أفضل اشتراكات OTT المميزة في البحرين بأسعار معقولة وصديقة للميزانية—لتجعل البث بسيطاً وميسور التكلفة وسلساً.",
+    "aboutEn": "At Social Store, we bring world-class entertainment right to your screen without breaking the bank. We offer instant access to top premium OTT subscriptions in Bahrain at reasonable, budget-friendly prices\u2014making streaming simple, affordable, and seamless.",
+    "aboutAr": "\u0641\u064a Social Store\u060c \u0646\u0642\u062f\u0645 \u0644\u0643 \u062a\u0631\u0641\u064a\u0647\u0627\u064b \u0639\u0627\u0644\u0645\u064a\u0627\u064b \u0639\u0644\u0649 \u0634\u0627\u0634\u062a\u0643 \u062f\u0648\u0646 \u0625\u0631\u0647\u0627\u0642 \u0645\u064a\u0632\u0627\u0646\u064a\u062a\u0643. \u0646\u0648\u0641\u0631 \u0648\u0635\u0648\u0644\u0627\u064b \u0641\u0648\u0631\u064a\u0627\u064b \u0625\u0644\u0649 \u0623\u0641\u0636\u0644 \u0627\u0634\u062a\u0631\u0627\u0643\u0627\u062a OTT \u0627\u0644\u0645\u0645\u064a\u0632\u0629 \u0641\u064a \u0627\u0644\u0628\u062d\u0631\u064a\u0646 \u0628\u0623\u0633\u0639\u0627\u0631 \u0645\u0639\u0642\u0648\u0644\u0629 \u0648\u0635\u062f\u064a\u0642\u0629 \u0644\u0644\u0645\u064a\u0632\u0627\u0646\u064a\u0629\u2014\u0644\u062a\u062c\u0639\u0644 \u0627\u0644\u0628\u062b \u0628\u0633\u064a\u0637\u0627\u064b \u0648\u0645\u064a\u0633\u0648\u0631 \u0627\u0644\u062a\u0643\u0644\u0641\u0629 \u0648\u0633\u0644\u0633\u0627\u064b.",
     "ownersEn": "M Hamza Tariq",
-    "ownersAr": "م. حمزة طارق",
+    "ownersAr": "\u0645. \u062d\u0645\u0632\u0629 \u0637\u0627\u0631\u0642",
     "socialLinks": {
       "whatsapp": "https://whatsapp.com/channel/0029Vb8CHOHJf05iTMmChh1U",
       "instagram": "https://www.instagram.com/globalstoreold?igsh=MW1yZjdvZTYwODg1NQ==",

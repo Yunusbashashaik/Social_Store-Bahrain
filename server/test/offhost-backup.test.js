@@ -21,6 +21,7 @@ import {
   isOffHostBackupConfigured,
   resetOffHostBackupStatus,
   setOffHostBackupFetch,
+  shouldHydrateFromOffHost,
   waitForOffHostBackup,
 } from "../src/db/offHostBackup.js";
 import { fileURLToPath } from "url";
@@ -233,6 +234,47 @@ describe("off-host GitHub catalog backup survives empty local disk", { concurren
     }
   });
 
+  it("hydrates from off-host only when the live catalog is empty", () => {
+    assert.equal(shouldHydrateFromOffHost([]), true);
+    assert.equal(shouldHydrateFromOffHost(null), true);
+    assert.equal(shouldHydrateFromOffHost(DEFAULT_SERVICES), false);
+    assert.equal(
+      shouldHydrateFromOffHost(
+        DEFAULT_SERVICES.map((service) =>
+          service.id === "prime-video-shared"
+            ? { ...service, prices: { month: 0.6, year: 4 } }
+            : service,
+        ),
+      ),
+      false,
+    );
+  });
+
+  it("does not restore off-host backup over a non-empty factory catalog", async () => {
+    makeHostDirs();
+    process.env.ALLOW_FACTORY_SEED = "1";
+    process.env.CATALOG_BACKUP_SKIP_PACKAGED = "1";
+    process.env.CATALOG_BACKUP_TOKEN = "test-token";
+    process.env.CATALOG_BACKUP_REPO = "Yunusbashashaik/Social_Store-Bahrain";
+    const remote = installGithubMock(customState("2026-09-17T23:00:00.000Z"));
+
+    initDatabase(undefined, { engine: "json" });
+    await seedDatabase();
+    assert.ok(listServices().length > 0);
+    assert.equal(catalogMatchesDefaults(listServices()), true);
+
+    const seeded = await seedDatabase();
+    const youtube = listServices().find((row) => row.id === "youtube-premium");
+    const primeShared = listServices().find((row) => row.id === "prime-video-shared");
+
+    assert.equal(seeded.offHostHydrated.restored, false);
+    assert.equal(seeded.offHostHydrated.reason, "live-custom");
+    assert.notEqual(youtube.nameEn, "YouTube Bahrain Live");
+    assert.equal(primeShared.prices.month, DEFAULT_SERVICES.find((s) => s.id === "prime-video-shared").prices.month);
+    assert.equal(remote.state.services.find((s) => s.id === "youtube-premium").nameEn, "YouTube Bahrain Live");
+    assert.equal(getHealthPayload().offHostBackupRestoredThisBoot, false);
+  });
+
   it("default GitHub raw URL is configured without a token", () => {
     delete process.env.CATALOG_BACKUP_TOKEN;
     delete process.env.CATALOG_BACKUP_REPO;
@@ -274,7 +316,9 @@ describe("off-host GitHub catalog backup survives empty local disk", { concurren
     assert.equal(seeded.catalogSeededThisBoot, false);
     assert.equal(seeded.offHostHydrated.restored, true);
     assert.equal(listServices().length, snapshot.services.length);
-    assert.equal(catalogMatchesDefaults(listServices()), true);
+    const primeShared = listServices().find((row) => row.id === "prime-video-shared");
+    assert.equal(primeShared.prices.month, 0.6);
+    assert.equal(primeShared.prices.year, 4);
 
     const health = getHealthPayload();
     assert.equal(health.factorySeedDisabled, true);
@@ -302,6 +346,9 @@ describe("off-host GitHub catalog backup survives empty local disk", { concurren
     assert.equal(seeded.offHostHydrated.restored, true);
     assert.ok(String(seeded.offHostHydrated.snapshotPath || "").includes("catalog-backup"));
     assert.equal(listServices().length, DEFAULT_SERVICES.length);
+    const primeShared = listServices().find((row) => row.id === "prime-video-shared");
+    assert.equal(primeShared.prices.month, 0.6);
+    assert.equal(primeShared.prices.year, 4);
 
     const health = getHealthPayload();
     assert.equal(health.offHostBackupConfigured, true);

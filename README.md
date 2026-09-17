@@ -46,7 +46,7 @@ Optional env:
 - `CATALOG_BACKUP_BRANCH` — default `main`
 - `CATALOG_BACKUP_URL` — optional raw JSON URL used to **restore** when local disks are empty. When unset, defaults to `https://raw.githubusercontent.com/Yunusbashashaik/Social_Store-Bahrain/main/catalog-backup/admin-state.json`. Empty boot also hydrates from packaged `catalog-backup/` in the deploy tree.
 
-On every admin save the API writes `admin-state.json` and `admin-state.backup.json` to `/local`, `/root`, and `$HOME` data dirs, then pushes the custom catalog to GitHub when a token is set. On boot, if the local catalog is empty (or only factory defaults), it hydrates from those replicas first, then from packaged `catalog-backup/`, GitHub, or the default raw URL, and **does not** factory-fill.
+On every admin save the API writes `admin-state.json` and `admin-state.backup.json` to `/local`, `/root`, and `$HOME` data dirs, then pushes the custom catalog to GitHub when a token is set. On boot, if the local catalog is **empty**, it hydrates from those replicas first, then from packaged `catalog-backup/`, GitHub, or the default raw URL, and **does not** factory-fill. A non-empty live catalog is never replaced by off-host restore, even when it matches factory defaults.
 
 ### Admin panel
 
