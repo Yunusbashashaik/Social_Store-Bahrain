@@ -1,6 +1,5 @@
 import fs from "fs";
 import multer from "multer";
-import path from "path";
 import { getServiceUploadsDir, getUploadsDir } from "../db/connection.js";
 
 export const MAX_SCREENSHOT_BYTES = 5 * 1024 * 1024;

@@ -106,7 +106,8 @@ function authHeaders() {
 
 function stripInternal(state) {
   if (!state || typeof state !== "object") return null;
-  const { __path, ...rest } = state;
+  const rest = { ...state };
+  delete rest.__path;
   return {
     version: rest.version || 1,
     savedAt: rest.savedAt || new Date().toISOString(),

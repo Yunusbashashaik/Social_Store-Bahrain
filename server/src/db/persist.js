@@ -294,7 +294,8 @@ function bestExistingInDir(dir) {
 }
 
 function snapshotBody(payload) {
-  const { __path, ...rest } = payload;
+  const rest = { ...payload };
+  delete rest.__path;
   return `${JSON.stringify(rest, null, 2)}\n`;
 }
 
@@ -460,7 +461,8 @@ export function exportAdminState() {
       settings: liveSettings,
     };
   }
-  const { __path, ...rest } = snapshot;
+  const rest = { ...snapshot };
+  delete rest.__path;
   return rest;
 }
 
