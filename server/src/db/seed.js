@@ -1,5 +1,5 @@
 import { DEFAULT_SERVICES } from "../config/defaultServices.js";
-import { catalogMatchesDefaults, isCustomAdminState } from "./catalogCompare.js";
+import { isCustomAdminState } from "./catalogCompare.js";
 import { isFactorySeedAllowed } from "./factorySeed.js";
 import {
   fetchOffHostBackup,
@@ -145,9 +145,6 @@ async function hydrateOffHostIfNeeded() {
   }
   const remote = await fetchOffHostBackup();
   if (!remote) return { restored: false, reason: "no-off-host-backup" };
-  if (!isCustomAdminState(remote) && catalogMatchesDefaults(remote.services || [])) {
-    return { restored: false, reason: "off-host-is-factory" };
-  }
   if (!Array.isArray(remote.services) || remote.services.length === 0) {
     return { restored: false, reason: "off-host-empty" };
   }

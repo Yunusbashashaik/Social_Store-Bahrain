@@ -8,3 +8,11 @@ export async function seedWithFactory(seedDatabase) {
     else process.env.ALLOW_FACTORY_SEED = previous;
   }
 }
+
+export function isolateOffHostBackup() {
+  process.env.CATALOG_BACKUP_SKIP_PACKAGED = "1";
+}
+
+export function restoreOffHostBackupEnv() {
+  delete process.env.CATALOG_BACKUP_SKIP_PACKAGED;
+}

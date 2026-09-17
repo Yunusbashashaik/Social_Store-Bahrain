@@ -15,11 +15,15 @@ import { insertService, listServices } from "../src/models/Service.js";
 import { DEFAULT_SERVICES } from "../../shared/defaultServices.js";
 import { DEFAULT_SETTINGS } from "../src/config/defaults.js";
 import { persistAdminState } from "../src/db/persist.js";
+import { catalogMatchesDefaults } from "../src/db/catalogCompare.js";
 import {
+  getDefaultCatalogBackupUrl,
+  isOffHostBackupConfigured,
   resetOffHostBackupStatus,
   setOffHostBackupFetch,
   waitForOffHostBackup,
 } from "../src/db/offHostBackup.js";
+import { fileURLToPath } from "url";
 
 function factoryIds() {
   return new Set(DEFAULT_SERVICES.map((service) => service.id));
@@ -59,6 +63,7 @@ describe("off-host GitHub catalog backup survives empty local disk", { concurren
     "CATALOG_BACKUP_PATH",
     "CATALOG_BACKUP_BRANCH",
     "CATALOG_BACKUP_URL",
+    "CATALOG_BACKUP_SKIP_PACKAGED",
     "GITHUB_TOKEN",
     "GH_TOKEN",
   ];
@@ -81,6 +86,7 @@ describe("off-host GitHub catalog backup survives empty local disk", { concurren
     process.env.HOME = homeBase;
     delete process.env.DATA_DIR;
     delete process.env.ALLOW_FACTORY_SEED;
+    delete process.env.CATALOG_BACKUP_SKIP_PACKAGED;
     return {
       localDir,
       rootDir,
@@ -155,6 +161,7 @@ describe("off-host GitHub catalog backup survives empty local disk", { concurren
     process.env.CATALOG_BACKUP_TOKEN = "test-token";
     process.env.CATALOG_BACKUP_REPO = "Yunusbashashaik/Social_Store-Bahrain";
     process.env.CATALOG_BACKUP_PATH = "catalog-backup/admin-state.json";
+    process.env.CATALOG_BACKUP_SKIP_PACKAGED = "1";
     const remote = installGithubMock();
 
     initDatabase(undefined, { engine: "json" });
@@ -224,6 +231,83 @@ describe("off-host GitHub catalog backup survives empty local disk", { concurren
     } finally {
       await new Promise((resolve) => server.close(resolve));
     }
+  });
+
+  it("default GitHub raw URL is configured without a token", () => {
+    delete process.env.CATALOG_BACKUP_TOKEN;
+    delete process.env.CATALOG_BACKUP_REPO;
+    delete process.env.CATALOG_BACKUP_URL;
+    delete process.env.GITHUB_TOKEN;
+    delete process.env.GH_TOKEN;
+    assert.equal(
+      getDefaultCatalogBackupUrl(),
+      "https://raw.githubusercontent.com/Yunusbashashaik/Social_Store-Bahrain/main/catalog-backup/admin-state.json",
+    );
+    assert.equal(isOffHostBackupConfigured(), true);
+  });
+
+  it("restores committed catalog-backup via default raw URL without a token or factory seed", async () => {
+    makeHostDirs();
+    process.env.CATALOG_BACKUP_SKIP_PACKAGED = "1";
+    delete process.env.CATALOG_BACKUP_TOKEN;
+    delete process.env.CATALOG_BACKUP_REPO;
+    delete process.env.CATALOG_BACKUP_URL;
+    const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+    const snapshot = JSON.parse(
+      fs.readFileSync(path.join(repoRoot, "catalog-backup", "admin-state.json"), "utf8"),
+    );
+    assert.ok(snapshot.services.length > 0);
+    assert.equal(snapshot.version, 1);
+    assert.ok(snapshot.services.every((service) => service.offerType));
+
+    setOffHostBackupFetch(async (url) => {
+      assert.equal(String(url), getDefaultCatalogBackupUrl());
+      return {
+        ok: true,
+        status: 200,
+        json: async () => snapshot,
+      };
+    });
+
+    initDatabase(undefined, { engine: "json" });
+    const seeded = await seedDatabase();
+    assert.equal(seeded.catalogSeededThisBoot, false);
+    assert.equal(seeded.offHostHydrated.restored, true);
+    assert.equal(listServices().length, snapshot.services.length);
+    assert.equal(catalogMatchesDefaults(listServices()), true);
+
+    const health = getHealthPayload();
+    assert.equal(health.factorySeedDisabled, true);
+    assert.equal(health.offHostBackupConfigured, true);
+    assert.equal(health.offHostBackupRestoredThisBoot, true);
+    assert.equal(health.catalogSeededThisBoot, false);
+    assert.equal(health.catalogEmpty, false);
+  });
+
+  it("restores committed catalog-backup from the packaged path without a token", async () => {
+    makeHostDirs();
+    delete process.env.CATALOG_BACKUP_SKIP_PACKAGED;
+    delete process.env.CATALOG_BACKUP_TOKEN;
+    delete process.env.CATALOG_BACKUP_REPO;
+    delete process.env.CATALOG_BACKUP_URL;
+    setOffHostBackupFetch(async () => ({
+      ok: false,
+      status: 404,
+      json: async () => ({ message: "Not Found" }),
+    }));
+
+    initDatabase(undefined, { engine: "json" });
+    const seeded = await seedDatabase();
+    assert.equal(seeded.catalogSeededThisBoot, false);
+    assert.equal(seeded.offHostHydrated.restored, true);
+    assert.ok(String(seeded.offHostHydrated.snapshotPath || "").includes("catalog-backup"));
+    assert.equal(listServices().length, DEFAULT_SERVICES.length);
+
+    const health = getHealthPayload();
+    assert.equal(health.offHostBackupConfigured, true);
+    assert.equal(health.offHostBackupRestoredThisBoot, true);
+    assert.equal(health.catalogSeededThisBoot, false);
+    assert.equal(health.factorySeedDisabled, true);
   });
 });
 

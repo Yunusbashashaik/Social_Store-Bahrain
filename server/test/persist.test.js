@@ -16,7 +16,7 @@ import {
   resolveProductionDataDir,
 } from "../src/db/connection.js";
 import { getLastSeedResult, seedDatabase } from "../src/db/seed.js";
-import { seedWithFactory } from "./factorySeedEnv.js";
+import { seedWithFactory, isolateOffHostBackup, restoreOffHostBackupEnv } from "./factorySeedEnv.js";
 import { getHealthPayload } from "../src/health.js";
 import {
   insertService,
@@ -53,6 +53,7 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
   beforeEach(() => {
     wipeIsolatedMirrors();
     process.env.ALLOW_FACTORY_SEED = "1";
+    restoreOffHostBackupEnv();
   });
 
   after(() => {
@@ -455,6 +456,7 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, as
   });
 
   it("never factory-seeds again once catalogSeeded is set, even if the table is empty", async () => {
+    isolateOffHostBackup();
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-seeded-empty-"));
     dirs.push(dir);
     initDatabase(path.join(dir, "unused.db"), {
@@ -510,7 +512,8 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, as
     );
   });
 
-  it("wiped empty disks stay empty and never insert factory names", async () => {
+  it("wiped empty disks stay empty and never insert factory names when off-host restore is isolated", async () => {
+    isolateOffHostBackup();
     makeHostDirs();
     initDatabase(undefined, { engine: "json" });
     const seeded = await seedDatabase();
