@@ -408,9 +408,10 @@ export function flushActiveStore() {
  * 3. migrateLegacyDataDir copies missing files only (never overwrites)
  * 4. seed.js bindPersist (module load) then seedDatabase:
  *    hydratePersistedAdminState from every durable admin-state.json,
- *    admin-state.backup.json, and store replica
- *    THEN factory-seed ONLY if ALLOW_FACTORY_SEED=1 (dev). Production never
- *    inserts DEFAULT_SERVICES; empty after restore stays empty.
+ *    admin-state.backup.json, and store replica, then packaged / GitHub
+ *    catalog-backup (including DEFAULT_SERVICES snapshots). Factory-seed
+ *    ONLY if ALLOW_FACTORY_SEED=1 (dev). Production never inserts
+ *    DEFAULT_SERVICES.
  * 5. persistAdminState mirrors admin-state.json + admin-state.backup.json
  *    to /local, /root, $HOME and never writes factory over custom
  */

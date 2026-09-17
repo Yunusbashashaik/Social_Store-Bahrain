@@ -10,7 +10,7 @@ import {
   initDatabase,
 } from "../src/db/connection.js";
 import { getLastSeedResult, seedDatabase } from "../src/db/seed.js";
-import { seedWithFactory } from "./factorySeedEnv.js";
+import { seedWithFactory, isolateOffHostBackup, restoreOffHostBackupEnv } from "./factorySeedEnv.js";
 import { getHealthPayload } from "../src/health.js";
 import { listServices, updateService } from "../src/models/Service.js";
 import { DEFAULT_SERVICES } from "../../shared/defaultServices.js";
@@ -81,6 +81,7 @@ describe("production boot recycle (initDatabase with no explicit store)", { conc
   after(() => {
     closeDatabase();
     restoreEnv();
+    restoreOffHostBackupEnv();
     for (const dir of dirs) {
       try {
         fs.chmodSync(dir, 0o755);
@@ -137,7 +138,8 @@ describe("production boot recycle (initDatabase with no explicit store)", { conc
     assert.equal(readAdminSnapshot().services.find((s) => s.id === "youtube-premium").nameEn, "YouTube Bahrain Live");
   });
 
-  it("true first boot stays empty unless ALLOW_FACTORY_SEED=1", async () => {
+  it("true first boot stays empty unless ALLOW_FACTORY_SEED=1 when off-host restore is isolated", async () => {
+    isolateOffHostBackup();
     makeHostDirs();
     initDatabase(undefined, { engine: "json" });
     const first = await seedDatabase();

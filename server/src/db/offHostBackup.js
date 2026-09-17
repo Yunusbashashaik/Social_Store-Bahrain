@@ -1,13 +1,21 @@
 /**
  * Off-host catalog backup so a recycled local disk can auto-restore.
  * Push: GitHub Contents API (CATALOG_BACKUP_TOKEN / GITHUB_TOKEN / GH_TOKEN).
- * Pull: same API, or CATALOG_BACKUP_URL (raw JSON).
+ * Pull: same API, CATALOG_BACKUP_URL (raw JSON), packaged catalog-backup/,
+ * or the default public raw GitHub URL (no token).
  */
+import fs from "fs";
+import path from "path";
+import { APP_ROOT } from "./connection.js";
 import { catalogMatchesDefaults, isCustomAdminState } from "./catalogCompare.js";
 
-const DEFAULT_BACKUP_PATH = "catalog-backup/admin-state.json";
+export const DEFAULT_BACKUP_REPO = "Yunusbashashaik/Social_Store-Bahrain";
+export const DEFAULT_BACKUP_PATH = "catalog-backup/admin-state.json";
+const DEFAULT_BACKUP_FILE = "catalog-backup/admin-state.backup.json";
+export const DEFAULT_BACKUP_BRANCH = "main";
 
 let fetchImpl = (...args) => globalThis.fetch(...args);
+let customFetch = false;
 let lastStatus = {
   configured: false,
   pushConfigured: false,
@@ -22,7 +30,13 @@ let cachedSha = null;
 let pushChain = Promise.resolve();
 
 export function setOffHostBackupFetch(fn) {
-  fetchImpl = fn || ((...args) => globalThis.fetch(...args));
+  if (fn) {
+    fetchImpl = fn;
+    customFetch = true;
+  } else {
+    fetchImpl = (...args) => globalThis.fetch(...args);
+    customFetch = false;
+  }
 }
 
 export function resetOffHostBackupStatus() {
@@ -68,11 +82,111 @@ function backupPath() {
 }
 
 function backupBranch() {
-  return String(process.env.CATALOG_BACKUP_BRANCH || "main").trim() || "main";
+  return String(process.env.CATALOG_BACKUP_BRANCH || DEFAULT_BACKUP_BRANCH).trim() || DEFAULT_BACKUP_BRANCH;
+}
+
+function backupUrlEnv() {
+  return String(process.env.CATALOG_BACKUP_URL || "").trim() || null;
+}
+
+export function getDefaultCatalogBackupUrl(
+  repo = DEFAULT_BACKUP_REPO,
+  filePath = DEFAULT_BACKUP_PATH,
+  branch = DEFAULT_BACKUP_BRANCH,
+) {
+  const encodedPath = String(filePath || DEFAULT_BACKUP_PATH)
+    .split("/")
+    .map((part) => encodeURIComponent(part))
+    .join("/");
+  return `https://raw.githubusercontent.com/${repo || DEFAULT_BACKUP_REPO}/${branch || DEFAULT_BACKUP_BRANCH}/${encodedPath}`;
 }
 
 function backupFetchUrl() {
-  return String(process.env.CATALOG_BACKUP_URL || "").trim() || null;
+  return backupUrlEnv() || getDefaultCatalogBackupUrl();
+}
+
+function isTestProcess() {
+  if (process.env.NODE_ENV === "test") return true;
+  return process.argv.some((arg) => /(^|[\\/])test[\\/]|\.test\.js$/.test(String(arg)));
+}
+
+function usingCustomFetch() {
+  return customFetch;
+}
+
+function shouldFetchDefaultRaw() {
+  if (backupUrlEnv()) return false;
+  if (process.env.CATALOG_BACKUP_DISABLE === "1") return false;
+  if (!isTestProcess() || process.env.CATALOG_BACKUP_ALLOW_NETWORK === "1") return true;
+  return usingCustomFetch();
+}
+
+function siblingBackupPath(filePath) {
+  if (!filePath.endsWith(".json") || filePath.endsWith(".backup.json")) return null;
+  return filePath.replace(/\.json$/, ".backup.json");
+}
+
+function repoRootCandidates() {
+  const roots = [APP_ROOT, process.cwd()];
+  try {
+    roots.push(path.resolve(process.cwd(), ".."));
+  } catch {
+    /* ignore */
+  }
+  const unique = [];
+  const seen = new Set();
+  for (const root of roots) {
+    const resolved = path.resolve(root);
+    if (seen.has(resolved)) continue;
+    seen.add(resolved);
+    unique.push(resolved);
+  }
+  return unique;
+}
+
+function listPackagedBackupPaths(filePath = DEFAULT_BACKUP_PATH) {
+  if (process.env.CATALOG_BACKUP_SKIP_PACKAGED === "1") return [];
+  const relative = [filePath, siblingBackupPath(filePath), DEFAULT_BACKUP_PATH, DEFAULT_BACKUP_FILE].filter(
+    Boolean,
+  );
+  const paths = [];
+  const seen = new Set();
+  for (const root of repoRootCandidates()) {
+    for (const name of relative) {
+      const full = path.join(root, name);
+      if (seen.has(full)) continue;
+      seen.add(full);
+      paths.push(full);
+    }
+  }
+  return paths;
+}
+
+function hasPackagedBackup() {
+  return listPackagedBackupPaths(backupPath()).some((file) => {
+    try {
+      return fs.existsSync(file);
+    } catch {
+      return false;
+    }
+  });
+}
+
+function readPackagedSnapshot() {
+  for (const filePath of listPackagedBackupPaths(backupPath())) {
+    try {
+      const snapshot = parseSnapshot(JSON.parse(fs.readFileSync(filePath, "utf8")));
+      if (snapshot && Array.isArray(snapshot.services) && snapshot.services.length > 0) {
+        snapshot.__path = filePath;
+        lastStatus.savedAt = snapshot.savedAt || lastStatus.savedAt;
+        lastStatus.source = filePath;
+        return snapshot;
+      }
+    } catch {
+      /* missing or unreadable */
+    }
+  }
+  return null;
 }
 
 export function isOffHostPushConfigured() {
@@ -80,7 +194,7 @@ export function isOffHostPushConfigured() {
 }
 
 export function isOffHostBackupConfigured() {
-  return Boolean(backupFetchUrl() || isOffHostPushConfigured());
+  return Boolean(backupFetchUrl() || isOffHostPushConfigured() || hasPackagedBackup());
 }
 
 function githubContentsUrl() {
@@ -160,8 +274,7 @@ async function readGithubSnapshot() {
   return snapshot;
 }
 
-async function readUrlSnapshot() {
-  const url = backupFetchUrl();
+async function readUrlSnapshot(url = backupUrlEnv()) {
   if (!url) return null;
   const headers = { Accept: "application/json", "User-Agent": "social-store-bahrain-catalog-backup" };
   const token = backupToken();
@@ -178,31 +291,43 @@ async function readUrlSnapshot() {
   return snapshot;
 }
 
+function snapshotUsableForRestore(snapshot) {
+  return Array.isArray(snapshot?.services) && snapshot.services.length > 0;
+}
+
 export async function fetchOffHostBackup() {
   lastStatus.configured = isOffHostBackupConfigured();
   lastStatus.pushConfigured = isOffHostPushConfigured();
   if (!lastStatus.configured) return null;
   try {
-    const fromGithub = isOffHostPushConfigured() ? await readGithubSnapshot() : null;
-    const fromUrl = await readUrlSnapshot();
-    const snapshots = [fromGithub, fromUrl].filter(Boolean);
-    let best = null;
-    for (const item of snapshots) {
-      if (!best) {
-        best = item;
-        continue;
+    if (isOffHostPushConfigured()) {
+      const fromGithub = await readGithubSnapshot();
+      if (snapshotUsableForRestore(fromGithub)) {
+        lastStatus.lastError = null;
+        return fromGithub;
       }
-      if (isCustomAdminState(item) && !isCustomAdminState(best)) {
-        best = item;
-        continue;
-      }
-      const a = Date.parse(item.savedAt || 0) || 0;
-      const b = Date.parse(best.savedAt || 0) || 0;
-      if (a > b) best = item;
     }
-    if (best?.savedAt) lastStatus.savedAt = best.savedAt;
+    if (backupUrlEnv()) {
+      const fromUrl = await readUrlSnapshot(backupUrlEnv());
+      if (snapshotUsableForRestore(fromUrl)) {
+        lastStatus.lastError = null;
+        return fromUrl;
+      }
+    }
+    const packaged = readPackagedSnapshot();
+    if (snapshotUsableForRestore(packaged)) {
+      lastStatus.lastError = null;
+      return packaged;
+    }
+    if (shouldFetchDefaultRaw()) {
+      const fromDefault = await readUrlSnapshot(getDefaultCatalogBackupUrl());
+      if (snapshotUsableForRestore(fromDefault)) {
+        lastStatus.lastError = null;
+        return fromDefault;
+      }
+    }
     lastStatus.lastError = null;
-    return best;
+    return null;
   } catch (err) {
     lastStatus.lastError = err?.message || String(err);
     console.error("Off-host catalog backup fetch failed", lastStatus.lastError);

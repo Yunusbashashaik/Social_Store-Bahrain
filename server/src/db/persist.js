@@ -319,7 +319,6 @@ export function writeAdminSnapshot(state) {
       queueOffHostBackup(existing);
       return existing;
     }
-    return null;
   }
 
   const body = snapshotBody(payload);

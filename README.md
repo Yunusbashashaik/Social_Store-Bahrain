@@ -44,9 +44,9 @@ Optional env:
 - `CATALOG_BACKUP_REPO` — `owner/name` (example: `Yunusbashashaik/Social_Store-Bahrain`). Falls back to `GITHUB_REPOSITORY` if set.
 - `CATALOG_BACKUP_PATH` — file in that repo (default `catalog-backup/admin-state.json`)
 - `CATALOG_BACKUP_BRANCH` — default `main`
-- `CATALOG_BACKUP_URL` — optional raw JSON URL used to **restore** when local disks are empty
+- `CATALOG_BACKUP_URL` — optional raw JSON URL used to **restore** when local disks are empty. When unset, defaults to `https://raw.githubusercontent.com/Yunusbashashaik/Social_Store-Bahrain/main/catalog-backup/admin-state.json`. Empty boot also hydrates from packaged `catalog-backup/` in the deploy tree.
 
-On every admin save the API writes `admin-state.json` and `admin-state.backup.json` to `/local`, `/root`, and `$HOME` data dirs, then pushes the custom catalog to GitHub. On boot, if the local catalog is empty (or only factory defaults), it hydrates from those replicas first, then from GitHub / `CATALOG_BACKUP_URL`, and **does not** factory-fill.
+On every admin save the API writes `admin-state.json` and `admin-state.backup.json` to `/local`, `/root`, and `$HOME` data dirs, then pushes the custom catalog to GitHub when a token is set. On boot, if the local catalog is empty (or only factory defaults), it hydrates from those replicas first, then from packaged `catalog-backup/`, GitHub, or the default raw URL, and **does not** factory-fill.
 
 ### Admin panel
 
@@ -96,11 +96,11 @@ Keep admin data in `~/social-store-bahrain-data/` (or `DATA_DIR`). Do **not** up
 
 | Variable | Required | Purpose |
 |----------|----------|---------|
-| `CATALOG_BACKUP_TOKEN` | yes | GitHub PAT with contents:write on the backup repo |
-| `CATALOG_BACKUP_REPO` | yes | `Yunusbashashaik/Social_Store-Bahrain` (or your fork) |
+| `CATALOG_BACKUP_TOKEN` | no | GitHub PAT with contents:write (push only) |
+| `CATALOG_BACKUP_REPO` | no | `Yunusbashashaik/Social_Store-Bahrain` (or your fork) |
 | `CATALOG_BACKUP_PATH` | no | default `catalog-backup/admin-state.json` |
 | `CATALOG_BACKUP_BRANCH` | no | default `main` |
-| `CATALOG_BACKUP_URL` | no | extra restore URL (raw JSON) |
+| `CATALOG_BACKUP_URL` | no | restore URL; defaults to the public raw GitHub file |
 | `ALLOW_FACTORY_SEED` | **must be unset** | never set this on GoDaddy |
 
 After deploy, sign in once, change any service, and confirm `GET /api/health` shows `offHostBackupConfigured: true`, `factorySeedDisabled: true`, and `snapshotCustom: true`. `catalogSeededThisBoot` must stay `false` on later restarts.
