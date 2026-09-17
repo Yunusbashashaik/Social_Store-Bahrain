@@ -1,7 +1,7 @@
 /**
- * Hardcoded catalog. This list is restored on every Node start and does not vanish.
- * To update a service later, edit this file (and the JPEG under images/) then redeploy.
- * Services 1–20 include photos (Service01.JPG–Service20.JPG). 21–42 photos can be added the same way.
+ * Factory catalog used only when ALLOW_FACTORY_SEED=1 (local/dev).
+ * Production never inserts this list; live names come from admin-state snapshots
+ * and the off-host GitHub backup.
  */
 export const DEFAULT_SERVICES = [
   {

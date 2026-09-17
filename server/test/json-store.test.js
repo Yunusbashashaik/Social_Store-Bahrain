@@ -6,6 +6,7 @@ import os from "os";
 import path from "path";
 import { closeDatabase, getDbEngine, initDatabase } from "../src/db/connection.js";
 import { seedDatabase } from "../src/db/seed.js";
+import { seedWithFactory } from "./factorySeedEnv.js";
 import { insertService, listServices } from "../src/models/Service.js";
 import { getAllSettings, updateSettings } from "../src/models/Settings.js";
 import { DEFAULT_SERVICES } from "../../shared/defaultServices.js";
@@ -13,12 +14,12 @@ import { DEFAULT_SERVICES } from "../../shared/defaultServices.js";
 const testDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-json-"));
 
 describe("JSON file database fallback", () => {
-  before(() => {
+  before(async () => {
     initDatabase(path.join(testDir, "unused.db"), {
       engine: "json",
       jsonPath: path.join(testDir, "store.json"),
     });
-    seedDatabase();
+    await seedWithFactory(seedDatabase);
   });
 
   after(() => {
@@ -26,12 +27,12 @@ describe("JSON file database fallback", () => {
     fs.rmSync(testDir, { recursive: true, force: true });
   });
 
-  it("starts with the hardcoded catalog on the JSON engine", () => {
+  it("starts with the hardcoded catalog on the JSON engine", async () => {
     assert.equal(getDbEngine(), "json");
     assert.equal(listServices().length, DEFAULT_SERVICES.length);
   });
 
-  it("creates a service and updates settings", () => {
+  it("creates a service and updates settings", async () => {
     const created = insertService({
       id: "json-test-service",
       nameEn: "JSON Service",

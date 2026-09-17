@@ -8,6 +8,8 @@ import {
   listServices,
   updateService,
 } from "../models/Service.js";
+import { exportAdminState, importAdminState } from "../db/persist.js";
+import { waitForOffHostBackup } from "../db/offHostBackup.js";
 import { getAllSettings, updateSettings } from "../models/Settings.js";
 import { serviceImagePublicUrl } from "../middleware/upload.js";
 import { translateEnglishToArabic } from "../services/translate.js";
@@ -211,5 +213,27 @@ export function putAdminSettings(req, res) {
   } catch (err) {
     console.error("Settings update failed:", err);
     res.status(400).json({ error: err.message || "Update failed" });
+  }
+}
+
+export function exportAdminCatalog(_req, res) {
+  try {
+    const state = exportAdminState();
+    res.setHeader("Content-Disposition", 'attachment; filename="admin-state.json"');
+    res.json(state);
+  } catch (err) {
+    console.error("Admin catalog export failed:", err);
+    res.status(500).json({ error: err.message || "Export failed" });
+  }
+}
+
+export async function importAdminCatalog(req, res) {
+  try {
+    const state = importAdminState(req.body || {});
+    await waitForOffHostBackup();
+    res.json({ ok: true, state });
+  } catch (err) {
+    console.error("Admin catalog import failed:", err);
+    res.status(400).json({ error: err.message || "Import failed" });
   }
 }

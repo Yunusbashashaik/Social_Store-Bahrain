@@ -246,6 +246,25 @@ export async function adminDeleteService(token, id) {
   await requestJson(`/api/admin/services/${id}`, { method: "DELETE", token });
 }
 
+export async function adminExportState(token) {
+  return requestJson("/api/admin/state", { token });
+}
+
+export async function adminImportState(token, payload) {
+  const data = await requestJson("/api/admin/state", {
+    method: "PUT",
+    token,
+    body: payload,
+  });
+  const services = data.state?.services;
+  notifyServicesUpdated(services);
+  if (data.state?.settings) {
+    window.dispatchEvent(new Event("gs:settings-updated"));
+    writeLiveSettings(data.state.settings);
+  }
+  return data.state;
+}
+
 export function notifyServicesUpdated(services) {
   if (Array.isArray(services)) {
     writeLiveServices(services);

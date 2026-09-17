@@ -16,6 +16,7 @@ import {
   resolveProductionDataDir,
 } from "../src/db/connection.js";
 import { getLastSeedResult, seedDatabase } from "../src/db/seed.js";
+import { seedWithFactory } from "./factorySeedEnv.js";
 import { getHealthPayload } from "../src/health.js";
 import {
   insertService,
@@ -51,21 +52,23 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
 
   beforeEach(() => {
     wipeIsolatedMirrors();
+    process.env.ALLOW_FACTORY_SEED = "1";
   });
 
   after(() => {
+    delete process.env.ALLOW_FACTORY_SEED;
     closeDatabase();
     for (const dir of dirs) {
       fs.rmSync(dir, { recursive: true, force: true });
     }
   });
 
-  it("keeps settings after close, reopen, and seed", () => {
+  it("keeps settings after close, reopen, and seed", async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-persist-"));
     dirs.push(dir);
     const jsonPath = path.join(dir, "globalstore.json");
     initDatabase(path.join(dir, "unused.db"), { engine: "json", jsonPath });
-    seedDatabase();
+    await seedDatabase();
 
     updateSettings({
       complaintEmail: "persist@example.com",
@@ -74,7 +77,7 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
 
     closeDatabase();
     initDatabase(path.join(dir, "unused.db"), { engine: "json", jsonPath });
-    seedDatabase();
+    await seedDatabase();
 
     assert.equal(getDbEngine(), "json");
     assert.equal(listServices().length, DEFAULT_SERVICES.length);
@@ -84,7 +87,7 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
     assert.equal(fs.existsSync(`${jsonPath}.bak`), false);
   });
 
-  it("does not copy or keep JSON catalog backup files", () => {
+  it("does not copy or keep JSON catalog backup files", async () => {
     const fromDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-legacy-bak-"));
     const toDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-dest-bak-"));
     dirs.push(fromDir, toDir);
@@ -96,7 +99,7 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
     assert.ok(fs.existsSync(path.join(toDir, "globalstore.json")));
   });
 
-  it("copies leftover upload files into a data folder that already exists", () => {
+  it("copies leftover upload files into a data folder that already exists", async () => {
     const fromDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-legacy-up-"));
     const toDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-dest-up-"));
     dirs.push(fromDir, toDir);
@@ -110,7 +113,7 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
     );
   });
 
-  it("writes new service images into the active data directory", () => {
+  it("writes new service images into the active data directory", async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-upload-"));
     dirs.push(dir);
     initDatabase(path.join(dir, "unused.db"), {
@@ -122,7 +125,7 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
     assert.ok(fs.existsSync(dest));
   });
 
-  it("seeds the default catalog only when the store is empty", () => {
+  it("seeds the default catalog only when the store is empty", async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-empty-hard-"));
     dirs.push(dir);
     initDatabase(path.join(dir, "unused.db"), {
@@ -137,19 +140,19 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
       descriptionAr: "ar",
       prices: { month: 1, year: 8 },
     });
-    const first = seedDatabase();
+    const first = await seedDatabase();
     assert.equal(first.catalogSeededThisBoot, false);
     assert.equal(listServices().length, 1);
     assert.equal(listServices()[0].id, "live-row");
     assert.equal(getSetting("catalogSeeded"), true);
   });
 
-  it("keeps renamed services after close, reopen, and seed", () => {
+  it("keeps renamed services after close, reopen, and seed", async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-rename-"));
     dirs.push(dir);
     const jsonPath = path.join(dir, "globalstore.json");
     initDatabase(path.join(dir, "unused.db"), { engine: "json", jsonPath });
-    const seeded = seedDatabase();
+    const seeded = await seedDatabase();
     assert.equal(seeded.catalogSeededThisBoot, true);
 
     const original = listServices().find((s) => s.id === "youtube-premium");
@@ -158,7 +161,7 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
 
     closeDatabase();
     initDatabase(path.join(dir, "unused.db"), { engine: "json", jsonPath });
-    const again = seedDatabase();
+    const again = await seedDatabase();
     assert.equal(again.catalogSeededThisBoot, false);
     assert.equal(getLastSeedResult().catalogSeededThisBoot, false);
 
@@ -167,14 +170,14 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
     assert.ok(listServices().some((s) => s.id === "netflix-prime-combo"));
   });
 
-  it("does not delete admin-added services on later seeds", () => {
+  it("does not delete admin-added services on later seeds", async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-extra-"));
     dirs.push(dir);
     initDatabase(path.join(dir, "unused.db"), {
       engine: "json",
       jsonPath: path.join(dir, "globalstore.json"),
     });
-    seedDatabase();
+    await seedDatabase();
     insertService({
       id: "extra-admin",
       nameEn: "Extra",
@@ -183,20 +186,20 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
       descriptionAr: "ar",
       prices: { month: 2, year: 9 },
     });
-    seedDatabase();
+    await seedDatabase();
     const listed = listServices();
     assert.ok(listed.some((s) => s.id === "extra-admin"));
     assert.ok(listed.length > DEFAULT_SERVICES.length);
   });
 
-  it("reports durable health fields after seed-once", () => {
+  it("reports durable health fields after seed-once", async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-health-"));
     dirs.push(dir);
     initDatabase(path.join(dir, "unused.db"), {
       engine: "json",
       jsonPath: path.join(dir, "globalstore.json"),
     });
-    seedDatabase();
+    await seedDatabase();
     const health = getHealthPayload();
     assert.equal(health.ok, true);
     assert.equal(health.catalogSeeded, true);
@@ -213,18 +216,18 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
     assert.ok(Array.isArray(health.durablePathStatus));
     assert.equal(isInsideAppTree(dir, dir), true);
 
-    seedDatabase();
+    await seedDatabase();
     assert.equal(getHealthPayload().catalogSeededThisBoot, false);
   });
 
-  it("hides expired offers from the public catalog only", () => {
+  it("hides expired offers from the public catalog only", async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-offer-"));
     dirs.push(dir);
     initDatabase(path.join(dir, "unused.db"), {
       engine: "json",
       jsonPath: path.join(dir, "globalstore.json"),
     });
-    seedDatabase();
+    await seedDatabase();
     insertService({
       id: "eid-offer-row",
       nameEn: "Eid Deal",
@@ -255,7 +258,7 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
   });
 });
 
-describe("multi-path durable catalog across host mounts", { concurrency: 1 }, () => {
+describe("multi-path durable catalog across host mounts", { concurrency: 1 }, async () => {
   const dirs = [];
   const envKeys = ["HOME", "LOCAL_HOST_DATA_DIR", "ROOT_HOST_DATA_DIR", "DATA_DIR"];
   const previousEnv = {};
@@ -282,6 +285,7 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
     process.env.ROOT_HOST_DATA_DIR = rootDir;
     process.env.HOME = homeBase;
     delete process.env.DATA_DIR;
+    delete process.env.ALLOW_FACTORY_SEED;
     return { localDir, rootDir, homeDir: path.join(homeBase, "social-store-bahrain-data") };
   }
 
@@ -323,7 +327,7 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
     }
   });
 
-  it("prefers a custom snapshot over a newer factory snapshot", () => {
+  it("prefers a custom snapshot over a newer factory snapshot", async () => {
     const factory = {
       version: 1,
       savedAt: "2026-09-15T21:45:00.000Z",
@@ -341,10 +345,10 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
     );
   });
 
-  it("mirrors admin snapshots to /local, /root, and $HOME", () => {
+  it("mirrors admin snapshots to /local, /root, and $HOME", async () => {
     const hosts = makeHostDirs();
     initDatabase(undefined, { engine: "json" });
-    seedDatabase();
+    await seedWithFactory(seedDatabase);
     updateService("youtube-premium", { nameEn: "YouTube Bahrain Live" });
 
     const localSnap = path.join(hosts.localDir, "admin-state.json");
@@ -353,6 +357,8 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
     assert.ok(fs.existsSync(localSnap), "local snapshot");
     assert.ok(fs.existsSync(rootSnap), "root snapshot");
     assert.ok(fs.existsSync(homeSnap), "home snapshot");
+    assert.ok(fs.existsSync(path.join(hosts.localDir, "admin-state.backup.json")), "local backup");
+    assert.ok(fs.existsSync(path.join(hosts.homeDir, "admin-state.backup.json")), "home backup");
     assert.ok(getSnapshotPaths().includes(localSnap));
     const parsed = JSON.parse(fs.readFileSync(homeSnap, "utf8"));
     assert.equal(
@@ -361,17 +367,17 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
     );
   });
 
-  it("restores custom catalog after /local is wiped like a GoDaddy recycle", () => {
+  it("restores custom catalog after /local is wiped like a GoDaddy recycle", async () => {
     const hosts = makeHostDirs();
     initDatabase(undefined, { engine: "json" });
-    seedDatabase();
+    await seedWithFactory(seedDatabase);
     updateService("youtube-premium", { nameEn: "YouTube Bahrain Live" });
     updateSettings({ complaintEmail: "kept-admin@example.com" });
     closeDatabase();
 
     wipeDir(hosts.localDir);
     initDatabase(undefined, { engine: "json" });
-    const seeded = seedDatabase();
+    const seeded = await seedDatabase();
     assert.equal(seeded.catalogSeededThisBoot, false);
     assert.equal(seeded.hydrated.restored, true);
     assert.equal(
@@ -387,11 +393,11 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
     assert.ok(fs.existsSync(path.join(hosts.localDir, "admin-state.json")));
   });
 
-  it("does not factory-seed or overwrite a custom snapshot that only exists on $HOME", () => {
+  it("does not factory-seed or overwrite a custom snapshot that only exists on $HOME", async () => {
     const hosts = makeHostDirs();
     writeSnapshot(hosts.homeDir, customState("2026-09-14T08:00:00.000Z"));
     initDatabase(undefined, { engine: "json" });
-    const seeded = seedDatabase();
+    const seeded = await seedDatabase();
     assert.equal(seeded.catalogSeededThisBoot, false);
     assert.equal(isCustomAdminState(readAdminSnapshot()), true);
     assert.equal(
@@ -407,7 +413,7 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
     );
   });
 
-  it("does not replace a custom $HOME snapshot with a newer factory snapshot on /local", () => {
+  it("does not replace a custom $HOME snapshot with a newer factory snapshot on /local", async () => {
     const hosts = makeHostDirs();
     writeSnapshot(
       hosts.localDir,
@@ -422,7 +428,7 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
     const chosen = resolveProductionDataDir();
     assert.equal(chosen, hosts.homeDir);
     initDatabase(undefined, { engine: "json" });
-    const seeded = seedDatabase();
+    const seeded = await seedDatabase();
     assert.equal(seeded.catalogSeededThisBoot, false);
     assert.equal(
       listServices().find((s) => s.id === "youtube-premium").nameEn,
@@ -430,10 +436,10 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
     );
   });
 
-  it("keeps offer type fields after persist and reopen", () => {
+  it("keeps offer type fields after persist and reopen", async () => {
     makeHostDirs();
     initDatabase(undefined, { engine: "json" });
-    seedDatabase();
+    await seedWithFactory(seedDatabase);
     const expires = new Date(Date.now() + 60_000).toISOString();
     updateService("youtube-premium", {
       offerType: "eid",
@@ -441,14 +447,14 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
     });
     closeDatabase();
     initDatabase(undefined, { engine: "json" });
-    seedDatabase();
+    await seedDatabase();
     const row = listServices().find((s) => s.id === "youtube-premium");
     assert.equal(row.offerType, "eid");
     assert.ok(row.offerExpiresAt);
     assert.equal(listPublicServices().some((s) => s.id === "youtube-premium"), true);
   });
 
-  it("never factory-seeds again once catalogSeeded is set, even if the table is empty", () => {
+  it("never factory-seeds again once catalogSeeded is set, even if the table is empty", async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-seeded-empty-"));
     dirs.push(dir);
     initDatabase(path.join(dir, "unused.db"), {
@@ -456,17 +462,17 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
       jsonPath: path.join(dir, "globalstore.json"),
     });
     setSetting("catalogSeeded", true);
-    const seeded = seedDatabase();
+    const seeded = await seedDatabase();
     assert.equal(seeded.catalogSeededThisBoot, false);
     assert.equal(seeded.skippedFactorySeed, true);
     assert.equal(listServices().length, 0);
   });
 
-  it("restores a backup snapshot without inserting DEFAULT_SERVICES", () => {
+  it("restores a backup snapshot without inserting DEFAULT_SERVICES", async () => {
     const hosts = makeHostDirs();
     writeSnapshot(hosts.homeDir, customState("2026-09-14T08:00:00.000Z"));
     initDatabase(undefined, { engine: "json" });
-    const seeded = seedDatabase();
+    const seeded = await seedDatabase();
     assert.equal(seeded.catalogSeededThisBoot, false);
     assert.equal(seeded.servicesSeeded, false);
     assert.equal(seeded.hydrated.restored, true);
@@ -477,7 +483,7 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
     );
   });
 
-  it("refuses to persist a factory catalog over a custom admin-state.json", () => {
+  it("refuses to persist a factory catalog over a custom admin-state.json", async () => {
     const hosts = makeHostDirs();
     const custom = customState("2026-09-14T08:00:00.000Z");
     writeSnapshot(hosts.homeDir, custom);
@@ -502,5 +508,22 @@ describe("multi-path durable catalog across host mounts", { concurrency: 1 }, ()
       homeAgain.services.find((s) => s.id === "youtube-premium").nameEn,
       "YouTube Bahrain Live",
     );
+  });
+
+  it("wiped empty disks stay empty and never insert factory names", async () => {
+    makeHostDirs();
+    initDatabase(undefined, { engine: "json" });
+    const seeded = await seedDatabase();
+    const names = listServices().map((row) => row.nameEn);
+    assert.equal(seeded.catalogSeededThisBoot, false);
+    assert.equal(seeded.skippedFactorySeed, true);
+    assert.equal(seeded.skippedFactorySeedReason, "factory-seed-disabled");
+    assert.equal(listServices().length, 0);
+    assert.equal(names.some((name) => name.includes("Netflix + Prime Video Combo")), false);
+    const health = getHealthPayload();
+    assert.equal(health.factorySeedDisabled, true);
+    assert.equal(health.catalogEmpty, true);
+    assert.equal(health.catalogMatchesDefaults, false);
+    assert.equal(health.wipeVersusEmpty, "empty");
   });
 });

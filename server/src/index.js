@@ -15,8 +15,10 @@ const PORT = Number(process.env.PORT) || 3001;
 const HOST = process.env.HOST || "0.0.0.0";
 
 initDatabase();
-seedDatabase();
-console.log(`Admin data directory: ${getDataDir()}`);
+export const bootReady = seedDatabase().then((result) => {
+  console.log(`Admin data directory: ${getDataDir()}`);
+  return result;
+});
 
 const app = express();
 app.set("trust proxy", 1);
@@ -44,8 +46,9 @@ app.get("*", (req, res, next) => {
   });
 });
 
-export function startServer() {
+export async function startServer() {
   if (process.env.NODE_ENV === "test") return;
+  await bootReady;
   if (app.listening || startServer.started) return;
   startServer.started = true;
 

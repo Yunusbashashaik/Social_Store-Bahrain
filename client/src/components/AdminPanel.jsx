@@ -3,8 +3,10 @@ import GlassModal from "./GlassModal.jsx";
 import {
   adminCreateService,
   adminDeleteService,
+  adminExportState,
   adminFetchServices,
   adminFetchSettings,
+  adminImportState,
   adminLogin,
   adminSaveService,
   adminSaveSettings,
@@ -128,6 +130,9 @@ export default function AdminPanel({ open, onClose, t }) {
   const [confirmContact, setConfirmContact] = useState(false);
   const [confirmEmail, setConfirmEmail] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [confirmImport, setConfirmImport] = useState(false);
+  const importInputRef = useRef(null);
+  const pendingImportRef = useRef(null);
 
   const cacheRef = useRef({ services: null, settings: null });
   const toastTimer = useRef(null);
@@ -477,6 +482,73 @@ export default function AdminPanel({ open, onClose, t }) {
     }
   };
 
+  const onExportCatalog = async () => {
+    setBusy(true);
+    setError("");
+    try {
+      const state = await adminExportState(token);
+      const blob = new Blob([`${JSON.stringify(state, null, 2)}\n`], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "admin-state.json";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showToast(t.adminExported);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const onPickImportFile = (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(String(reader.result || ""));
+        if (!parsed || typeof parsed !== "object" || !Array.isArray(parsed.services)) {
+          setError(t.adminImportInvalid);
+          return;
+        }
+        pendingImportRef.current = parsed;
+        setConfirmImport(true);
+      } catch {
+        setError(t.adminImportInvalid);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  const confirmImportCatalog = async () => {
+    const payload = pendingImportRef.current;
+    if (!payload) return;
+    setBusy(true);
+    setError("");
+    try {
+      const state = await adminImportState(token, payload);
+      const list = Array.isArray(state?.services) ? state.services : [];
+      setServices(list);
+      cacheRef.current.services = list;
+      cacheRef.current.settings = state?.settings || cacheRef.current.settings;
+      if (state?.settings) setSettingsDraft(toSettingsDraft(state.settings));
+      pendingImportRef.current = null;
+      setConfirmImport(false);
+      showToast(t.adminImported);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const persistEmail = async () => {
     setBusy(true);
     setError("");
@@ -658,6 +730,29 @@ export default function AdminPanel({ open, onClose, t }) {
                   <button type="button" className="btn btn-ghost admin-dash-card" onClick={openEditMenu}>
                     {t.adminEditServicesBtn}
                   </button>
+                  <button
+                    type="button"
+                    className="btn btn-ghost admin-dash-card"
+                    onClick={onExportCatalog}
+                    disabled={busy}
+                  >
+                    {t.adminExportCatalog}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-ghost admin-dash-card"
+                    onClick={() => importInputRef.current?.click()}
+                    disabled={busy}
+                  >
+                    {t.adminImportCatalog}
+                  </button>
+                  <input
+                    ref={importInputRef}
+                    type="file"
+                    accept="application/json,.json"
+                    hidden
+                    onChange={onPickImportFile}
+                  />
                 </div>
                 {error ? <p className="error-text">{error}</p> : null}
               </div>
@@ -983,6 +1078,34 @@ export default function AdminPanel({ open, onClose, t }) {
               {busy ? t.adminWorking : t.adminConfirm}
             </button>
             <button type="button" className="btn btn-ghost" onClick={() => setConfirmDelete(false)}>
+              {t.adminCancel}
+            </button>
+          </div>
+        </GlassModal>
+      ) : null}
+
+      {confirmImport ? (
+        <GlassModal
+          elevated
+          title={t.adminConfirmImportTitle}
+          onClose={() => {
+            pendingImportRef.current = null;
+            setConfirmImport(false);
+          }}
+        >
+          <p className="modal-prose">{t.adminConfirmImportBody}</p>
+          <div className="admin-form-actions">
+            <button type="button" className="btn btn-primary" disabled={busy} onClick={confirmImportCatalog}>
+              {busy ? t.adminWorking : t.adminConfirm}
+            </button>
+            <button
+              type="button"
+              className="btn btn-ghost"
+              onClick={() => {
+                pendingImportRef.current = null;
+                setConfirmImport(false);
+              }}
+            >
               {t.adminCancel}
             </button>
           </div>

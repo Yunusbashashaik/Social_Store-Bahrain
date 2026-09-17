@@ -8,6 +8,7 @@ import express from "express";
 import request from "supertest";
 import { closeDatabase, initDatabase } from "../src/db/connection.js";
 import { seedDatabase } from "../src/db/seed.js";
+import { seedWithFactory } from "./factorySeedEnv.js";
 import { adminRouter } from "../src/routes/admin.js";
 import { servicesRouter } from "../src/routes/services.js";
 import { settingsRouter } from "../src/routes/settings.js";
@@ -18,9 +19,9 @@ const testDir = fs.mkdtempSync(path.join(os.tmpdir(), "gs-admin-"));
 describe("services + admin API", () => {
   let app;
 
-  before(() => {
+  before(async () => {
     initDatabase(path.join(testDir, "test.db"));
-    seedDatabase();
+    await seedWithFactory(seedDatabase);
     app = express();
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
@@ -196,7 +197,7 @@ describe("services + admin API", () => {
       .field("priceMonth", "4")
       .field("priceYear", "30");
     assert.equal(created.status, 201);
-    seedDatabase();
+    await seedDatabase();
     const listed = await request(app).get("/api/services");
     assert.ok(listed.body.services.some((s) => s.id === "netflix-prime-combo"));
     assert.ok(listed.body.services.some((s) => s.id === created.body.service.id));
@@ -205,7 +206,7 @@ describe("services + admin API", () => {
   it("does not restore a built-in catalog after seed", async () => {
     const res = await request(app).get("/api/services");
     assert.equal(res.status, 200);
-    seedDatabase();
+    await seedDatabase();
     const again = await request(app).get("/api/services");
     assert.equal(again.body.services.some((s) => s.id === "builtin-one"), false);
     assert.equal(again.body.services.some((s) => s.id === "builtin-two"), false);
@@ -269,7 +270,7 @@ describe("services + admin API", () => {
       .set("Authorization", `Bearer ${token}`)
       .send({ whatsappNumbers: ["923394077636", "97466382981"] });
 
-    seedDatabase();
+    await seedDatabase();
     const res = await request(app).get("/api/settings");
     assert.deepEqual(res.body.settings.whatsappNumbers, [
       "923394077636",
@@ -365,5 +366,44 @@ describe("services + admin API", () => {
       .get("/api/admin/services")
       .set("Authorization", `Bearer ${token}`);
     assert.ok(adminList.body.services.some((s) => s.id === created.body.service.id));
+  });
+
+  it("exports and imports admin-state.json", async () => {
+    const login = await request(app)
+      .post("/api/admin/login")
+      .send({ username: "admin", password: "Qz@02846?" });
+    const token = login.body.token;
+    const exported = await request(app)
+      .get("/api/admin/state")
+      .set("Authorization", `Bearer ${token}`);
+    assert.equal(exported.status, 200);
+    assert.ok(Array.isArray(exported.body.services));
+    assert.ok(exported.body.services.length > 0);
+
+    const custom = {
+      version: 1,
+      savedAt: "2026-09-17T00:00:00.000Z",
+      services: [
+        {
+          id: "imported-live",
+          nameEn: "Imported Live",
+          nameAr: "مستورد",
+          descriptionEn: "en",
+          descriptionAr: "ar",
+          prices: { month: 5, year: 40 },
+        },
+      ],
+      settings: { catalogSeeded: true, complaintEmail: "import@example.com" },
+    };
+    const imported = await request(app)
+      .put("/api/admin/state")
+      .set("Authorization", `Bearer ${token}`)
+      .send(custom);
+    assert.equal(imported.status, 200);
+    assert.equal(imported.body.state.services[0].nameEn, "Imported Live");
+
+    const listed = await request(app).get("/api/services");
+    assert.equal(listed.body.services.length, 1);
+    assert.equal(listed.body.services[0].id, "imported-live");
   });
 });
