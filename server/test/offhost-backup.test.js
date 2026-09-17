@@ -254,14 +254,23 @@ describe("off-host GitHub catalog backup survives empty local disk", { concurren
     makeHostDirs();
     process.env.ALLOW_FACTORY_SEED = "1";
     process.env.CATALOG_BACKUP_SKIP_PACKAGED = "1";
-    process.env.CATALOG_BACKUP_TOKEN = "test-token";
-    process.env.CATALOG_BACKUP_REPO = "Yunusbashashaik/Social_Store-Bahrain";
-    const remote = installGithubMock(customState("2026-09-17T23:00:00.000Z"));
+    delete process.env.CATALOG_BACKUP_TOKEN;
+    delete process.env.CATALOG_BACKUP_REPO;
+    delete process.env.CATALOG_BACKUP_URL;
+    setOffHostBackupFetch(async () => ({
+      ok: false,
+      status: 404,
+      json: async () => ({ message: "Not Found" }),
+    }));
 
     initDatabase(undefined, { engine: "json" });
     await seedDatabase();
     assert.ok(listServices().length > 0);
     assert.equal(catalogMatchesDefaults(listServices()), true);
+
+    process.env.CATALOG_BACKUP_TOKEN = "test-token";
+    process.env.CATALOG_BACKUP_REPO = "Yunusbashashaik/Social_Store-Bahrain";
+    const remote = installGithubMock(customState("2026-09-17T23:00:00.000Z"));
 
     const seeded = await seedDatabase();
     const youtube = listServices().find((row) => row.id === "youtube-premium");
