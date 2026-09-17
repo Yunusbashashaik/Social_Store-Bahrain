@@ -291,23 +291,8 @@ async function readUrlSnapshot(url = backupUrlEnv()) {
   return snapshot;
 }
 
-function pickBestSnapshot(snapshots) {
-  let best = null;
-  for (const item of snapshots) {
-    if (!item) continue;
-    if (!best) {
-      best = item;
-      continue;
-    }
-    if (isCustomAdminState(item) && !isCustomAdminState(best)) {
-      best = item;
-      continue;
-    }
-    const a = Date.parse(item.savedAt || 0) || 0;
-    const b = Date.parse(best.savedAt || 0) || 0;
-    if (a > b) best = item;
-  }
-  return best;
+function snapshotUsableForRestore(snapshot) {
+  return Array.isArray(snapshot?.services) && snapshot.services.length > 0;
 }
 
 export async function fetchOffHostBackup() {
@@ -315,22 +300,34 @@ export async function fetchOffHostBackup() {
   lastStatus.pushConfigured = isOffHostPushConfigured();
   if (!lastStatus.configured) return null;
   try {
-    const snapshots = [];
     if (isOffHostPushConfigured()) {
-      snapshots.push(await readGithubSnapshot());
+      const fromGithub = await readGithubSnapshot();
+      if (snapshotUsableForRestore(fromGithub)) {
+        lastStatus.lastError = null;
+        return fromGithub;
+      }
     }
     if (backupUrlEnv()) {
-      snapshots.push(await readUrlSnapshot(backupUrlEnv()));
+      const fromUrl = await readUrlSnapshot(backupUrlEnv());
+      if (snapshotUsableForRestore(fromUrl)) {
+        lastStatus.lastError = null;
+        return fromUrl;
+      }
     }
-    snapshots.push(readPackagedSnapshot());
+    const packaged = readPackagedSnapshot();
+    if (snapshotUsableForRestore(packaged)) {
+      lastStatus.lastError = null;
+      return packaged;
+    }
     if (shouldFetchDefaultRaw()) {
-      snapshots.push(await readUrlSnapshot(getDefaultCatalogBackupUrl()));
+      const fromDefault = await readUrlSnapshot(getDefaultCatalogBackupUrl());
+      if (snapshotUsableForRestore(fromDefault)) {
+        lastStatus.lastError = null;
+        return fromDefault;
+      }
     }
-    const best = pickBestSnapshot(snapshots);
-    if (best?.savedAt) lastStatus.savedAt = best.savedAt;
-    if (best?.__path) lastStatus.source = best.__path;
     lastStatus.lastError = null;
-    return best;
+    return null;
   } catch (err) {
     lastStatus.lastError = err?.message || String(err);
     console.error("Off-host catalog backup fetch failed", lastStatus.lastError);

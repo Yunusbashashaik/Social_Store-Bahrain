@@ -53,11 +53,12 @@ describe("admin catalog persistence", { concurrency: 1 }, () => {
   beforeEach(() => {
     wipeIsolatedMirrors();
     process.env.ALLOW_FACTORY_SEED = "1";
-    restoreOffHostBackupEnv();
+    isolateOffHostBackup();
   });
 
   after(() => {
     delete process.env.ALLOW_FACTORY_SEED;
+    restoreOffHostBackupEnv();
     closeDatabase();
     for (const dir of dirs) {
       fs.rmSync(dir, { recursive: true, force: true });
