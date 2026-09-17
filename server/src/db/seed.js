@@ -1,4 +1,12 @@
 import { DEFAULT_SERVICES } from "../config/defaultServices.js";
+import { catalogMatchesDefaults, isCustomAdminState } from "./catalogCompare.js";
+import { isFactorySeedAllowed } from "./factorySeed.js";
+import {
+  fetchOffHostBackup,
+  markOffHostRestored,
+  shouldHydrateFromOffHost,
+  waitForOffHostBackup,
+} from "./offHostBackup.js";
 import {
   bindPersist,
   hasAnyAdminSnapshot,
@@ -32,6 +40,7 @@ bindPersist({
   countServices,
   replaceAllServices,
   replaceAllSettings,
+  setSetting,
 });
 
 let lastSeedResult = {
@@ -41,6 +50,7 @@ let lastSeedResult = {
   skippedFactorySeed: false,
   skippedFactorySeedReason: null,
   hydrated: { restored: false },
+  offHostHydrated: { restored: false },
 };
 
 export function getLastSeedResult() {
@@ -72,6 +82,10 @@ function seedDefaultCatalogIfEmpty() {
     return { seeded: false, skipped: true, reason: prior.reason };
   }
 
+  if (!isFactorySeedAllowed()) {
+    return { seeded: false, skipped: true, reason: "factory-seed-disabled" };
+  }
+
   withoutPersist(() => {
     DEFAULT_SERVICES.forEach((service, index) => {
       const imageUrl =
@@ -91,15 +105,71 @@ function seedDefaultCatalogIfEmpty() {
   return { seeded: true, skipped: false, reason: null };
 }
 
-export function seedDatabase() {
+function applySnapshot(snapshot) {
+  if (!snapshot) return { restored: false, reason: "no-snapshot" };
+  const snapServices = Array.isArray(snapshot.services) ? snapshot.services : [];
+  const snapSettings =
+    snapshot.settings && typeof snapshot.settings === "object" ? snapshot.settings : null;
+
+  let restoredServices = false;
+  let restoredSettings = false;
+
+  withoutPersist(() => {
+    if (snapServices.length > 0) {
+      replaceAllServices(snapServices);
+      restoredServices = true;
+      setSetting("catalogSeeded", true);
+    }
+    if (snapSettings && Object.keys(snapSettings).length) {
+      replaceAllSettings(snapSettings);
+      restoredSettings = true;
+    }
+  });
+
+  if (restoredServices || restoredSettings) persistAdminState();
+
+  return {
+    restored: restoredServices || restoredSettings,
+    restoredServices,
+    restoredSettings,
+    savedAt: snapshot.savedAt || null,
+    snapshotPath: snapshot.__path || null,
+    snapshotCustom: isCustomAdminState(snapshot),
+    reason: restoredServices || restoredSettings ? "restored" : "snapshot-not-applied",
+  };
+}
+
+async function hydrateOffHostIfNeeded() {
+  if (!shouldHydrateFromOffHost(listServices())) {
+    return { restored: false, reason: "live-custom" };
+  }
+  const remote = await fetchOffHostBackup();
+  if (!remote) return { restored: false, reason: "no-off-host-backup" };
+  if (!isCustomAdminState(remote) && catalogMatchesDefaults(remote.services || [])) {
+    return { restored: false, reason: "off-host-is-factory" };
+  }
+  if (!Array.isArray(remote.services) || remote.services.length === 0) {
+    return { restored: false, reason: "off-host-empty" };
+  }
+  const result = applySnapshot(remote);
+  if (result.restored) {
+    markOffHostRestored(remote);
+    result.reason = "off-host-restored";
+  }
+  return result;
+}
+
+export async function seedDatabase() {
   const settingsSeeded = withoutPersist(() => {
     if (hasAnyAdminSnapshot() || getSetting("catalogSeeded") === true) return false;
     return seedSettingsIfEmpty();
   });
   const hydrated = hydratePersistedAdminState();
+  const offHostHydrated = await hydrateOffHostIfNeeded();
   const seedAttempt = seedDefaultCatalogIfEmpty();
   const whatsappMigrated = withoutPersist(() => migrateWhatsAppNumbers());
   persistAdminState();
+  await waitForOffHostBackup();
 
   lastSeedResult = {
     servicesSeeded: seedAttempt.seeded,
@@ -108,7 +178,9 @@ export function seedDatabase() {
     skippedFactorySeed: seedAttempt.skipped,
     skippedFactorySeedReason: seedAttempt.reason,
     hydrated,
+    offHostHydrated,
     whatsappMigrated,
+    factorySeedAllowed: isFactorySeedAllowed(),
   };
   return lastSeedResult;
 }

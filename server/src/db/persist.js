@@ -2,6 +2,8 @@ import { createRequire } from "module";
 import fs from "fs";
 import path from "path";
 import {
+  ADMIN_BACKUP_NAME,
+  ADMIN_SNAPSHOT_FILES,
   ADMIN_SNAPSHOT_NAME,
   flushActiveStore,
   getActiveStorePath,
@@ -10,6 +12,8 @@ import {
   getHostMirrorsEnabled,
   LEGACY_APP_DATA_DIR,
 } from "./connection.js";
+import { isFactorySeedAllowed } from "./factorySeed.js";
+import { queueOffHostBackup } from "./offHostBackup.js";
 import {
   catalogMatchesDefaults,
   catalogSignature,
@@ -59,7 +63,11 @@ export function getLastPersistResult() {
   return lastPersistResult;
 }
 
-export function getSnapshotWritePaths() {
+function snapshotFilesForDir(dir) {
+  return ADMIN_SNAPSHOT_FILES.map((name) => path.join(path.resolve(dir), name));
+}
+
+export function getSnapshotWriteDirs() {
   const dirs = new Set();
   const storePath = getActiveStorePath();
   if (storePath) dirs.add(path.dirname(path.resolve(storePath)));
@@ -68,19 +76,21 @@ export function getSnapshotWritePaths() {
   if (getHostMirrorsEnabled()) {
     for (const dir of getHostMirrorDirs()) dirs.add(dir);
   }
-  return [...dirs].map((dir) => path.join(dir, ADMIN_SNAPSHOT_NAME));
+  return [...dirs];
+}
+
+export function getSnapshotWritePaths() {
+  return getSnapshotWriteDirs().flatMap((dir) => snapshotFilesForDir(dir));
 }
 
 export function getSnapshotPaths() {
-  const paths = new Set(getSnapshotWritePaths());
-  paths.add(path.join(path.resolve(LEGACY_APP_DATA_DIR), ADMIN_SNAPSHOT_NAME));
-  paths.add(path.join(path.resolve(getDataDir()), ADMIN_SNAPSHOT_NAME));
+  const dirs = new Set(getSnapshotWriteDirs());
+  dirs.add(path.resolve(LEGACY_APP_DATA_DIR));
+  dirs.add(path.resolve(getDataDir()));
   if (getHostMirrorsEnabled()) {
-    for (const dir of getHostMirrorDirs()) {
-      paths.add(path.join(dir, ADMIN_SNAPSHOT_NAME));
-    }
+    for (const dir of getHostMirrorDirs()) dirs.add(dir);
   }
-  return [...paths];
+  return [...dirs].flatMap((dir) => snapshotFilesForDir(dir));
 }
 
 export function getBackupStoreDirs() {
@@ -208,9 +218,12 @@ function collectBackupSnapshots() {
 
 function dirHasStoreArtifact(dir) {
   if (!dir || !fs.existsSync(dir)) return false;
-  return ["admin-state.json", "globalstore.json", "globalstore.db"].some((name) =>
-    fs.existsSync(path.join(dir, name)),
-  );
+  return [
+    ADMIN_SNAPSHOT_NAME,
+    ADMIN_BACKUP_NAME,
+    "globalstore.json",
+    "globalstore.db",
+  ].some((name) => fs.existsSync(path.join(dir, name)));
 }
 
 function pathWritable(dir) {
@@ -228,7 +241,9 @@ export function inspectDurablePaths() {
   const dirs = new Set([primary, ...getBackupStoreDirs()]);
   return [...dirs].map((dir) => {
     const snapshotPath = path.join(dir, ADMIN_SNAPSHOT_NAME);
-    const snapshot = tryReadSnapshot(snapshotPath) ||
+    const backupPath = path.join(dir, ADMIN_BACKUP_NAME);
+    const snapshot =
+      pickBetterSnapshot(tryReadSnapshot(snapshotPath), tryReadSnapshot(backupPath)) ||
       snapshotFromJsonStore(path.join(dir, "globalstore.json")) ||
       snapshotFromSqliteStore(path.join(dir, "globalstore.db"));
     return {
@@ -236,9 +251,11 @@ export function inspectDurablePaths() {
       isPrimary: dir === primary,
       exists: fs.existsSync(dir),
       writable: pathWritable(dir),
-      hasSnapshot: Boolean(tryReadSnapshot(snapshotPath)),
+      hasSnapshot: Boolean(tryReadSnapshot(snapshotPath) || tryReadSnapshot(backupPath)),
+      hasBackupSnapshot: Boolean(tryReadSnapshot(backupPath)),
       hasStoreArtifact: dirHasStoreArtifact(dir),
       snapshotPath,
+      backupPath,
       snapshotSavedAt: snapshot?.savedAt || null,
       snapshotServices: Array.isArray(snapshot?.services) ? snapshot.services.length : 0,
       snapshotCustom: isCustomAdminState(snapshot),
@@ -264,6 +281,24 @@ function incomingWouldClobber(existing, payload) {
   return false;
 }
 
+function payloadLooksFactory(payload) {
+  const services = Array.isArray(payload?.services) ? payload.services : [];
+  return services.length > 0 && catalogMatchesDefaults(services) && !isCustomAdminState(payload);
+}
+
+function bestExistingInDir(dir) {
+  return pickBetterSnapshot(
+    tryReadSnapshot(path.join(dir, ADMIN_SNAPSHOT_NAME)),
+    tryReadSnapshot(path.join(dir, ADMIN_BACKUP_NAME)),
+  );
+}
+
+function snapshotBody(payload) {
+  const rest = { ...payload };
+  delete rest.__path;
+  return `${JSON.stringify(rest, null, 2)}\n`;
+}
+
 export function writeAdminSnapshot(state) {
   if (!state) return null;
   const payload = {
@@ -272,22 +307,47 @@ export function writeAdminSnapshot(state) {
     services: Array.isArray(state.services) ? state.services : [],
     settings: persistableSettings(state.settings),
   };
-  const body = `${JSON.stringify(payload, null, 2)}\n`;
+  if (payloadLooksFactory(payload) && !isFactorySeedAllowed()) {
+    lastPersistResult = {
+      wrote: false,
+      skippedOverwrite: true,
+      reason: "refuse-factory-persist",
+      savedAt: payload.savedAt,
+    };
+    const existing = readAdminSnapshot();
+    if (existing && isCustomAdminState(existing)) {
+      queueOffHostBackup(existing);
+      return existing;
+    }
+    return null;
+  }
+
+  const body = snapshotBody(payload);
   let wrote = 0;
   let skipped = 0;
   const wrotePaths = [];
-  for (const filePath of getSnapshotWritePaths()) {
-    const existing = tryReadSnapshot(filePath);
+  for (const dir of getSnapshotWriteDirs()) {
+    const existing = bestExistingInDir(dir);
     if (incomingWouldClobber(existing, payload)) {
       skipped += 1;
+      const backupPath = path.join(dir, ADMIN_BACKUP_NAME);
+      if (existing && !tryReadSnapshot(backupPath)) {
+        try {
+          atomicWrite(backupPath, snapshotBody(existing));
+        } catch {
+          /* ignore */
+        }
+      }
       continue;
     }
-    try {
-      atomicWrite(filePath, body);
-      wrote += 1;
-      wrotePaths.push(filePath);
-    } catch (err) {
-      console.error("Failed to write admin snapshot", filePath, err?.message || err);
+    for (const filePath of snapshotFilesForDir(dir)) {
+      try {
+        atomicWrite(filePath, body);
+        wrote += 1;
+        wrotePaths.push(filePath);
+      } catch (err) {
+        console.error("Failed to write admin snapshot", filePath, err?.message || err);
+      }
     }
   }
   if (!wrote) {
@@ -300,7 +360,9 @@ export function writeAdminSnapshot(state) {
     if (!skipped) {
       console.error("Admin snapshot was not written to any durable path");
     }
-    return skipped > 0 ? readAdminSnapshot() : null;
+    const kept = skipped > 0 ? readAdminSnapshot() : null;
+    if (kept && isCustomAdminState(kept)) queueOffHostBackup(kept);
+    return kept;
   }
   lastPersistResult = {
     wrote: true,
@@ -309,6 +371,7 @@ export function writeAdminSnapshot(state) {
     savedAt: payload.savedAt,
     wrotePaths,
   };
+  if (isCustomAdminState(payload)) queueOffHostBackup(payload);
   return payload;
 }
 
@@ -324,6 +387,16 @@ export function persistAdminState() {
     const nextEmptyOrDefault = stateLooksDefaultOrEmpty(next.services, next.settings);
     const existingHasCatalog =
       snapshotMarksCatalogInitialized(existing) || isCustomAdminState(existing);
+    if (payloadLooksFactory(next) && !isFactorySeedAllowed() && isCustomAdminState(existing)) {
+      lastPersistResult = {
+        wrote: false,
+        skippedOverwrite: true,
+        reason: "refuse-factory-persist",
+        savedAt: existing.savedAt || null,
+      };
+      queueOffHostBackup(existing);
+      return existing;
+    }
     if (nextEmptyOrDefault && existingHasCatalog && isCustomAdminState(existing)) {
       lastPersistResult = {
         wrote: false,
@@ -340,6 +413,7 @@ export function persistAdminState() {
         reason: "preserve-existing-snapshot",
         savedAt: existing.savedAt || null,
       };
+      if (isCustomAdminState(existing)) queueOffHostBackup(existing);
       return existing;
     }
     return writeAdminSnapshot(next);
@@ -367,6 +441,50 @@ export function hasAnyAdminSnapshot() {
   return collectBackupSnapshots().some((snapshot) => snapshotMarksCatalogInitialized(snapshot));
 }
 
+export function exportAdminState() {
+  const liveServices = source?.listServices?.() || [];
+  const liveSettings = persistableSettings(source?.getAllSettings?.() || {});
+  if (liveServices.length > 0) {
+    return {
+      version: 1,
+      savedAt: new Date().toISOString(),
+      services: liveServices,
+      settings: liveSettings,
+    };
+  }
+  const snapshot = readAdminSnapshot();
+  if (!snapshot) {
+    return {
+      version: 1,
+      savedAt: new Date().toISOString(),
+      services: [],
+      settings: liveSettings,
+    };
+  }
+  const rest = { ...snapshot };
+  delete rest.__path;
+  return rest;
+}
+
+export function importAdminState(raw) {
+  if (!source) throw new Error("Store is not ready");
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    throw new Error("Invalid admin-state.json");
+  }
+  const services = normalizeSnapshotServices(raw.services);
+  if (!Array.isArray(raw.services)) {
+    throw new Error("admin-state.json must include a services array");
+  }
+  const settings = normalizeSnapshotSettings(raw.settings);
+  withoutPersist(() => {
+    source.replaceAllServices(services);
+    if (Object.keys(settings).length) source.replaceAllSettings(settings);
+    source.setSetting?.("catalogSeeded", true);
+  });
+  persistAdminState();
+  return exportAdminState();
+}
+
 export function hydratePersistedAdminState() {
   if (!source) return { restored: false, reason: "unbound" };
   const snapshot = readAdminSnapshot();
@@ -375,9 +493,9 @@ export function hydratePersistedAdminState() {
   const currentSettings = source.getAllSettings();
   const snapSettings =
     snapshot.settings && typeof snapshot.settings === "object" ? snapshot.settings : null;
-    const snapServices = normalizeSnapshotServices(
-      Array.isArray(snapshot.services) ? snapshot.services : [],
-    );
+  const snapServices = normalizeSnapshotServices(
+    Array.isArray(snapshot.services) ? snapshot.services : [],
+  );
 
   let restoredServices = false;
   let restoredSettings = false;

@@ -10,6 +10,7 @@ import {
   initDatabase,
 } from "../src/db/connection.js";
 import { getLastSeedResult, seedDatabase } from "../src/db/seed.js";
+import { seedWithFactory } from "./factorySeedEnv.js";
 import { getHealthPayload } from "../src/health.js";
 import { listServices, updateService } from "../src/models/Service.js";
 import { DEFAULT_SERVICES } from "../../shared/defaultServices.js";
@@ -90,13 +91,13 @@ describe("production boot recycle (initDatabase with no explicit store)", { conc
     }
   });
 
-  it("wiped primary + custom snapshot only on /root restores names and does not reseed", () => {
+  it("wiped primary + custom snapshot only on /root restores names and does not reseed", async () => {
     const hosts = makeHostDirs();
     writeSnapshot(hosts.rootDir, customState("2026-09-14T08:00:00.000Z"));
     fs.chmodSync(hosts.rootDir, 0o555);
 
     initDatabase(undefined, { engine: "json" });
-    const seeded = seedDatabase();
+    const seeded = await seedDatabase();
     const youtube = listServices().find((s) => s.id === "youtube-premium");
 
     assert.equal(seeded.catalogSeededThisBoot, false);
@@ -116,7 +117,7 @@ describe("production boot recycle (initDatabase with no explicit store)", { conc
     fs.chmodSync(hosts.rootDir, 0o755);
   });
 
-  it("factory snapshot persist cannot overwrite a custom snapshot on $HOME", () => {
+  it("factory snapshot persist cannot overwrite a custom snapshot on $HOME", async () => {
     const hosts = makeHostDirs();
     writeSnapshot(hosts.homeDir, customState("2026-09-14T08:00:00.000Z"));
     initDatabase(undefined, { engine: "json" });
@@ -136,17 +137,24 @@ describe("production boot recycle (initDatabase with no explicit store)", { conc
     assert.equal(readAdminSnapshot().services.find((s) => s.id === "youtube-premium").nameEn, "YouTube Bahrain Live");
   });
 
-  it("true first boot seeds once; the next boot with the same dirs does not reseed", () => {
+  it("true first boot stays empty unless ALLOW_FACTORY_SEED=1", async () => {
     makeHostDirs();
     initDatabase(undefined, { engine: "json" });
-    const first = seedDatabase();
-    assert.equal(first.catalogSeededThisBoot, true);
+    const first = await seedDatabase();
+    assert.equal(first.catalogSeededThisBoot, false);
+    assert.equal(listServices().length, 0);
+    assert.equal(getHealthPayload().factorySeedDisabled, true);
+
+    closeDatabase();
+    initDatabase(undefined, { engine: "json" });
+    const allowed = await seedWithFactory(seedDatabase);
+    assert.equal(allowed.catalogSeededThisBoot, true);
     assert.equal(listServices().length, DEFAULT_SERVICES.length);
     updateService("youtube-premium", { nameEn: "YouTube Bahrain Live" });
 
     closeDatabase();
     initDatabase(undefined, { engine: "json" });
-    const second = seedDatabase();
+    const second = await seedDatabase();
     assert.equal(second.catalogSeededThisBoot, false);
     assert.equal(getLastSeedResult().catalogSeededThisBoot, false);
     assert.equal(

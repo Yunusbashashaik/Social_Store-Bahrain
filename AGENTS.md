@@ -23,7 +23,7 @@ Vite proxies `/api` to port **3001** during development. For production-style se
 
 ### Dynamic database
 
-Catalog, site settings (complaint email, WhatsApp numbers, About Us, social links), and complaints persist in **`~/social-store-bahrain-data/`** (override with `DATA_DIR` / `DATABASE_PATH`). Hardcoded services in `shared/defaultServices.js` are inserted **once** when the durable store is empty. Later Node restarts keep admin names, prices, photos, and extra services. Uploaded images live under that folder’s `uploads/services/` and are served from `/api/uploads/...`. Bundled service JPEGs live in `client/public/images/`. Public pages load live data via `GET /api/services` and `GET /api/settings`. If the API is down, the browser uses the last live catalog, then the hardcoded source list. Expired limited-time offers are omitted from the public catalog but remain visible in Admin.
+Catalog, site settings (complaint email, WhatsApp numbers, About Us, social links), and complaints persist in **`~/social-store-bahrain-data/`** (override with `DATA_DIR` / `DATABASE_PATH`). Production **never** inserts `shared/defaultServices.js` unless `ALLOW_FACTORY_SEED=1` (dev only). Empty local disks stay empty until a replica or off-host backup hydrates. Admin edits persist to `admin-state.json` + `admin-state.backup.json` on `/local`, `/root`, and `$HOME`, and to GitHub (`catalog-backup/admin-state.json`) when a backup token is configured. Uploaded images live under that folder’s `uploads/services/` and are served from `/api/uploads/...`. Bundled service JPEGs live in `client/public/images/`. Public pages load live data via `GET /api/services` and `GET /api/settings`. If the API is down, the browser uses the last live catalog, then the hardcoded source list. Expired limited-time offers are omitted from the public catalog but remain visible in Admin.
 
 ### Complaint email
 
@@ -31,9 +31,9 @@ Local dev works without SMTP: submissions are stored in SQLite (and appended to 
 
 ### Admin panel
 
-Click the header Admin icon to open a **modal** (no separate `/admin` page). After login, the dashboard offers **Add Services** and **Edit Services** (Services, Complaint Email, Contact Details, About Us). Configure `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and optionally `ADMIN_SESSION_SECRET`. Session token is stored in `localStorage` key `globalstores_admin_token`.
+Click the header Admin icon to open a **modal** (no separate `/admin` page). After login, the dashboard offers **Add Services**, **Edit Services** (Services, Complaint Email, Contact Details, About Us), and **Export / Import catalog backup**. Configure `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and optionally `ADMIN_SESSION_SECRET`. Session token is stored in `localStorage` key `globalstores_admin_token`.
 
-**GoDaddy:** Admin requires the Node process (`npm run build && npm start`). Static FTP uploads cannot serve `/api/admin/login` and will show “Load failed”. Verify `GET /api/health` on the live domain. If the API is on another host, set `apiUrl` in `client/public/runtime-config.js`.
+**GoDaddy:** Admin requires the Node process (`npm run build && npm start`). Set `CATALOG_BACKUP_TOKEN` + `CATALOG_BACKUP_REPO` so an empty local disk auto-restores from GitHub. Never set `ALLOW_FACTORY_SEED` in production. Static FTP uploads cannot serve `/api/admin/login` and will show “Load failed”. Verify `GET /api/health` on the live domain. If the API is on another host, set `apiUrl` in `client/public/runtime-config.js`.
 
 ### E2E notes
 

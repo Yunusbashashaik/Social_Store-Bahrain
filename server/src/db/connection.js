@@ -17,6 +17,8 @@ export const DEFAULT_DURABLE_DIRNAME = "social-store-bahrain-data";
 export const ROOT_HOST_DATA_DIR = `/root/${DEFAULT_DURABLE_DIRNAME}`;
 export const LOCAL_HOST_DATA_DIR = `/local/${DEFAULT_DURABLE_DIRNAME}`;
 export const ADMIN_SNAPSHOT_NAME = "admin-state.json";
+export const ADMIN_BACKUP_NAME = "admin-state.backup.json";
+export const ADMIN_SNAPSHOT_FILES = [ADMIN_SNAPSHOT_NAME, ADMIN_BACKUP_NAME];
 
 export let DATA_DIR = LEGACY_DATA_DIR;
 export let UPLOADS_DIR = path.join(DATA_DIR, "uploads");
@@ -26,6 +28,7 @@ const STORE_NAMES = [
   "globalstore.db",
   "globalstore.json",
   "admin-state.json",
+  "admin-state.backup.json",
   "globalstore.db-wal",
 ];
 
@@ -327,6 +330,10 @@ export function migrateLegacyDataDir(fromDir, toDir) {
   }
   copyDirIfMissing(path.join(fromDir, "uploads"), path.join(toDir, "uploads"));
   copyIfMissing(path.join(fromDir, "admin-state.json"), path.join(toDir, "admin-state.json"));
+  copyIfMissing(
+    path.join(fromDir, "admin-state.backup.json"),
+    path.join(toDir, "admin-state.backup.json"),
+  );
   removeJsonBackupFiles(fromDir);
   removeJsonBackupFiles(toDir);
   if (copied) {
@@ -400,9 +407,12 @@ export function flushActiveStore() {
  *    /local, /root, $HOME (and DATA_DIR) over a wiped empty primary
  * 3. migrateLegacyDataDir copies missing files only (never overwrites)
  * 4. seed.js bindPersist (module load) then seedDatabase:
- *    hydratePersistedAdminState from every durable admin-state.json / store
- *    THEN factory-seed only on true first boot
- * 5. persistAdminState mirrors admin-state.json to /local, /root, $HOME
+ *    hydratePersistedAdminState from every durable admin-state.json,
+ *    admin-state.backup.json, and store replica
+ *    THEN factory-seed ONLY if ALLOW_FACTORY_SEED=1 (dev). Production never
+ *    inserts DEFAULT_SERVICES; empty after restore stays empty.
+ * 5. persistAdminState mirrors admin-state.json + admin-state.backup.json
+ *    to /local, /root, $HOME and never writes factory over custom
  */
 export function initDatabase(dbPath, options = {}) {
   const explicitStore = Boolean(dbPath || options.jsonPath || options.dataDir);
